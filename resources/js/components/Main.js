@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 // import Questions from './Questions'
 import ReactDOM from 'react-dom';
+import Questions from './Questions'
+import '../../sass/main.css'
+
+
 class Main extends React.Component {
 
 
@@ -10,7 +14,9 @@ class Main extends React.Component {
 
     componentDidMount() {
         /* fetch API in action */
-        fetch('/api/test')
+        let data = {e: 'f'};
+        fetch('/api/get-question/1',{method: 'POST',body: JSON.stringify(data) })
+
             .then(response => {
                 console.log('response',response); //todo r
                 return response.json();
@@ -25,8 +31,7 @@ class Main extends React.Component {
 
     render() {
         return (<div className="main">
-            {/*<Questions />*/}
-            1111111111111111
+            <Questions />
         </div>);
     }
 }

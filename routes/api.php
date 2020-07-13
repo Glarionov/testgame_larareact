@@ -21,3 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('test', function () {
     return ['a' => 'b'];
 });
+
+//Route::get('/get-question/{id}', 'QuestionController@get');
+Route::post('/get-question/{id}', 'QuestionController@get');
