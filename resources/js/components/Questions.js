@@ -79,57 +79,26 @@ class Questions extends React.Component {
         /* fetch API in action */
         let data = {e: 'f'};
         let url = '/api/get-question-group/1';
-        console.log('url',url); //todo r
 
-        let qData = await fetch(url,{method: 'POST',
+        let qData = await fetch(url, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
-
-            body: JSON.stringify(data) })
-
+            body: JSON.stringify(data)
+        })
             .then(response => {
-                console.log('response',response); //todo r
-
-                // this.state = {score: 0, currentQuestionIndex: 0, questions, currentQuestion: questions[0],
-                //     lastQuestion: false, showingResult: false, maxScore: questions.length * this.data.goodAnswerScoreChange,
-                //     clickedOptions: [[]]
-                // };
-                //
-                // this.computed = {
-                //     lastQuestion: () => {
-                //         this.setState({
-                //             lastQuestion: this.state.currentQuestionIndex < this.state.questions.length - 1
-                //         })
-                //     }
-                // }
-                //
-                // this.state.questions[0].clickedOptions = [];
-
                 return response.json();
             })
             .then(data => {
-                console.log('data',data); //todo r
-                //Fetched product is stored in the state
-
-
-                // this.setState({ questions:data });
-
-
-                console.log('11this.state.questions',this.state.questions); //todo r
-
                 return data.questionsByGroup;
             });
 
-        console.log('qData',qData); //todo r
         qData['clicked_options'] = [];
-        this.setState({ questions:qData,
+        this.setState({
+            questions: qData,
             currentQuestion: qData[this.state.currentQuestionIndex]
         });
-
-
-        console.log('222222this.state.questions',this.state.questions); //todo r
     }
 
     changeScore(goodAnswer, id) {

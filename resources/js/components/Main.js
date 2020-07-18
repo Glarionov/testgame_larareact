@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import Questions from './Questions'
 import ReactDOM from 'react-dom';
 import Questions from './Questions'
+import Game1 from './Game1'
 import '../../sass/main.css'
 
 
@@ -39,7 +40,8 @@ class Main extends React.Component {
 
     render() {
         return (<div className="main">
-            <Questions />
+            {/*<Questions />*/}
+            <Game1 />
         </div>);
     }
 }
