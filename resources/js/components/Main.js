@@ -14,18 +14,26 @@ class Main extends React.Component {
 
     componentDidMount() {
         /* fetch API in action */
-        let data = {e: 'f'};
-        fetch('/api/get-question/1',{method: 'POST',body: JSON.stringify(data) })
-
-            .then(response => {
-                console.log('response',response); //todo r
-                return response.json();
-            })
-            .then(products => {
-                console.log('products',products); //todo r
-                //Fetched product is stored in the state
-                // this.setState({ products });
-            });
+        // let data = {e: 'f'};
+        // let url = '/api/get-question-group/1';
+        // console.log('url',url); //todo r
+        // fetch(url,{method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //         // 'Content-Type': 'application/x-www-form-urlencoded',
+        //     },
+        //
+        //     body: JSON.stringify(data) })
+        //
+        //     .then(response => {
+        //         console.log('response',response); //todo r
+        //         return response.json();
+        //     })
+        //     .then(products => {
+        //         console.log('products',products); //todo r
+        //         //Fetched product is stored in the state
+        //         // this.setState({ products });
+        //     });
     }
 
 

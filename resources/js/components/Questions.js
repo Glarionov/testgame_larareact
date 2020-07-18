@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SingleQuestion from './SingleQuestion'
+import QuestionOption from "./QuestionOption";
 
 class Questions extends React.Component {
 
@@ -42,10 +43,25 @@ class Questions extends React.Component {
         }
 
 
-        this.state = {score: 0, currentQuestionIndex: 0, questions, currentQuestion: questions[0],
+
+
+
+
+
+        this.state = {score: 0, currentQuestionIndex: 0,
+            // questions,
+            questions: {},
+            // currentQuestion: questions[0],
+            currentQuestion: {},
             lastQuestion: false, showingResult: false, maxScore: questions.length * this.data.goodAnswerScoreChange,
-            clickedOptions: [[]]
+            clickedOptions: [[]],
+            clickedOptionsByQuestionIndex: {}
         };
+
+
+
+
+        console.log('this.state.questions',this.state.questions); //todo r
 
         this.computed = {
             lastQuestion: () => {
@@ -55,8 +71,65 @@ class Questions extends React.Component {
             }
         }
 
-        this.state.questions[0].clickedOptions = [];
+        // this.state.questions[0].clickedOptions = [];
 
+    }
+
+    async componentDidMount() {
+        /* fetch API in action */
+        let data = {e: 'f'};
+        let url = '/api/get-question-group/1';
+        console.log('url',url); //todo r
+
+        let qData = await fetch(url,{method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+
+            body: JSON.stringify(data) })
+
+            .then(response => {
+                console.log('response',response); //todo r
+
+                // this.state = {score: 0, currentQuestionIndex: 0, questions, currentQuestion: questions[0],
+                //     lastQuestion: false, showingResult: false, maxScore: questions.length * this.data.goodAnswerScoreChange,
+                //     clickedOptions: [[]]
+                // };
+                //
+                // this.computed = {
+                //     lastQuestion: () => {
+                //         this.setState({
+                //             lastQuestion: this.state.currentQuestionIndex < this.state.questions.length - 1
+                //         })
+                //     }
+                // }
+                //
+                // this.state.questions[0].clickedOptions = [];
+
+                return response.json();
+            })
+            .then(data => {
+                console.log('data',data); //todo r
+                //Fetched product is stored in the state
+
+
+                // this.setState({ questions:data });
+
+
+                console.log('11this.state.questions',this.state.questions); //todo r
+
+                return data.questionsByGroup;
+            });
+
+        console.log('qData',qData); //todo r
+        qData['clicked_options'] = [];
+        this.setState({ questions:qData,
+            currentQuestion: qData[this.state.currentQuestionIndex]
+        });
+
+
+        console.log('222222this.state.questions',this.state.questions); //todo r
     }
 
     changeScore(goodAnswer, id) {
@@ -67,6 +140,11 @@ class Questions extends React.Component {
         let cc = this.state.currentQuestion;
 
 
+        if (typeof this.state.clickedOptionsByQuestionIndex[this.state.currentQuestionIndex] == "undefined") {
+            this.state.clickedOptionsByQuestionIndex[this.state.currentQuestionIndex] = [];
+        }
+
+        this.state.clickedOptionsByQuestionIndex[this.state.currentQuestionIndex].push(id);
 
         if (typeof cc.clickedOptions === "undefined") {
             cc.clickedOptions = [];
@@ -80,12 +158,18 @@ class Questions extends React.Component {
         })
         //
 
+        let questions = this.state.questions;
+
+        questions[this.state.currentQuestionIndex] = cc;
 
         this.setState(prevState => ({
             // questionData: qd,
             // clickedOptions:  [...prevState.clickedOptions, 2]
-            currentQuestion:  cc
+            currentQuestion:  cc,
+            questions: questions
         }));
+
+        return 'zzzzzzzzz';
     }
 
     changeQuestion(indexChange, relativeChange = true) {
@@ -98,6 +182,8 @@ class Questions extends React.Component {
         } else {
             currentIndex =indexChange;
         }
+
+        console.log('currentIndex',currentIndex); //todo r
 
         this.state.questions[currentIndex].clickedOptions = [];
         console.log('this.state.questions[currentIndex]',this.state.questions[currentIndex]); //todo r
@@ -144,34 +230,102 @@ class Questions extends React.Component {
             }
         }
 
-        if (this.state.showingResult) {
-            return (<div className="show-result">Your score is {this.state.score} out of {this.state.maxScore}
-            <div className="start-again" onClick={this.startTestAgain.bind(this)}>Start test again</div>
-            </div> );
-        } else {
-            return  (<div className="questions">
-                <div>
-                th22222222is.state.currentQuestion.clickedOptions={JSON.stringify(this.state.currentQuestion.clickedOptions)}
-                </div>
-                score: {this.state.score}
-                <SingleQuestion questionData={this.state.currentQuestion}
-                                key={this.state.currentQuestionIndex}
-                                changeScore={this.changeScore.bind(this)}
-                                clickedOptions={typeof this.state.currentQuestion.clickedOptions == "undefined"?[]: this.state.currentQuestion.clickedOptions}
-                />
+        if(Object.keys(this.state.questions).length)
 
-                this.currentQuestionIndex={this.state.currentQuestionIndex}
-                this.state.questions.length={this.state.questions.length}
-                this.lastQuestion={this.state.lastQuestion}
+            if (this.state.showingResult) {
+                return (<div className="show-result">Your score is {this.state.score} out of {this.state.maxScore}
+                <div className="start-again" onClick={this.startTestAgain.bind(this)}>Start test again</div>
+                </div> );
+            } else {
 
-                <div className="next-question"
-                     onClick={this.changeQuestion.bind(this, -1)}
-                >
-                    prev
-                </div>
-                {nextButton()}
-            </div>)
-        }
+
+
+                return (<div key={this.state.questions}>this.state.questions={Object.keys(this.state.questions).length}
+                    questions={JSON.stringify(this.state.questions)}
+                    this.state.clickedOptionsByQuestionIndex={JSON.stringify(this.state.clickedOptionsByQuestionIndex)}
+                    {/*qqqq={this.state.questions}*/}
+
+                    score: {this.state.score}
+
+                    <SingleQuestion questionData={this.state.currentQuestion}
+                                    key={this.state.currentQuestionIndex}
+                                    changeScore={this.changeScore.bind(this)}
+                                    clickedOptions={typeof this.state.clickedOptionsByQuestionIndex[this.state.currentQuestionIndex] == "undefined" ? [] : this.state.clickedOptionsByQuestionIndex[this.state.currentQuestionIndex]}
+                    />
+
+                    <div className="next-question"
+                         onClick={this.changeQuestion.bind(this, -1)}
+                    >
+                        prev
+                    </div>
+
+                    {nextButton()}
+
+                </div>);
+            }
+
+        return (
+            <div className="abc">NOT READY</div>
+        )
+
+
+        let images = this.questions.map((el, i) => (
+            <img key={i} className='images' src={el.path_lower} />
+        ))
+
+        return (
+            <div className="folioWrapper">
+                {images}
+            </div>
+        );
+        // if (this.state.questions.length > 0) {
+        //     return (
+        //         <div className="abc" key="this.state.questions">HAVE</div>
+        //     );
+        //
+        //
+        // } else {
+        //     return (
+        //         <div className="abc"  key="this.state.questions">NOT HAVE</div>
+        //     );
+        //
+        // }
+        // const nextButton = ()=>{
+        //     if(this.state.lastQuestion){
+        //         return <div onClick={this.openTestResult.bind(this, 1)}>See result</div>
+        //     } else{
+        //         return <div className="next-question" onClick={this.changeQuestion.bind(this, 1)}>Next</div>
+        //     }
+        // }
+        //
+        // if (this.state.showingResult) {
+        //     return (<div className="show-result">Your score is {this.state.score} out of {this.state.maxScore}
+        //     <div className="start-again" onClick={this.startTestAgain.bind(this)}>Start test again</div>
+        //     </div> );
+        // } else {
+        //     return  (<div className="questions">
+        //         <div>
+        //         th22222222is.state.currentQuestion.clickedOptions={JSON.stringify(this.state.currentQuestion.clickedOptions)}
+        //         </div>
+        //         score: {this.state.score}
+        //         <SingleQuestion questionData={this.state.currentQuestion}
+        //                         key={this.state.currentQuestionIndex}
+        //                         changeScore={this.changeScore.bind(this)}
+        //                         clickedOptions={typeof this.state.currentQuestion.clickedOptions == "undefined"?[]: this.state.currentQuestion.clickedOptions}
+        //         />
+        //
+        //         this.currentQuestionIndex={this.state.currentQuestionIndex}
+        //         this.state.questions.length={this.state.questions.length}
+        //         this.lastQuestion={this.state.lastQuestion}
+        //
+        //         <div className="next-question"
+        //              onClick={this.changeQuestion.bind(this, -1)}
+        //         >
+        //             prev
+        //         </div>
+        //         {nextButton()}
+        //     </div>)
+        // }
 
 
     }

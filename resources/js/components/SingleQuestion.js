@@ -3,12 +3,19 @@ import QuestionOption from './QuestionOption'
 
 class SingleQuestion extends React.Component {
     clickOnOption(e, id) {
-        id = parseInt(id);
+        // id = parseInt(id);
 
-        console.log(this.state.clickedOptions
-        )
+        console.log('id',id); //todo r
+console.log('this.state.clickedOptions',this.state.clickedOptions); //todo r
+
 
         console.log('this.props.questionData.clickedOptions', this.props.questionData.clickedOptions)
+
+
+        if (typeof this.props.questionData.clickedOptions == "undefined") {
+            this.props.questionData.clickedOptions = [];
+        }
+
         if (this.props.questionData.clickedOptions.includes(id)) {
             console.log('includes')
             return true;
@@ -18,12 +25,13 @@ class SingleQuestion extends React.Component {
 
         let qd = this.state.questionData;
 
+        console.log('11111this.props.questionData',this.props.questionData); //todo rs
 
 
-
-        if (this.props.questionData.answers.includes(id)) {
+        if (this.props.questionData.options[id]['good_answer']) {
             qd.options[id].extraClass = "good";
-            this.props.changeScore(true, id);
+            let cs = this.props.changeScore(true, id);
+            console.log('cs',cs); //todo r
         } else {
             qd.options[id].extraClass = "bad";
             this.props.changeScore(false, id);
@@ -84,6 +92,7 @@ class SingleQuestion extends React.Component {
 
     render() {
         return  (<div className="single-question">
+            SINGLE_QUESTION
             <div key={this.state.clickedOptions}>
                 this.props.questionData.clickedOptions = {JSON.stringify(this.props.questionData.clickedOptions)}
             </div>
@@ -92,12 +101,12 @@ class SingleQuestion extends React.Component {
                 this.state.questionData={JSON.stringify(this.state.questionData)}
             </div>
             <div className="question-name">
-                {this.state.questionData.name}
+                {this.state.questionData.question_name}
             </div>
                 {/*{this.props.questionData.options.map((question, index) =>*/}
             {  Object.entries(this.state.questionData.options).map(([index, optionData]) => (
-                <div key={index}>
-                    <QuestionOption optionData = {optionData} index={index}  parentClickEvent={this.clickOnOption.bind(this)}/>
+                <div key={optionData.option_id}>
+                    <QuestionOption optionData = {optionData} index={optionData.option_id}  parentClickEvent={this.clickOnOption.bind(this)}/>
                     {/*<div key={optionData.index}*/}
                     {/*     id={optionData.id}*/}
                     {/*     onClick={this.clickOnOption}*/}
