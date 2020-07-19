@@ -20,8 +20,8 @@ class Game1 extends React.Component {
             },
             playerX: 100,
             playerY: 666,
-            playerWidth: 100,
-            playerHeight: 100,
+            playerWidth: 50,
+            playerHeight: 50,
             movingBoxWidth: 100,
             movingBoxHeight: 100,
             vertSpeed: 0,
@@ -32,7 +32,10 @@ class Game1 extends React.Component {
             score: 0,
             questions: [],
             currentQuestionIndex: 0,
-            currentQuestion: {}
+            currentQuestion: {},
+            fallAcceleration: 5,
+            fallSpeedLimit: 70,
+            bouncyMode: true
         }
 
 
@@ -52,6 +55,7 @@ class Game1 extends React.Component {
             boxHeight: 600,
             goodAnswerScoreChange: 10,
             badAnswerScoreChange: -5,
+            bouncyMode: true
         }
 
 
@@ -73,7 +77,7 @@ class Game1 extends React.Component {
         setInterval(this.gameIteration.bind(this), animationFrequency);
         // setInterval(this.testAnimation.bind(this), 4140);
         setInterval(this.makeNewBox.bind(this), 1000);
-        setInterval(this.changeQuestion.bind(this), 8000);
+        setInterval(this.changeQuestion.bind(this), 15000);
     }
 
     changeQuestion() {
@@ -82,7 +86,7 @@ class Game1 extends React.Component {
         }
 
         let newIndex = this.state.currentQuestionIndex;
-        while (newIndex == this.state.currentQuestionIndex) {
+        while (newIndex == this.state.currentQuestionIndex || typeof this.state.questions[newIndex] == "undefined") {
             newIndex = Math.floor(Math.random() * this.state.questions.length);
 
         }
@@ -188,12 +192,29 @@ class Game1 extends React.Component {
                 );
                 break;
             case 38: case 87:
-                let newSpeed2 = -1 * this.data.speed;
-                this.setState(
-                    {
-                        vertSpeed: newSpeed2
+
+                if (this.state.bouncyMode) {
+                    this.state.fallAcceleration = 2;
+                    if (this.state.vertSpeed < 0) {
+                        this.setState({
+                            vertSpeed: 0
+                        })
                     }
-                );
+
+                    this.setState({
+                        fallSpeedLimit: 10,
+                    })
+
+                } else {
+                    let newSpeed2 = -1 * this.data.speed;
+                    this.setState(
+                        {
+                            vertSpeed: newSpeed2
+                        }
+                    );
+                }
+
+
                 break;
             case 39: case 68:
                 this.setState(
@@ -202,12 +223,30 @@ class Game1 extends React.Component {
                     }
                 );
                 break;
-            case 40: case 83:
-                this.setState(
-                    {
-                        vertSpeed: this.data.speed
+            case 40:
+            case 83:
+
+                if (this.state.bouncyMode) {
+
+                    if (this.state.vertSpeed < 0) {
+                        this.setState({
+                            vertSpeed: 0
+                        })
                     }
-                );
+
+                    this.setState({
+                        fallSpeedLimit: 70,
+                        fallAcceleration: 15
+                    })
+                } else {
+                    this.setState(
+                        {
+                            vertSpeed: this.data.speed
+                        }
+                    );
+                }
+
+
                 break;
 
             default:
@@ -216,7 +255,18 @@ class Game1 extends React.Component {
     }
 
     _handleKeyUp  (event) {
+
         switch( event.keyCode ) {
+            case 74:
+                this.setState(prevState => {
+                    return {
+                        bouncyMode: !prevState.bouncyMode,
+                        horSpeed: 0,
+                        vertSpeed: 0
+                    }
+                })
+                break;
+
             case 37: case 65:
                 if (this.state.horSpeed < 0) {
                     this.setState(
@@ -228,15 +278,15 @@ class Game1 extends React.Component {
 
                 break;
             case 38: case 87:
-
-                if (this.state.vertSpeed < 0) {
-                    this.setState(
-                        {
-                            vertSpeed: 0
-                        }
-                    );
+                if (!this.state.bouncyMode) {
+                    if (this.state.vertSpeed < 0) {
+                        this.setState(
+                            {
+                                vertSpeed: 0
+                            }
+                        );
+                    }
                 }
-
                 break;
             case 39: case 68:
                 if (this.state.horSpeed > 0) {
@@ -248,12 +298,14 @@ class Game1 extends React.Component {
                 }
                 break;
             case 40: case 83:
-                if (this.state.vertSpeed > 0) {
-                    this.setState(
-                        {
-                            vertSpeed: 0
-                        }
-                    );
+                if (!this.state.bouncyMode) {
+                    if (this.state.vertSpeed > 0) {
+                        this.setState(
+                            {
+                                vertSpeed: 0
+                            }
+                        );
+                    }
                 }
                 break;
 
@@ -279,6 +331,29 @@ class Game1 extends React.Component {
             }
         })
 
+        if (this.state.bouncyMode) {
+            let vs = this.state.vertSpeed;
+            if (vs < this.state.fallSpeedLimit) {
+                vs += this.state.fallAcceleration;
+            } else {
+                vs = this.state.fallSpeedLimit;
+            }
+            //
+            // console.log('this.state.playerY',this.state.playerY); //todo r
+
+            if (this.state.playerY > this.data.boxHeight) {
+                vs = -110;
+                this.setState({
+                    fallAcceleration: 10,
+                    fallSpeedLimit: 50
+                })
+            }
+            this.setState({
+                vertSpeed: vs
+            })
+        } else {
+
+        }
 
         TweenLite.to(this.playerElement, this.data.animationFrequencyMs, {marginLeft: this.state.playerX, marginTop: this.state.playerY, ease: "linear"});
 
@@ -384,18 +459,11 @@ class Game1 extends React.Component {
             </div>
 
             {Object.entries(this.state.movingBoxes).map(([index, optionData]) => (
-
                 <div key={index} className="default-moving-box"
-                // style={ ({
-                //     marginLeft: optionData.x + 'px',
-                //     marginTop: optionData.y + 'px'
-                // })}
                 ref={div => this.movingBoxesRefs[index] = div}
-
                 >
                 {optionData.optionData.option_name}
                 </div>
-
             ))}
 
 

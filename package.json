@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "gsap": "^3.4.0",
-        "react-gsap": "^2.2.1"
+        "react-gsap": "^2.2.1",
+        "react-router-dom": "^5.2.0"
     }
 }

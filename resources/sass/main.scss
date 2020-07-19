@@ -22,10 +22,12 @@ html {
 }
 
 .main {
-    background: #f1f1ff;
+    background: #ffffff;
     width: 95vw;
     max-width: 1200px;
     margin: auto;
+    border: 2px solid #8a8af1;
+    padding: 10px;
 }
 
 body {
@@ -34,8 +36,8 @@ body {
 
 .player-div {
     background: #9350ec;
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     margin-left: 300px;
     margin-right: 666px;
     position: absolute;
@@ -47,6 +49,7 @@ body {
     height: 100px;
     position: absolute;
     display: none;
+    opacity: .9;
 }
 
 .default-moving-box, .player-div {
@@ -59,5 +62,26 @@ body {
 }
 
 .top-game-panel {
-    background: blue;
+    background: #4048ff;
+    color: white;
+    padding: 10px;
+}
+
+.standard-button {
+    background: #5050f1;
+    padding: 3px;
+    color: white;
+    display: flex;
+    width: 180px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+        background: #1515db;
+    }
+}
+
+.new-option-wrapper {
+    display: flex;
 }

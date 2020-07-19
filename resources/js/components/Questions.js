@@ -6,37 +6,6 @@ class Questions extends React.Component {
 
     constructor(props) {
         super(props);
-
-        let questions = [
-            {
-                name: 'set color of text',
-                answers: [0],
-                options: {
-     0 :       {
-                id: 0,
-                text: 'color'
-            },
-        1:    {
-                id: 1,
-                text: 'text-color'
-            }
-    }
-            },
-            {
-                name: 'set color of background',
-                answers: [0],
-                options: {
-                    0 :       {
-                        id: 0,
-                        text: 'background'
-                    },
-                    1:    {
-                        id: 1,
-                        text: 'text-color'
-                    }
-                }
-            }
-        ];
         this.data = {
             goodAnswerScoreChange: 10,
             badAnswerScoreChange: -5,
@@ -76,8 +45,6 @@ class Questions extends React.Component {
     }
 
     async componentDidMount() {
-        /* fetch API in action */
-        let data = {e: 'f'};
         let url = '/api/get-question-group/1';
 
         let qData = await fetch(url, {

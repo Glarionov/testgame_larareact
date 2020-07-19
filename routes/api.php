@@ -25,3 +25,5 @@ Route::get('test', function () {
 //Route::get('/get-question/{id}', 'QuestionController@get');
 Route::post('/get-question/{id}', 'QuestionController@get');
 Route::post('/get-question-group/{id}', 'QuestionController@getQuestionsByGroupId');
+//Route::post('/add-question-to-group/{id}', 'QuestionController@getQuestionsByGroupId');
+Route::post('/add-question-to-group/{id}', 'QuestionController@addQuestionToGroup');

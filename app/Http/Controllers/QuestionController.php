@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Options;
+use App\TextByLanguage;
 use Illuminate\Http\Request;
 use App\QuestionGrops;
 use Illuminate\Support\Facades\DB;
 use App\QuestionOptions;
+use App\QuestionOptionsNames;
+use App\Texts;
+use App\Questions;
+use App\QuestionGroups;
 
 class QuestionController extends Controller
 {
@@ -19,11 +25,122 @@ class QuestionController extends Controller
         return ['a' => 'b'];
     }
 
+    public function addQuestionToGroup(Request $request) {
+        //'re' => $request['e']
+        // 'poste' => request()->post('e')
+
+
+
+
+//        let data = {
+//            questionName,
+//            questionOptions,
+//            languageId: this.state.currentLanguageId
+//        };
+
+
+        $languageId = request()->post('languageId');
+         $questionOptions =  request()->post('questionOptions');
+
+         $addedOptions = [];
+         $qonids = [];
+
+        $textObj = new Texts();
+        $textObj->save();
+        $textId = $textObj->id;
+
+        $textByLanguage = new TextByLanguage();
+
+        $textByLanguage->text_id = $textId;
+        $textByLanguage->text = request()->post('questionName');;
+        $textByLanguage->language_id = $languageId;
+        $textByLanguage->save();
+
+         $questionsObj = new Questions();
+        $questionsObj->question_text_id = $textId;//
+        $questionsObj->save();
+        $questionId = $questionsObj->id;
+
+         $questionGroupsObj = new QuestionGroups();
+        $questionGroupsObj->group_id = $request['id'];
+        $questionGroupsObj->question_id = $questionId;
+        $questionGroupsObj->save();
+        $questionGroupId = $questionGroupsObj->id;
+
+
+         foreach ($questionOptions as $optionKey => $newOptionData) {
+             $optionText = $newOptionData['option_name'];
+             $goodAnswer = $newOptionData['good_answer'];
+
+             $textObj = new Texts();
+             $textObj->save();
+             $textId = $textObj->id;
+
+             $textByLanguage = new TextByLanguage();
+
+             $textByLanguage->text_id = $textId;
+             $textByLanguage->text = $optionText;
+             $textByLanguage->language_id = $languageId;
+             $textByLanguage->save();
+
+             $optionObj = new Options();
+             $optionObj->text_id = $textId;
+             $optionObj->save();
+
+             $optionId = $optionObj->id;
+
+             $questionOptionsObj = new QuestionOptions();
+             $questionOptionsObj->question_id = $questionId;
+             $questionOptionsObj->option_id = $optionId;
+             $questionOptionsObj->good_answer = $goodAnswer;
+
+             $questionOptionsObj->save();
+//             $questionId
+//
+//                 question_options
+//
+//             $o = new Options();
+//             $o->save();
+//
+//             $optionId = $o->id;
+//             $addedOptions [] = [
+//                 'id' => $optionId,
+//                 'good_answer' => $goodAnswer
+//             ];
+//
+//             $qon = new QuestionOptionsNames();
+//             $qon->name = $optionText;
+//             $qon->option_id = $optionId;
+//             $qon->save;
+//             $qonid = $qon->id;
+//
+//             $qonids[] = $qonid;
+         }
+
+
+//        $qon->language_id = request()->post('languageId');
+
+
+//        $post->title = $title;
+//        $post->text_content = $textContent;
+//
+//        $post->img_path_maker_method_id = 1;
+//        $post->img_link = $imageLink;
+//        $post->author_id = $userId;
+
+
+//        $qon->save();
+
+        return ['$qonids' => $qonids, '$addedOptions'=> $addedOptions,
+//            '$optionId' => $optionId,
+            'poste' => request()->post(), 'gid' => $request['id']];
+    }
+
     public function getQuestionsByGroupId(Request $request) {
         $id = $request['id'] ?? '';
 
 
-        $qg = new QuestionGrops();
+        $qg = new QuestionGroups();
 
         $postsInfo = [];
 
@@ -40,14 +157,15 @@ class QuestionController extends Controller
 //
 //        }
 
-        $qr1 = $qg->where('id', $id)->take(5)->get();
-
+        $languageId = 1;
         $questionsByGroup = $qg->leftJoin('questions', function($q) use ($id) {
-            $q->on('questions.id', '=', 'question_grops.question_id')
-                ->where('question_grops.group_id', '=', $id);
+            $q->on('questions.id', '=', 'question_groups.question_id')
+                ->leftJoin('text_by_languages', function ($q2) use ($id) {
+                    $q2->on('text_by_languages.text_id', '=', 'questions.question_text_id');
+                })
+                ;
 
-        })->select('question_grops.group_id as g_id', 'questions.name as question_name', 'questions.id as question_id')->take(5)->get();
-//        })->select('question_grops.*')->take(5)->get();
+        })->where('question_groups.group_id', '=', $id)->where('text_by_languages.language_id', '=', $languageId)->select('question_groups.group_id as g_id', 'text_by_languages.text as question_name', 'questions.id as question_id')->take(5)->get();
 
         $qo = new QuestionOptions();
         $langId = 1;
@@ -59,13 +177,16 @@ class QuestionController extends Controller
 //            /*gleb*/echo '$optionsForQuestion=<pre>'.print_r($optionsForQuestion, true).'</pre>';//todo remove it
 
 //            /*gleb*/echo '$questionId=<pre>'.print_r($questionId, true).'</pre>';//todo remove it
-            $optionsForQuestion = $qo->leftJoin('question_options_names', function($q) use ($questionId, $langId) {
-                    $q->on('question_options_names.option_id', '=', 'question_options.option_id')
-
+            $optionsForQuestion = $qo->leftJoin('options', function($q) use ($questionId, $langId) {
+                    $q->on('options.id', '=', 'question_options.option_id')
+                        ->leftJoin('text_by_languages', function ($q2) {
+                            $q2->on('text_by_languages.text_id', '=', 'options.text_id');
+                        })
 //                        ->where('question_options_names.language_id', '=', $langId)
                     ;
 
-                })->where('question_options.question_id', '=', $questionId)->select('question_options_names.name as option_name',
+                })->where('question_options.question_id', '=', $questionId)->where('text_by_languages.language_id', '=', $languageId)->select(
+                    'text_by_languages.text as option_name',
                 'question_options.id as option_id',
                 'question_options.good_answer as good_answer',
                 'question_options.question_id as question_id'
@@ -83,7 +204,6 @@ class QuestionController extends Controller
                 'question_id' => $questionId
                 ];
         }
-        $qr2 = DB::table('question_grops')->where('group_id', $id)->get();
 
         //'re' => $request['e']
         // 'poste' => request()->post('e')
