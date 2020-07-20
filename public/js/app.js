@@ -6428,7 +6428,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "html {\n  background: linear-gradient(45deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  background: #ffffff;\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 50px;\n  height: 50px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 180px;\n  height: 40px;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.new-option-wrapper {\n  display: flex; }\n", ""]);
+exports.push([module.i, "html {\n  background: linear-gradient(45deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  background: #ffffff;\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 50px;\n  height: 50px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 180px;\n  height: 40px;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n", ""]);
 
 // exports
 
@@ -76816,7 +76816,8 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
     setInterval(_this.gameIteration.bind(_assertThisInitialized(_this)), animationFrequency); // setInterval(this.testAnimation.bind(this), 4140);
 
     setInterval(_this.makeNewBox.bind(_assertThisInitialized(_this)), 1000);
-    setInterval(_this.changeQuestion.bind(_assertThisInitialized(_this)), 15000);
+    setInterval(_this.changeQuestion.bind(_assertThisInitialized(_this)), 15000); // setInterval(this.changeQuestion.bind(this), 2000);
+
     return _this;
   }
 
@@ -77230,6 +77231,225 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/GroupsEditorAndSelector.js":
+/*!************************************************************!*\
+  !*** ./resources/js/components/GroupsEditorAndSelector.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _QuestionSetEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QuestionSetEditor */ "./resources/js/components/QuestionSetEditor.js");
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
+  _inherits(GroupEditorAndSelector, _React$Component);
+
+  var _super = _createSuper(GroupEditorAndSelector);
+
+  _createClass(GroupEditorAndSelector, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: ""
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "group-editor-selector"
+      }, Object.entries(this.state.groups).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            oIndex = _ref2[0],
+            groupData = _ref2[1];
+
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "new-option-wrapper",
+          key: oIndex
+        }, "groupData=", JSON.stringify(groupData), groupData.group_name);
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.handleGroupAdder.bind(this)
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        value: this.state.newGroupValue,
+        onChange: this.handleGroupNameChange.bind(this)
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "question-adder-wrapper-submit"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "submit",
+        value: "Add"
+      })))));
+    }
+  }]);
+
+  function GroupEditorAndSelector(props) {
+    var _this;
+
+    _classCallCheck(this, GroupEditorAndSelector);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      groups: {},
+      currentLanguageId: 1,
+      newGroupValue: '',
+      languageId: 1
+    };
+    return _this;
+  }
+
+  _createClass(GroupEditorAndSelector, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var url, qData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                url = '/api/get-question-group-list/';
+                _context.next = 3;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  } // body: JSON.stringify(data)
+
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 3:
+                qData = _context.sent;
+                console.log('qData', qData); //todo r
+
+                this.setState({
+                  groups: qData.group_data
+                });
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
+    key: "handleGroupNameChange",
+    value: function handleGroupNameChange(event) {
+      this.setState({
+        newGroupValue: event.target.value
+      });
+    }
+  }, {
+    key: "handleGroupAdder",
+    value: function () {
+      var _handleGroupAdder = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(event) {
+        var url, data, qData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                event.preventDefault();
+                url = '/api/add-group/';
+                data = {
+                  groupName: this.state.newGroupValue,
+                  languageId: this.state.languageId
+                };
+                _context2.next = 5;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 5:
+                qData = _context2.sent;
+                console.log('qData', qData); //todo r
+
+                this.setState({
+                  groups: qData
+                });
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function handleGroupAdder(_x) {
+        return _handleGroupAdder.apply(this, arguments);
+      }
+
+      return handleGroupAdder;
+    }()
+  }]);
+
+  return GroupEditorAndSelector;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (GroupEditorAndSelector);
+
+/***/ }),
+
 /***/ "./resources/js/components/Home.js":
 /*!*****************************************!*\
   !*** ./resources/js/components/Home.js ***!
@@ -77447,6 +77667,8 @@ var Main = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "router-links-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "top-menu-item"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Link"], {
         to: "/questions"
@@ -77458,7 +77680,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
         className: "top-menu-item"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Link"], {
         to: "/question-sets"
-      }, "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u0430\u043C\u0438")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
+      }, "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u0430\u043C\u0438"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
         path: "/questions",
         component: _Questions__WEBPACK_IMPORTED_MODULE_2__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
@@ -77625,10 +77847,10 @@ var QuestionOption = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/QuestionSets.js":
-/*!*************************************************!*\
-  !*** ./resources/js/components/QuestionSets.js ***!
-  \*************************************************/
+/***/ "./resources/js/components/QuestionSetEditor.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/QuestionSetEditor.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -77682,15 +77904,15 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var QuestionSets = /*#__PURE__*/function (_React$Component) {
-  _inherits(QuestionSets, _React$Component);
+var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
+  _inherits(QuestionSetEditor, _React$Component);
 
-  var _super = _createSuper(QuestionSets);
+  var _super = _createSuper(QuestionSetEditor);
 
-  function QuestionSets(props) {
+  function QuestionSetEditor(props) {
     var _this;
 
-    _classCallCheck(this, QuestionSets);
+    _classCallCheck(this, QuestionSetEditor);
 
     _this = _super.call(this, props);
     _this.state = {
@@ -77701,7 +77923,9 @@ var QuestionSets = /*#__PURE__*/function (_React$Component) {
       value: '',
       lastNewOptionKey: 0,
       groupId: 1,
-      currentLanguageId: 1
+      groupName: '',
+      currentLanguageId: 1,
+      groupData: 1
     };
     _this.inputRefs = [];
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -77716,7 +77940,7 @@ var QuestionSets = /*#__PURE__*/function (_React$Component) {
   // }
 
 
-  _createClass(QuestionSets, [{
+  _createClass(QuestionSetEditor, [{
     key: "handleChange",
     value: function handleChange(event) {
       this.setState({
@@ -77756,17 +77980,22 @@ var QuestionSets = /*#__PURE__*/function (_React$Component) {
                 }).then(function (response) {
                   return response.json();
                 }).then(function (data) {
-                  return data.questionsByGroup;
+                  return data;
                 });
 
               case 3:
                 qData = _context.sent;
                 qData['clicked_options'] = [];
+                console.log('qData.groupData', qData.groupData); //todo r
+
                 this.setState({
-                  questions: qData
+                  questions: qData.questionsByGroup,
+                  groupData: qData.groupData,
+                  groupId: qData.groupData[0].group_id,
+                  groupName: qData.groupData[0].group_name
                 });
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -77885,6 +78114,58 @@ var QuestionSets = /*#__PURE__*/function (_React$Component) {
       }
 
       return handleSubmitAddNewQuestion;
+    }() //where('name', $name)->delete();
+
+  }, {
+    key: "deleteQuestion",
+    value: function () {
+      var _deleteQuestion = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(index, questionId) {
+        var questions, data, url, qData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                questions = this.state.questions;
+                questions.splice(index, 1);
+                this.setState({
+                  questions: questions
+                });
+                console.log('questionId', questionId); //todo r
+
+                data = {
+                  questionId: questionId
+                };
+                url = '/api/delete-question-everywhere/' + this.state.groupId;
+                _context4.next = 8;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 8:
+                qData = _context4.sent;
+                console.log('qData', qData); //todo r
+
+              case 10:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function deleteQuestion(_x3, _x4) {
+        return _deleteQuestion.apply(this, arguments);
+      }
+
+      return deleteQuestion;
     }()
   }, {
     key: "handleChangeOption",
@@ -77996,7 +78277,9 @@ var QuestionSets = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: ""
-      }, "Question Setss", Object.entries(this.state.questions).map(function (_ref3) {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "question-name"
+      }, "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0433\u0440\u0443\u043F\u043F\u044B #", this.state.groupId, " - ", this.state.groupName), Object.entries(this.state.questions).map(function (_ref3) {
         var _ref4 = _slicedToArray(_ref3, 2),
             index = _ref4[0],
             questionData = _ref4[1];
@@ -78008,8 +78291,15 @@ var QuestionSets = /*#__PURE__*/function (_React$Component) {
           className: "one-question-in-this.set",
           key: index
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "question-top-part"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "question-name"
-        }, questionData.question_name), questionData.options && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, questionData.question_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "delete-question-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "standard-button",
+          onClick: _this2.deleteQuestion.bind(_this2, index, questionData.question_id)
+        }, "Delete"))), questionData.options && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "bo"
         }, Object.entries(questionData.options).map(function (_ref5) {
           var _ref6 = _slicedToArray(_ref5, 2),
@@ -78025,8 +78315,74 @@ var QuestionSets = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return QuestionSets;
+  return QuestionSetEditor;
 }(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (QuestionSetEditor);
+
+/***/ }),
+
+/***/ "./resources/js/components/QuestionSets.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/QuestionSets.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _QuestionSetEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./QuestionSetEditor */ "./resources/js/components/QuestionSetEditor.js");
+/* harmony import */ var _GroupsEditorAndSelector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GroupsEditorAndSelector */ "./resources/js/components/GroupsEditorAndSelector.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var QuestionSets = /*#__PURE__*/function (_React$Component) {
+  _inherits(QuestionSets, _React$Component);
+
+  var _super = _createSuper(QuestionSets);
+
+  function QuestionSets() {
+    _classCallCheck(this, QuestionSets);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(QuestionSets, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question-sets-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GroupsEditorAndSelector__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_QuestionSetEditor__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+    }
+  }]);
+
+  return QuestionSets;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (QuestionSets);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GroupData;
 use App\Options;
 use App\TextByLanguage;
 use Illuminate\Http\Request;
@@ -136,6 +137,19 @@ class QuestionController extends Controller
             'poste' => request()->post(), 'gid' => $request['id']];
     }
 
+    public function deleteQuestionEverywhere(Request $request)
+    {
+        $questionId = request()->post('questionId');
+        $table = new QuestionGroups();
+        $table->where('question_id', $questionId)->delete();
+        $table = new QuestionOptions();
+        $table->where('question_id', $questionId)->delete();
+        $table = new Questions();
+        $table->where('id', $questionId)->delete();
+
+        return ['type' => 'ok'];
+    }
+
     public function getQuestionsByGroupId(Request $request) {
         $id = $request['id'] ?? '';
 
@@ -156,6 +170,11 @@ class QuestionController extends Controller
 //                ->where('users_posts_likes.user_id', '=', $userId);
 //
 //        }
+
+        $gropDataObj = new GroupData();
+        $groupData = $gropDataObj->leftJoin('text_by_languages', function ($q2) {
+            $q2->on('text_by_languages.text_id', '=', 'group_data.text_id');
+        })->select('text_by_languages.text as group_name', 'group_data.id as group_id')->where('group_data.id', '=', $id)->get();
 
         $languageId = 1;
         $questionsByGroup = $qg->leftJoin('questions', function($q) use ($id) {
@@ -207,12 +226,12 @@ class QuestionController extends Controller
 
         //'re' => $request['e']
         // 'poste' => request()->post('e')
-        return ['questionsByGroup' => $result];
+        return ['questionsByGroup' => $result, 'groupData' => $groupData];
     }
 
     public function get(Request $request) {
         $questionId = $request['id'] ?? '';
-        return ['poste' => request()->post('e'), 'post' => request()->post(),  '$questionId' => $questionId, 're' => $request['e'], 'r' => $request, 'rall' => $request->all()];
+        return [ 'poste' => request()->post('e'), 'post' => request()->post(),  '$questionId' => $questionId, 're' => $request['e'], 'r' => $request, 'rall' => $request->all()];
     }
 
     /**

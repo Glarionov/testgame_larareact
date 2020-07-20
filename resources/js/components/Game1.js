@@ -78,6 +78,7 @@ class Game1 extends React.Component {
         // setInterval(this.testAnimation.bind(this), 4140);
         setInterval(this.makeNewBox.bind(this), 1000);
         setInterval(this.changeQuestion.bind(this), 15000);
+        // setInterval(this.changeQuestion.bind(this), 2000);
     }
 
     changeQuestion() {

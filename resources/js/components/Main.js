@@ -102,6 +102,9 @@ class Main extends React.Component {
     render() {
         return (<div className="main">
             <Router>
+                <div className="router-links-wrapper">
+
+
                 <div className="top-menu-item">
                     <Link to="/questions">Простой тест</Link>
                 </div>
@@ -111,7 +114,7 @@ class Main extends React.Component {
                                <div className="top-menu-item">
                                    <Link to="/question-sets">Управление вопросами</Link>
                 </div>
-
+                </div>
 
 
                 <Switch>
