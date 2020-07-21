@@ -2,10 +2,29 @@ import React, { Component } from 'react';
 import QuestionOption from "./QuestionOption";
 // import { TweenMax, TweenLite } from "react-gsap";
 import { TweenMax, TweenLite } from "gsap";
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams
+} from "react-router-dom";
+
+import { withRouter } from "react-router";
+
 class Game1 extends React.Component {
+
 
     constructor(props) {
         super(props);
+
+        // let { groupIdFromRoute } = useParams();
+
+        const groupIdFromRoute = this.props.match.params.id;
+
+        console.log('groupIdFromRoute',groupIdFromRoute); //todo r
         console.log('TweenMax',TweenMax); //todo r
         this.changeHandler = this.changeHandler.bind(this)
 
@@ -155,9 +174,17 @@ class Game1 extends React.Component {
         document.addEventListener("keydown", this._handleKeyDown.bind(this));
         document.addEventListener("keyup", this._handleKeyUp.bind(this));
 
+        // let { groupId } = useParams();
+
+        // console.log('groupId',groupId); //todo r
+
+        const groupIdFromRoute = this.props.match.params.id;
+
+        let groupId;
+        groupId = groupIdFromRoute;
             /* fetch API in action */
             let data = {e: 'f'};
-            let url = '/api/get-question-group/1';
+            let url = '/api/get-question-group/' + groupId;
 
             let qData = await fetch(url, {
                 method: 'POST',

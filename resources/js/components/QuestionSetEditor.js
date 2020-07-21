@@ -27,6 +27,11 @@ class QuestionSetEditor extends React.Component {
 
     }
 
+    async componentDidUpdate(prevProps) {
+        if (prevProps.groupId !== this.props.groupId) {
+            await this.updateGroupData(this.props.groupId);
+        }
+    }
 
     // constructor(props) {
     //     super(props);
@@ -49,9 +54,8 @@ class QuestionSetEditor extends React.Component {
         event.preventDefault();
     }
 
-
-    async componentDidMount() {
-        let url = '/api/get-question-group/' + this.state.groupId;
+    async updateGroupData(groupId = 1) {
+        let url = '/api/get-question-group/' + groupId;
 
         let qData = await fetch(url, {
             method: 'POST',
@@ -76,6 +80,10 @@ class QuestionSetEditor extends React.Component {
             groupId: qData.groupData[0].group_id,
             groupName: qData.groupData[0].group_name,
         });
+    }
+
+    async componentDidMount() {
+        await this.updateGroupData();
     }
 
     changeAddingQuestionStatus(newValue = true) {
@@ -265,6 +273,7 @@ class QuestionSetEditor extends React.Component {
         }
 
         return  (<div className="">
+            groupId = {this.props.groupId}
             <div className="question-name">
                 Изменение группы #{this.state.groupId} - {this.state.groupName}
             </div>

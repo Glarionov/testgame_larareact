@@ -109,7 +109,7 @@ class Main extends React.Component {
                     <Link to="/questions">Простой тест</Link>
                 </div>
                                <div className="top-menu-item">
-                                   <Link to="/game1">Игра</Link>
+                                   <Link to="/game1/1">Игра</Link>
                 </div>
                                <div className="top-menu-item">
                                    <Link to="/question-sets">Управление вопросами</Link>
@@ -119,7 +119,8 @@ class Main extends React.Component {
 
                 <Switch>
             <Route path="/questions" component={Questions} />
-            <Route path="/game1" component={Game1} />
+            {/*<Route path="/game1/1" component={Game1} />*/}
+            <Route path="/game1/:id" component={Game1} />
                     <Route path="/question-sets" component={QuestionSets} />
                     <Route component={NotFound} />
                     </Switch>

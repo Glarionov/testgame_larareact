@@ -76705,6 +76705,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _QuestionOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QuestionOption */ "./resources/js/components/QuestionOption.js");
 /* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -76750,6 +76752,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var Game1 = /*#__PURE__*/function (_React$Component) {
   _inherits(Game1, _React$Component);
 
@@ -76760,7 +76764,11 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, Game1);
 
-    _this = _super.call(this, props);
+    _this = _super.call(this, props); // let { groupIdFromRoute } = useParams();
+
+    var groupIdFromRoute = _this.props.match.params.id;
+    console.log('groupIdFromRoute', groupIdFromRoute); //todo r
+
     console.log('TweenMax', gsap__WEBPACK_IMPORTED_MODULE_3__["TweenMax"]); //todo r
 
     _this.changeHandler = _this.changeHandler.bind(_assertThisInitialized(_this));
@@ -76890,20 +76898,24 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, url, qData;
+        var groupIdFromRoute, groupId, data, url, qData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 document.addEventListener("keydown", this._handleKeyDown.bind(this));
-                document.addEventListener("keyup", this._handleKeyUp.bind(this));
+                document.addEventListener("keyup", this._handleKeyUp.bind(this)); // let { groupId } = useParams();
+                // console.log('groupId',groupId); //todo r
+
+                groupIdFromRoute = this.props.match.params.id;
+                groupId = groupIdFromRoute;
                 /* fetch API in action */
 
                 data = {
                   e: 'f'
                 };
-                url = '/api/get-question-group/1';
-                _context.next = 6;
+                url = '/api/get-question-group/' + groupId;
+                _context.next = 8;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -76916,7 +76928,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
                   return data.questionsByGroup;
                 });
 
-              case 6:
+              case 8:
                 qData = _context.sent;
                 qData['clicked_options'] = [];
                 this.setState({
@@ -76924,7 +76936,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
                   currentQuestion: qData[this.state.currentQuestionIndex]
                 });
 
-              case 9:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -77245,6 +77257,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _QuestionSetEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QuestionSetEditor */ "./resources/js/components/QuestionSetEditor.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -77288,6 +77301,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
   _inherits(GroupEditorAndSelector, _React$Component);
 
@@ -77296,6 +77310,8 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
   _createClass(GroupEditorAndSelector, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: ""
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -77307,8 +77323,9 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
 
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "new-option-wrapper",
-          key: oIndex
-        }, "groupData=", JSON.stringify(groupData), groupData.group_name);
+          key: oIndex,
+          onClick: _this2.clickOnGroup.bind(_this2, groupData.group_id)
+        }, groupData.group_name);
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
         onSubmit: this.handleGroupAdder.bind(this)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -77321,6 +77338,14 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
         type: "submit",
         value: "Add"
       })))));
+    }
+  }, {
+    key: "clickOnGroup",
+    value: function clickOnGroup(e, id) {
+      if (typeof this.props.parentClickEvent === 'function') {
+        // this.props.parentClickEvent(e, this.props.index);
+        this.props.parentClickEvent(e, id);
+      }
     }
   }]);
 
@@ -77675,7 +77700,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
       }, "\u041F\u0440\u043E\u0441\u0442\u043E\u0439 \u0442\u0435\u0441\u0442")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "top-menu-item"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Link"], {
-        to: "/game1"
+        to: "/game1/1"
       }, "\u0418\u0433\u0440\u0430")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "top-menu-item"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Link"], {
@@ -77684,7 +77709,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
         path: "/questions",
         component: _Questions__WEBPACK_IMPORTED_MODULE_2__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
-        path: "/game1",
+        path: "/game1/:id",
         component: _Game1__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
         path: "/question-sets",
@@ -77931,16 +77956,46 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
-  } // constructor(props) {
-  //     super(props);
-  //     this.state = {value: ''};
-  //
-  //     this.handleChange = this.handleChange.bind(this);
-  //     this.handleSubmit = this.handleSubmit.bind(this);
-  // }
-
+  }
 
   _createClass(QuestionSetEditor, [{
+    key: "componentDidUpdate",
+    value: function () {
+      var _componentDidUpdate = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(prevProps) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(prevProps.groupId !== this.props.groupId)) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _context.next = 3;
+                return this.updateGroupData(this.props.groupId);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidUpdate(_x) {
+        return _componentDidUpdate.apply(this, arguments);
+      }
+
+      return componentDidUpdate;
+    }() // constructor(props) {
+    //     super(props);
+    //     this.state = {value: ''};
+    //
+    //     this.handleChange = this.handleChange.bind(this);
+    //     this.handleSubmit = this.handleSubmit.bind(this);
+    // }
+
+  }, {
     key: "handleChange",
     value: function handleChange(event) {
       this.setState({
@@ -77961,16 +78016,20 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
       event.preventDefault();
     }
   }, {
-    key: "componentDidMount",
+    key: "updateGroupData",
     value: function () {
-      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var url, qData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      var _updateGroupData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var groupId,
+            url,
+            qData,
+            _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                url = '/api/get-question-group/' + this.state.groupId;
-                _context.next = 3;
+                groupId = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : 1;
+                url = '/api/get-question-group/' + groupId;
+                _context2.next = 4;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -77983,8 +78042,8 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                   return data;
                 });
 
-              case 3:
-                qData = _context.sent;
+              case 4:
+                qData = _context2.sent;
                 qData['clicked_options'] = [];
                 console.log('qData.groupData', qData.groupData); //todo r
 
@@ -77995,12 +78054,37 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                   groupName: qData.groupData[0].group_name
                 });
 
-              case 7:
+              case 8:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
+      }));
+
+      function updateGroupData() {
+        return _updateGroupData.apply(this, arguments);
+      }
+
+      return updateGroupData;
+    }()
+  }, {
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.updateGroupData();
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
       }));
 
       function componentDidMount() {
@@ -78020,11 +78104,11 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSub2",
     value: function () {
-      var _handleSub = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(event) {
+      var _handleSub = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(event) {
         var questionName, questionOptions, data, url, qData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 questionName = this.state.newQuestionValue;
                 questionOptions = this.state.newOptions;
@@ -78033,7 +78117,7 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                   questionOptions: questionOptions
                 };
                 url = '/api/add-question-to-group/' + this.state.groupId;
-                _context2.next = 6;
+                _context4.next = 6;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -78047,18 +78131,18 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 6:
-                qData = _context2.sent;
+                qData = _context4.sent;
                 console.log('qData', qData); //todo r
 
               case 8:
               case "end":
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee4, this);
       }));
 
-      function handleSub2(_x) {
+      function handleSub2(_x2) {
         return _handleSub.apply(this, arguments);
       }
 
@@ -78067,11 +78151,11 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmitAddNewQuestion",
     value: function () {
-      var _handleSubmitAddNewQuestion = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(event) {
+      var _handleSubmitAddNewQuestion = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(event) {
         var questionName, questionOptions, data, url, qData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 event.preventDefault();
                 console.log('this.state.newQuestionValue', this.state.newQuestionValue); //todo r
@@ -78084,7 +78168,7 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                   languageId: this.state.currentLanguageId
                 };
                 url = '/api/add-question-to-group/' + this.state.groupId;
-                _context3.next = 8;
+                _context5.next = 8;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -78098,18 +78182,18 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 8:
-                qData = _context3.sent;
+                qData = _context5.sent;
                 console.log('qData', qData); //todo r
 
               case 10:
               case "end":
-                return _context3.stop();
+                return _context5.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee5, this);
       }));
 
-      function handleSubmitAddNewQuestion(_x2) {
+      function handleSubmitAddNewQuestion(_x3) {
         return _handleSubmitAddNewQuestion.apply(this, arguments);
       }
 
@@ -78119,11 +78203,11 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteQuestion",
     value: function () {
-      var _deleteQuestion = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(index, questionId) {
+      var _deleteQuestion = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(index, questionId) {
         var questions, data, url, qData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 questions = this.state.questions;
                 questions.splice(index, 1);
@@ -78136,7 +78220,7 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                   questionId: questionId
                 };
                 url = '/api/delete-question-everywhere/' + this.state.groupId;
-                _context4.next = 8;
+                _context6.next = 8;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -78150,18 +78234,18 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 8:
-                qData = _context4.sent;
+                qData = _context6.sent;
                 console.log('qData', qData); //todo r
 
               case 10:
               case "end":
-                return _context4.stop();
+                return _context6.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee6, this);
       }));
 
-      function deleteQuestion(_x3, _x4) {
+      function deleteQuestion(_x4, _x5) {
         return _deleteQuestion.apply(this, arguments);
       }
 
@@ -78277,7 +78361,7 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: ""
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "groupId = ", this.props.groupId, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "question-name"
       }, "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0433\u0440\u0443\u043F\u043F\u044B #", this.state.groupId, " - ", this.state.groupName), Object.entries(this.state.questions).map(function (_ref3) {
         var _ref4 = _slicedToArray(_ref3, 2),
@@ -78335,6 +78419,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _QuestionSetEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./QuestionSetEditor */ "./resources/js/components/QuestionSetEditor.js");
 /* harmony import */ var _GroupsEditorAndSelector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GroupsEditorAndSelector */ "./resources/js/components/GroupsEditorAndSelector.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _Questions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Questions */ "./resources/js/components/Questions.js");
+/* harmony import */ var _Game1__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Game1 */ "./resources/js/components/Game1.js");
+/* harmony import */ var _NotFound__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./NotFound */ "./resources/js/components/NotFound.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78361,23 +78449,49 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
+
+
 var QuestionSets = /*#__PURE__*/function (_React$Component) {
   _inherits(QuestionSets, _React$Component);
 
   var _super = _createSuper(QuestionSets);
-
-  function QuestionSets() {
-    _classCallCheck(this, QuestionSets);
-
-    return _super.apply(this, arguments);
-  }
 
   _createClass(QuestionSets, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question-sets-wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GroupsEditorAndSelector__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_QuestionSetEditor__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GroupsEditorAndSelector__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        parentClickEvent: this.changeGroupId.bind(this)
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_QuestionSetEditor__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        groupId: this.state.groupId
+      }));
+    }
+  }]);
+
+  function QuestionSets(props) {
+    var _this;
+
+    _classCallCheck(this, QuestionSets);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      groupId: 1,
+      languageId: 1
+    };
+    return _this;
+  }
+
+  _createClass(QuestionSets, [{
+    key: "changeGroupId",
+    value: function changeGroupId(id) {
+      console.log('id', id); //todo r
+
+      this.setState({
+        groupId: id
+      });
     }
   }]);
 
@@ -78459,7 +78573,8 @@ var Questions = /*#__PURE__*/function (_React$Component) {
       currentQuestion: {},
       lastQuestion: false,
       showingResult: false,
-      maxScore: questions.length * _this.data.goodAnswerScoreChange,
+      // maxScore: questions.length * this.data.goodAnswerScoreChange,
+      maxScore: 0,
       clickedOptions: [[]],
       clickedOptionsByQuestionIndex: {}
     };

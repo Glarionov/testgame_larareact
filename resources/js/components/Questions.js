@@ -22,7 +22,9 @@ class Questions extends React.Component {
             questions: {},
             // currentQuestion: questions[0],
             currentQuestion: {},
-            lastQuestion: false, showingResult: false, maxScore: questions.length * this.data.goodAnswerScoreChange,
+            lastQuestion: false, showingResult: false,
+            // maxScore: questions.length * this.data.goodAnswerScoreChange,
+            maxScore: 0,
             clickedOptions: [[]],
             clickedOptionsByQuestionIndex: {}
         };

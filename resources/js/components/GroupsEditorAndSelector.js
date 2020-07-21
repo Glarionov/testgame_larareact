@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import QuestionSetEditor from './QuestionSetEditor'
+import {BrowserRouter as Router, Link} from "react-router-dom";
 
 
 
@@ -7,10 +8,12 @@ class GroupEditorAndSelector extends React.Component {
 
     render() {
         return  (<div className="">
+
             <div className="group-editor-selector">
                 {Object.entries(this.state.groups).map(([oIndex, groupData]) => (
-                    <div className="new-option-wrapper" key={oIndex}>
-                        groupData={JSON.stringify(groupData)}
+                    <div className="new-option-wrapper" key={oIndex}
+                        onClick={this.clickOnGroup.bind(this, groupData.group_id)}
+                    >
                         {groupData.group_name}
                     </div>
                 ))}
@@ -22,6 +25,13 @@ class GroupEditorAndSelector extends React.Component {
                 </form>
             </div>
         </div>)
+    }
+
+    clickOnGroup (e, id) {
+        if (typeof this.props.parentClickEvent === 'function') {
+            // this.props.parentClickEvent(e, this.props.index);
+            this.props.parentClickEvent(e, id);
+        }
     }
 
     constructor(props) {
