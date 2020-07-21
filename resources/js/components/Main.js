@@ -105,26 +105,26 @@ class Main extends React.Component {
                 <div className="router-links-wrapper">
 
 
-                <div className="top-menu-item">
-                    <Link to="/questions">Простой тест</Link>
-                </div>
-                               <div className="top-menu-item">
-                                   <Link to="/game1/1">Игра</Link>
-                </div>
-                               <div className="top-menu-item">
-                                   <Link to="/question-sets">Управление вопросами</Link>
-                </div>
+                    <div className="top-menu-item">
+                        <Link to="/questions">Простой тест</Link>
+                    </div>
+                    <div className="top-menu-item">
+                        <Link to="/game1/1">Игра</Link>
+                    </div>
+                    <div className="top-menu-item">
+                        <Link to="/question-sets">Управление вопросами</Link>
+                    </div>
                 </div>
 
 
                 <Switch>
-            <Route path="/questions" component={Questions} />
-            {/*<Route path="/game1/1" component={Game1} />*/}
-            <Route path="/game1/:id" component={Game1} />
-                    <Route path="/question-sets" component={QuestionSets} />
-                    <Route component={NotFound} />
-                    </Switch>
-                </Router>
+                    <Route path="/questions" component={Questions}/>
+                    {/*<Route path="/game1/1" component={Game1} />*/}
+                    <Route path="/game1/:id" component={Game1}/>
+                    <Route path="/question-sets" component={QuestionSets}/>
+                    <Route component={NotFound}/>
+                </Switch>
+            </Router>
 
 
             {/*<Questions />*/}

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import QuestionOption from './QuestionOption'
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import Questions from "./Questions";
+import Game1 from "./Game1";
+import QuestionSets from "./QuestionSets";
+import NotFound from "./NotFound";
 
 class QuestionSetEditor extends React.Component {
 
@@ -227,7 +232,7 @@ class QuestionSetEditor extends React.Component {
         const adderButton = ()=>{
             if(this.state.addNewQuestion){
                 // return <div onClick={this.openTestResult.bind(this, 1)}>See result</div>
-                return <div>
+                return <div >
 
 
                     <form onSubmit={this.handleSubmitAddNewQuestion.bind(this)}>
@@ -272,16 +277,22 @@ class QuestionSetEditor extends React.Component {
             }
         }
 
-        return  (<div className="">
+        return  (<div className="question-set-editor">
             groupId = {this.props.groupId}
             <div className="question-name">
                 Изменение группы #{this.state.groupId} - {this.state.groupName}
             </div>
 
+            <Router>
+                <div className="router-links-wrapper">
+                    <Link to={"/game1/" + this.state.groupId}>Игра</Link>
+                </div>
+            </Router>
+
             {Object.entries(this.state.questions).map(([index, questionData]) => (
                 <div className="abc" key={index}>
                     {typeof questionData !== 'undefined' && questionData &&
-                    <div className="one-question-in-this.set" key={index}>
+                    <div className="one-question-in-set" key={index}>
                         <div className="question-top-part">
                             <div className="question-name">
                                 {questionData.question_name}

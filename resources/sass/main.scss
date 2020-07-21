@@ -22,7 +22,7 @@ html {
 }
 
 .main {
-    background: #ffffff;
+    background: #dbf2ff;
     width: 95vw;
     max-width: 1200px;
     margin: auto;
@@ -72,8 +72,8 @@ body {
     padding: 3px;
     color: white;
     display: flex;
-    width: 180px;
-    height: 40px;
+    width: 160px;
+    height: 1.5em;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -98,4 +98,25 @@ body {
 
 .question-sets-wrapper {
     display: flex;
+}
+
+.group-editor-and-selector {
+    background: #98e2ff;
+}
+
+.question-set-editor {
+    background: #b2dfff;
+    margin-left: 40px;
+    padding: 5px;
+}
+
+.one-question-in-set {
+    margin-top: 20px;
+}
+
+.add-new-question {
+    margin-top: 20px;
+    width: 220px;
+    height: 60px;
+    font-size: 22px;
 }

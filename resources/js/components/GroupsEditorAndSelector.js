@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Link} from "react-router-dom";
 class GroupEditorAndSelector extends React.Component {
 
     render() {
-        return  (<div className="">
+        return  (<div className="group-editor-and-selector">
 
             <div className="group-editor-selector">
                 {Object.entries(this.state.groups).map(([oIndex, groupData]) => (
