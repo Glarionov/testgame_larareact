@@ -100,7 +100,11 @@ class Main extends React.Component {
 
 
     render() {
-        return (<div className="main">
+        return (
+            <div className="main-wrapper">
+
+
+            <div className="main">
             <Router>
                 <div className="router-links-wrapper">
 
@@ -127,9 +131,21 @@ class Main extends React.Component {
             </Router>
 
 
+
+
             {/*<Questions />*/}
             {/*<Game1 />*/}
-        </div>);
+        </div>
+        <div className="bottom-grass"
+            // style={this.state.bottomGrassStyle}
+        >
+
+        </div>
+                <div className="under-bottom">
+                    UNDER BOTTOM
+                </div>
+            </div>
+                );
     }
 
 

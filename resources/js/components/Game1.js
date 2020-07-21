@@ -54,7 +54,9 @@ class Game1 extends React.Component {
             currentQuestion: {},
             fallAcceleration: 5,
             fallSpeedLimit: 70,
-            bouncyMode: true
+            bouncyMode: true,
+            bottomGrassStyle: {},
+            boxAppearType: 'fromRight'
         }
 
 
@@ -95,7 +97,17 @@ class Game1 extends React.Component {
 
         setInterval(this.gameIteration.bind(this), animationFrequency);
         // setInterval(this.testAnimation.bind(this), 4140);
-        setInterval(this.makeNewBox.bind(this), 1000);
+
+        let newBoxInterval = 1000;
+        switch (this.state.boxAppearType) {
+            case 'pureRandom':
+                newBoxInterval = 1000;
+                break;
+            case "fromRight":
+                newBoxInterval = 1800;
+        }
+
+        setInterval(this.makeNewBox.bind(this), newBoxInterval);
         setInterval(this.changeQuestion.bind(this), 15000);
         // setInterval(this.changeQuestion.bind(this), 2000);
     }
@@ -126,8 +138,22 @@ class Game1 extends React.Component {
     makeNewBox() {
         let movingBoxes = this.state.movingBoxes;
 
-        let x = Math.floor(Math.random() * this.data.boxWidth),
-            y = Math.floor(Math.random() * this.data.boxHeight)
+        let x, y, hs, vs;
+        console.log('this.state.boxAppearType',this.state.boxAppearType); //todo r
+        switch (this.state.boxAppearType) {
+            case 'pureRandom':
+                x = Math.floor(Math.random() * this.data.boxWidth);
+                y = Math.floor(Math.random() * this.data.boxHeight);
+                hs = Math.floor(Math.random() * 10 - 5);
+                vs = Math.floor(Math.random() * 10 - 5);
+                break;
+            case "fromRight":
+                x = this.data.boxWidth - this.state.movingBoxWidth;
+                y = Math.floor(Math.random() * this.data.boxHeight);
+                hs = Math.floor(Math.random() * -5 - 9);
+                vs = 0;
+        }
+
         let newBoxIndex = this.state.lastBoxIndex + 1;
         this.movingBoxesRefs[newBoxIndex] = {
             x: x + 'px',
@@ -150,8 +176,8 @@ class Game1 extends React.Component {
             {
                 x: x,
                 y: y,
-                hs: Math.floor(Math.random() * 10 - 5),
-                vs: Math.floor(Math.random() * 10 - 5),
+                hs: hs,
+                vs: vs,
                 optionData: this.state.currentQuestion.options[rKey]
             };
 
@@ -209,6 +235,7 @@ class Game1 extends React.Component {
     }
 
     _handleKeyDown  (event) {
+        event.preventDefault();
         console.log('event.keyCode',event.keyCode); //todo r
         switch( event.keyCode ) {
             case 37: case 65:
@@ -283,7 +310,7 @@ class Game1 extends React.Component {
     }
 
     _handleKeyUp  (event) {
-
+        event.preventDefault();
         switch( event.keyCode ) {
             case 74:
                 this.setState(prevState => {
@@ -475,16 +502,20 @@ class Game1 extends React.Component {
                     {this.state.currentQuestion.question_name}
                 </div>
                 Score: {this.state.score}
-                <div className="player-div"
-                     ref={div => this.playerElement = div}
-                    // style={ ({
-                    //     marginLeft: this.state.playerX + 'px',
-                    //     marginTop: this.state.playerY + 'px'
-                    // })}
 
-                ></div>
 
             </div>
+
+
+
+            <div className="player-div"
+                 ref={div => this.playerElement = div}
+                // style={ ({
+                //     marginLeft: this.state.playerX + 'px',
+                //     marginTop: this.state.playerY + 'px'
+                // })}
+
+            ></div>
 
             {Object.entries(this.state.movingBoxes).map(([index, optionData]) => (
                 <div key={index} className="default-moving-box"
