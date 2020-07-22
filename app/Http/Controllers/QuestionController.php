@@ -184,7 +184,7 @@ class QuestionController extends Controller
                 })
                 ;
 
-        })->where('question_groups.group_id', '=', $id)->where('text_by_languages.language_id', '=', $languageId)->select('question_groups.group_id as g_id', 'text_by_languages.text as question_name', 'questions.id as question_id')->take(5)->get();
+        })->where('question_groups.group_id', '=', $id)->where('text_by_languages.language_id', '=', $languageId)->select('question_groups.group_id as g_id', 'text_by_languages.text as question_name', 'questions.id as question_id')->get();
 
         $qo = new QuestionOptions();
         $langId = 1;
