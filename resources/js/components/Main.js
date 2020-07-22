@@ -136,14 +136,14 @@ class Main extends React.Component {
             {/*<Questions />*/}
             {/*<Game1 />*/}
         </div>
-        <div className="bottom-grass"
-            // style={this.state.bottomGrassStyle}
-        >
+        {/*<div className="bottom-grass"*/}
+        {/*    // style={this.state.bottomGrassStyle}*/}
+        {/*>*/}
 
-        </div>
-                <div className="under-bottom">
-                    UNDER BOTTOM
-                </div>
+        {/*</div>*/}
+        {/*        <div className="under-bottom">*/}
+        {/*            UNDER BOTTOM*/}
+        {/*        </div>*/}
             </div>
                 );
     }

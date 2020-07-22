@@ -32,7 +32,7 @@ html {
 }
 
 .main-wrapper {
-    height: 95vh;
+    //height: 95vh;
 }
 
 body {
@@ -127,9 +127,14 @@ body {
 }
 
 .bottom-grass {
-    width: 100%;
-    height: 200px;
-    position: sticky;
-    bottom: 10px;
-    background: green;
+    //width: 100%;
+    //height: 200px;
+    //position: sticky;
+    //bottom: 10px;
+    //background: green;
+}
+
+.game-field-style {
+    background: #638eff;
+    position: absolute;
 }

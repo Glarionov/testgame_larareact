@@ -33,6 +33,27 @@ class Game1 extends React.Component {
 
         }
 
+
+
+
+        let framesPerSecond = 20;
+
+        let animationFrequency = 1000 / framesPerSecond;
+
+        let speedPerSecond = 700;
+
+        let speedPerFrame = speedPerSecond / framesPerSecond;
+
+        this.data = {
+            speed: speedPerFrame,
+            animationFrequency,
+            animationFrequencyMs: animationFrequency / 1000,
+            boxWidth: 1200,
+            boxHeight: 800,
+            goodAnswerScoreChange: 10,
+            badAnswerScoreChange: -5,
+            bouncyMode: true
+        }
         this.state = {
             playerData: {
                 marginLeft: 0
@@ -52,33 +73,22 @@ class Game1 extends React.Component {
             questions: [],
             currentQuestionIndex: 0,
             currentQuestion: {},
-            fallAcceleration: 5,
+            fallAcceleration: 10,
+            movingBoxesFallingAcceleration: 7,
             fallSpeedLimit: 70,
+            bouncyJumpSpeed: -110,
+            bouncyJumpSpeedMovingBox: -80,
             bouncyMode: true,
             bottomGrassStyle: {},
-            boxAppearType: 'fromRight'
+            boxAppearType: 'bouncy',
+            boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy'],
+            fieldStyle: {
+                height: this.data.boxHeight,
+                width: this.data.boxWidth
+            },
+            enemyAppearInterval: 2000,
+            changeEnemyAppearStyleInterVal: 40000
         }
-
-
-        let framesPerSecond = 20;
-
-        let animationFrequency = 1000 / framesPerSecond;
-
-        let speedPerSecond = 700;
-
-        let speedPerFrame = speedPerSecond / framesPerSecond;
-
-        this.data = {
-            speed: speedPerFrame,
-            animationFrequency,
-            animationFrequencyMs: animationFrequency / 1000,
-            boxWidth: 1000,
-            boxHeight: 600,
-            goodAnswerScoreChange: 10,
-            badAnswerScoreChange: -5,
-            bouncyMode: true
-        }
-
 
 
         // reference to the DOM node
@@ -104,12 +114,57 @@ class Game1 extends React.Component {
                 newBoxInterval = 1000;
                 break;
             case "fromRight":
+            default:
                 newBoxInterval = 1800;
         }
 
-        setInterval(this.makeNewBox.bind(this), newBoxInterval);
-        setInterval(this.changeQuestion.bind(this), 15000);
+        // this.setState({
+        //     enemyAppearInterval: newBoxInterval
+        // });
+
+        setTimeout(this.makeNewBoxCycle.bind(this), this.state.enemyAppearInterval);
+        setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
+        setInterval(this.changeQuestion.bind(this), 20000);
         // setInterval(this.changeQuestion.bind(this), 2000);
+    }
+
+    changeEnemyAppearStyle() {
+
+        let randValue = Math.random();
+
+        console.log('====this.state.boxAppearTypes', this.state.boxAppearTypes); //todo r
+        console.log('this.state.boxAppearTypes.length',this.state.boxAppearTypes.length); //todo r
+        console.log('randValue',randValue); //todo r
+
+        let mult = randValue * this.state.boxAppearTypes.length;
+        let ceilMult = Math.floor(mult);
+        console.log('mult',mult); //todo r
+        console.log('ceilMult',ceilMult); //todo r
+
+        let newIndex = ceilMult;
+
+        console.log('newIndex',newIndex); //todo r
+        console.log('this.state.boxAppearTypes[newIndex]',this.state.boxAppearTypes[newIndex]); //todo r
+        this.setState({
+            boxAppearType: this.state.boxAppearTypes[newIndex]
+        });
+
+        let newBoxInterval;
+
+        switch (this.state.boxAppearType) {
+            case 'pureRandom':
+                newBoxInterval = 1000;
+                break;
+            case "fromRight":
+            default:
+                newBoxInterval = 1800;
+        }
+
+        // this.setState({
+        //     enemyAppearInterval: newBoxInterval
+        // });
+
+        setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
     }
 
     changeQuestion() {
@@ -135,6 +190,11 @@ class Game1 extends React.Component {
 
     }
 
+    makeNewBoxCycle() {
+        this.makeNewBox();
+        setTimeout(this.makeNewBoxCycle.bind(this), this.state.enemyAppearInterval);
+    }
+
     makeNewBox() {
         let movingBoxes = this.state.movingBoxes;
 
@@ -144,14 +204,28 @@ class Game1 extends React.Component {
             case 'pureRandom':
                 x = Math.floor(Math.random() * this.data.boxWidth);
                 y = Math.floor(Math.random() * this.data.boxHeight);
-                hs = Math.floor(Math.random() * 10 - 5);
-                vs = Math.floor(Math.random() * 10 - 5);
+                hs = Math.floor(Math.random() * 14 - 7);
+                vs = Math.floor(Math.random() * 14 - 7);
                 break;
             case "fromRight":
                 x = this.data.boxWidth - this.state.movingBoxWidth;
-                y = Math.floor(Math.random() * this.data.boxHeight);
+                y = Math.floor(Math.random() * (this.state.fieldStyle.height - this.state.movingBoxHeight));
                 hs = Math.floor(Math.random() * -5 - 9);
                 vs = 0;
+                break;
+            case 'bouncy':
+                y = Math.floor(Math.random() * this.data.boxHeight);
+                vs = 0;
+                hs = Math.floor(Math.random() * 20 - 10);
+                let minSpeed = 7;
+                if (Math.abs(hs) < minSpeed) {
+                    hs = minSpeed * Math.abs(hs);
+                }
+                if (hs > 0) {
+                    x = 0;
+                } else {
+                    x = this.data.boxWidth - this.state.movingBoxWidth;
+                }
         }
 
         let newBoxIndex = this.state.lastBoxIndex + 1;
@@ -379,12 +453,7 @@ class Game1 extends React.Component {
         //     }
         // );
 
-        this.setState(prevState => {
-            return {
-                playerX: prevState.playerX + this.state.horSpeed,
-                playerY: prevState.playerY + this.state.vertSpeed,
-            }
-        })
+
 
         if (this.state.bouncyMode) {
             let vs = this.state.vertSpeed;
@@ -396,8 +465,10 @@ class Game1 extends React.Component {
             //
             // console.log('this.state.playerY',this.state.playerY); //todo r
 
-            if (this.state.playerY > this.data.boxHeight) {
-                vs = -110;
+            let vChange = this.state.vertSpeed;
+            if (this.state.playerY > this.state.fieldStyle.height - this.state.playerHeight - this.state.vertSpeed) {
+                vChange = this.state.fieldStyle.height - this.state.playerHeight - this.state.playerY;
+                vs = this.state.bouncyJumpSpeed;
                 this.setState({
                     fallAcceleration: 10,
                     fallSpeedLimit: 50
@@ -406,8 +477,20 @@ class Game1 extends React.Component {
             this.setState({
                 vertSpeed: vs
             })
-        } else {
 
+            this.setState(prevState => {
+                return {
+                    playerX: prevState.playerX + this.state.horSpeed,
+                    playerY: prevState.playerY + vChange,
+                }
+            })
+        } else {
+            this.setState(prevState => {
+                return {
+                    playerX: prevState.playerX + this.state.horSpeed,
+                    playerY: prevState.playerY + this.state.vertSpeed,
+                }
+            })
         }
 
         TweenLite.to(this.playerElement, this.data.animationFrequencyMs, {marginLeft: this.state.playerX, marginTop: this.state.playerY, ease: "linear"});
@@ -415,12 +498,29 @@ class Game1 extends React.Component {
 
         for (let boxKey in this.state.movingBoxes) {
 
+
+
+
+
             let newMovingBoxes = this.state.movingBoxes;
             let currentMovingBox = newMovingBoxes[boxKey];
+
+            let vChange = currentMovingBox.vs;
+            if (this.state.boxAppearType === 'bouncy') {
+                currentMovingBox.vs += this.state.movingBoxesFallingAcceleration;
+                if (currentMovingBox.y > this.state.fieldStyle.height - this.state.movingBoxHeight - currentMovingBox.vs) {
+                    vChange = this.state.fieldStyle.height - this.state.movingBoxHeight - currentMovingBox.y;
+                    currentMovingBox.vs = this.state.bouncyJumpSpeedMovingBox;
+                }
+            }
+
+            newMovingBoxes[boxKey] = currentMovingBox;
+
             // newMovingBoxes[boxKey].x += newMovingBoxes[boxKey].hs;
             let newX = currentMovingBox.x + currentMovingBox.hs;
             // newMovingBoxes[boxKey].y += newMovingBoxes[boxKey].vs;
-            let newY = currentMovingBox.y + currentMovingBox.vs;
+            let newY = currentMovingBox.y + vChange;
+
 
 
             let wasCollision = false;
@@ -449,8 +549,8 @@ class Game1 extends React.Component {
                 // collision detected!
             }
 
-            if (wasCollision || newX < 0 || newX + 200 > window.innerWidth ||
-                newY < 0 || newY + 200 > window.innerHeight
+            if (wasCollision || newX < 0 || newX > this.state.fieldStyle.width - this.state.movingBoxWidth ||
+                newY < 0 || newY > this.state.fieldStyle.height - this.state.movingBoxHeight
             ) {
                 // newMovingBoxes.splice(boxKey, 1);
                 // this.movingBoxesRefs.splice(boxKey, 1);
@@ -505,6 +605,9 @@ class Game1 extends React.Component {
 
 
             </div>
+            <div className="game-field-style" style={this.state.fieldStyle}>
+            </div>
+
 
 
 

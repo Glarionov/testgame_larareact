@@ -6428,7 +6428,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "html {\n  background: linear-gradient(45deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  background: #dbf2ff;\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px;\n  min-height: 100%; }\n\n.main-wrapper {\n  height: 95vh; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 50px;\n  height: 50px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: #98e2ff; }\n\n.question-set-editor {\n  background: #b2dfff;\n  margin-left: 40px;\n  padding: 5px; }\n\n.one-question-in-set {\n  margin-top: 20px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.bottom-grass {\n  width: 100%;\n  height: 200px;\n  position: -webkit-sticky;\n  position: sticky;\n  bottom: 10px;\n  background: green; }\n", ""]);
+exports.push([module.i, "html {\n  background: linear-gradient(45deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  background: #dbf2ff;\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px;\n  min-height: 100%; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 50px;\n  height: 50px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: #98e2ff; }\n\n.question-set-editor {\n  background: #b2dfff;\n  margin-left: 40px;\n  padding: 5px; }\n\n.one-question-in-set {\n  margin-top: 20px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.game-field-style {\n  background: #638eff;\n  position: absolute; }\n", ""]);
 
 // exports
 
@@ -76773,6 +76773,20 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
     _this.changeHandler = _this.changeHandler.bind(_assertThisInitialized(_this));
     var movingBoxes = {};
+    var framesPerSecond = 20;
+    var animationFrequency = 1000 / framesPerSecond;
+    var speedPerSecond = 700;
+    var speedPerFrame = speedPerSecond / framesPerSecond;
+    _this.data = {
+      speed: speedPerFrame,
+      animationFrequency: animationFrequency,
+      animationFrequencyMs: animationFrequency / 1000,
+      boxWidth: 1200,
+      boxHeight: 800,
+      goodAnswerScoreChange: 10,
+      badAnswerScoreChange: -5,
+      bouncyMode: true
+    };
     _this.state = {
       playerData: {
         marginLeft: 0
@@ -76792,25 +76806,21 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       questions: [],
       currentQuestionIndex: 0,
       currentQuestion: {},
-      fallAcceleration: 5,
+      fallAcceleration: 10,
+      movingBoxesFallingAcceleration: 7,
       fallSpeedLimit: 70,
+      bouncyJumpSpeed: -110,
+      bouncyJumpSpeedMovingBox: -80,
       bouncyMode: true,
       bottomGrassStyle: {},
-      boxAppearType: 'fromRight'
-    };
-    var framesPerSecond = 20;
-    var animationFrequency = 1000 / framesPerSecond;
-    var speedPerSecond = 700;
-    var speedPerFrame = speedPerSecond / framesPerSecond;
-    _this.data = {
-      speed: speedPerFrame,
-      animationFrequency: animationFrequency,
-      animationFrequencyMs: animationFrequency / 1000,
-      boxWidth: 1000,
-      boxHeight: 600,
-      goodAnswerScoreChange: 10,
-      badAnswerScoreChange: -5,
-      bouncyMode: true
+      boxAppearType: 'bouncy',
+      boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy'],
+      fieldStyle: {
+        height: _this.data.boxHeight,
+        width: _this.data.boxWidth
+      },
+      enemyAppearInterval: 2000,
+      changeEnemyAppearStyleInterVal: 40000
     }; // reference to the DOM node
 
     _this.myElement = null;
@@ -76833,16 +76843,62 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         break;
 
       case "fromRight":
+      default:
         newBoxInterval = 1800;
-    }
+    } // this.setState({
+    //     enemyAppearInterval: newBoxInterval
+    // });
 
-    setInterval(_this.makeNewBox.bind(_assertThisInitialized(_this)), newBoxInterval);
-    setInterval(_this.changeQuestion.bind(_assertThisInitialized(_this)), 15000); // setInterval(this.changeQuestion.bind(this), 2000);
+
+    setTimeout(_this.makeNewBoxCycle.bind(_assertThisInitialized(_this)), _this.state.enemyAppearInterval);
+    setTimeout(_this.changeEnemyAppearStyle.bind(_assertThisInitialized(_this)), _this.state.changeEnemyAppearStyleInterVal);
+    setInterval(_this.changeQuestion.bind(_assertThisInitialized(_this)), 20000); // setInterval(this.changeQuestion.bind(this), 2000);
 
     return _this;
   }
 
   _createClass(Game1, [{
+    key: "changeEnemyAppearStyle",
+    value: function changeEnemyAppearStyle() {
+      var randValue = Math.random();
+      console.log('====this.state.boxAppearTypes', this.state.boxAppearTypes); //todo r
+
+      console.log('this.state.boxAppearTypes.length', this.state.boxAppearTypes.length); //todo r
+
+      console.log('randValue', randValue); //todo r
+
+      var mult = randValue * this.state.boxAppearTypes.length;
+      var ceilMult = Math.floor(mult);
+      console.log('mult', mult); //todo r
+
+      console.log('ceilMult', ceilMult); //todo r
+
+      var newIndex = ceilMult;
+      console.log('newIndex', newIndex); //todo r
+
+      console.log('this.state.boxAppearTypes[newIndex]', this.state.boxAppearTypes[newIndex]); //todo r
+
+      this.setState({
+        boxAppearType: this.state.boxAppearTypes[newIndex]
+      });
+      var newBoxInterval;
+
+      switch (this.state.boxAppearType) {
+        case 'pureRandom':
+          newBoxInterval = 1000;
+          break;
+
+        case "fromRight":
+        default:
+          newBoxInterval = 1800;
+      } // this.setState({
+      //     enemyAppearInterval: newBoxInterval
+      // });
+
+
+      setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
+    }
+  }, {
     key: "changeQuestion",
     value: function changeQuestion() {
       if (this.state.questions.length < 2) {
@@ -76863,6 +76919,12 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "makeNewBoxCycle",
+    value: function makeNewBoxCycle() {
+      this.makeNewBox();
+      setTimeout(this.makeNewBoxCycle.bind(this), this.state.enemyAppearInterval);
+    }
+  }, {
     key: "makeNewBox",
     value: function makeNewBox() {
       var movingBoxes = this.state.movingBoxes;
@@ -76873,15 +76935,33 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         case 'pureRandom':
           x = Math.floor(Math.random() * this.data.boxWidth);
           y = Math.floor(Math.random() * this.data.boxHeight);
-          hs = Math.floor(Math.random() * 10 - 5);
-          vs = Math.floor(Math.random() * 10 - 5);
+          hs = Math.floor(Math.random() * 14 - 7);
+          vs = Math.floor(Math.random() * 14 - 7);
           break;
 
         case "fromRight":
           x = this.data.boxWidth - this.state.movingBoxWidth;
-          y = Math.floor(Math.random() * this.data.boxHeight);
+          y = Math.floor(Math.random() * (this.state.fieldStyle.height - this.state.movingBoxHeight));
           hs = Math.floor(Math.random() * -5 - 9);
           vs = 0;
+          break;
+
+        case 'bouncy':
+          y = Math.floor(Math.random() * this.data.boxHeight);
+          vs = 0;
+          hs = Math.floor(Math.random() * 20 - 10);
+          var minSpeed = 7;
+
+          if (Math.abs(hs) < minSpeed) {
+            hs = minSpeed * Math.abs(hs);
+          }
+
+          if (hs > 0) {
+            x = 0;
+          } else {
+            x = this.data.boxWidth - this.state.movingBoxWidth;
+          }
+
       }
 
       var newBoxIndex = this.state.lastBoxIndex + 1;
@@ -77126,13 +77206,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       //         }
       //     }
       // );
-      this.setState(function (prevState) {
-        return {
-          playerX: prevState.playerX + _this2.state.horSpeed,
-          playerY: prevState.playerY + _this2.state.vertSpeed
-        };
-      });
-
       if (this.state.bouncyMode) {
         var vs = this.state.vertSpeed;
 
@@ -77144,8 +77217,11 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         // console.log('this.state.playerY',this.state.playerY); //todo r
 
 
-        if (this.state.playerY > this.data.boxHeight) {
-          vs = -110;
+        var vChange = this.state.vertSpeed;
+
+        if (this.state.playerY > this.state.fieldStyle.height - this.state.playerHeight - this.state.vertSpeed) {
+          vChange = this.state.fieldStyle.height - this.state.playerHeight - this.state.playerY;
+          vs = this.state.bouncyJumpSpeed;
           this.setState({
             fallAcceleration: 10,
             fallSpeedLimit: 50
@@ -77155,7 +77231,20 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         this.setState({
           vertSpeed: vs
         });
-      } else {}
+        this.setState(function (prevState) {
+          return {
+            playerX: prevState.playerX + _this2.state.horSpeed,
+            playerY: prevState.playerY + vChange
+          };
+        });
+      } else {
+        this.setState(function (prevState) {
+          return {
+            playerX: prevState.playerX + _this2.state.horSpeed,
+            playerY: prevState.playerY + _this2.state.vertSpeed
+          };
+        });
+      }
 
       gsap__WEBPACK_IMPORTED_MODULE_3__["TweenLite"].to(this.playerElement, this.data.animationFrequencyMs, {
         marginLeft: this.state.playerX,
@@ -77165,11 +77254,23 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
       var _loop = function _loop(boxKey) {
         var newMovingBoxes = _this2.state.movingBoxes;
-        var currentMovingBox = newMovingBoxes[boxKey]; // newMovingBoxes[boxKey].x += newMovingBoxes[boxKey].hs;
+        var currentMovingBox = newMovingBoxes[boxKey];
+        var vChange = currentMovingBox.vs;
+
+        if (_this2.state.boxAppearType === 'bouncy') {
+          currentMovingBox.vs += _this2.state.movingBoxesFallingAcceleration;
+
+          if (currentMovingBox.y > _this2.state.fieldStyle.height - _this2.state.movingBoxHeight - currentMovingBox.vs) {
+            vChange = _this2.state.fieldStyle.height - _this2.state.movingBoxHeight - currentMovingBox.y;
+            currentMovingBox.vs = _this2.state.bouncyJumpSpeedMovingBox;
+          }
+        }
+
+        newMovingBoxes[boxKey] = currentMovingBox; // newMovingBoxes[boxKey].x += newMovingBoxes[boxKey].hs;
 
         var newX = currentMovingBox.x + currentMovingBox.hs; // newMovingBoxes[boxKey].y += newMovingBoxes[boxKey].vs;
 
-        var newY = currentMovingBox.y + currentMovingBox.vs;
+        var newY = currentMovingBox.y + vChange;
         var wasCollision = false;
 
         if (_this2.state.playerX < newX + _this2.state.movingBoxWidth && _this2.state.playerX + _this2.state.playerWidth > newX && _this2.state.playerY < newY + _this2.state.movingBoxHeight && _this2.state.playerY + _this2.state.playerHeight > newY) {
@@ -77194,7 +77295,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
         }
 
-        if (wasCollision || newX < 0 || newX + 200 > window.innerWidth || newY < 0 || newY + 200 > window.innerHeight) {
+        if (wasCollision || newX < 0 || newX > _this2.state.fieldStyle.width - _this2.state.movingBoxWidth || newY < 0 || newY > _this2.state.fieldStyle.height - _this2.state.movingBoxHeight) {
           // newMovingBoxes.splice(boxKey, 1);
           // this.movingBoxesRefs.splice(boxKey, 1);
           delete newMovingBoxes[boxKey];
@@ -77244,6 +77345,9 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "question-name"
       }, this.state.currentQuestion.question_name), "Score: ", this.state.score), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "game-field-style",
+        style: this.state.fieldStyle
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "player-div",
         ref: function ref(div) {
           return _this3.playerElement = div;
@@ -77750,12 +77854,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
         component: _QuestionSets__WEBPACK_IMPORTED_MODULE_3__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
         component: _NotFound__WEBPACK_IMPORTED_MODULE_5__["default"]
-      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "bottom-grass" // style={this.state.bottomGrassStyle}
-
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "under-bottom"
-      }, "UNDER BOTTOM"));
+      })))));
     }
   }]);
 
