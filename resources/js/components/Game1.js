@@ -80,14 +80,21 @@ class Game1 extends React.Component {
             bouncyJumpSpeedMovingBox: -80,
             bouncyMode: true,
             bottomGrassStyle: {},
-            boxAppearType: 'bouncy',
-            boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy'],
+            boxAppearType: 'ghostWalls',
+            boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy', 'ghostWalls'],
+            additionalBoxAppearType: '',
+            boxIntervalByAppearType: {
+                fromRight: 1000,
+                pureRandom: 700,
+                bouncy: 1000,
+                ghostWalls: 3000
+            },
             fieldStyle: {
                 height: this.data.boxHeight,
                 width: this.data.boxWidth
             },
             enemyAppearInterval: 2000,
-            changeEnemyAppearStyleInterVal: 40000
+            changeEnemyAppearStyleInterVal: 60000
         }
 
 
@@ -105,64 +112,71 @@ class Game1 extends React.Component {
         this.playerElement = null;
 
 
+
         setInterval(this.gameIteration.bind(this), animationFrequency);
         // setInterval(this.testAnimation.bind(this), 4140);
 
-        let newBoxInterval = 1000;
-        switch (this.state.boxAppearType) {
-            case 'pureRandom':
-                newBoxInterval = 1000;
-                break;
-            case "fromRight":
-            default:
-                newBoxInterval = 1800;
-        }
+        this.state.enemyAppearInterval = this.state.boxIntervalByAppearType[this.state.boxAppearType];
 
         // this.setState({
         //     enemyAppearInterval: newBoxInterval
         // });
 
         setTimeout(this.makeNewBoxCycle.bind(this), this.state.enemyAppearInterval);
+
         setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
+
         setInterval(this.changeQuestion.bind(this), 20000);
         // setInterval(this.changeQuestion.bind(this), 2000);
     }
 
-    changeEnemyAppearStyle() {
+    changeEnemyAppearStyle(appearType = false) {
 
-        let randValue = Math.random();
+        if (!appearType) {
+            let randValue = Math.random();
 
-        console.log('====this.state.boxAppearTypes', this.state.boxAppearTypes); //todo r
-        console.log('this.state.boxAppearTypes.length',this.state.boxAppearTypes.length); //todo r
-        console.log('randValue',randValue); //todo r
+            let mult = randValue * this.state.boxAppearTypes.length;
+            let ceilMult = Math.floor(mult);
 
-        let mult = randValue * this.state.boxAppearTypes.length;
-        let ceilMult = Math.floor(mult);
-        console.log('mult',mult); //todo r
-        console.log('ceilMult',ceilMult); //todo r
+            let newIndex = ceilMult;
+            appearType = this.state.boxAppearTypes[newIndex];
+        }
 
-        let newIndex = ceilMult;
 
-        console.log('newIndex',newIndex); //todo r
-        console.log('this.state.boxAppearTypes[newIndex]',this.state.boxAppearTypes[newIndex]); //todo r
         this.setState({
-            boxAppearType: this.state.boxAppearTypes[newIndex]
+            boxAppearType: appearType
         });
 
         let newBoxInterval;
 
         switch (this.state.boxAppearType) {
             case 'pureRandom':
-                newBoxInterval = 1000;
+                newBoxInterval = 700;
                 break;
             case "fromRight":
             default:
-                newBoxInterval = 1800;
+                newBoxInterval = 1000;
         }
 
-        // this.setState({
-        //     enemyAppearInterval: newBoxInterval
-        // });
+        console.log('appearType',appearType); //todo r
+        if (appearType === 'ghostWalls') {
+            this.setState({
+                additionalBoxAppearType: 'ghostFloors'
+            });
+            this.makeNewAdditionalBoxCycle();
+            // setTimeout(this.makeNewAdditionalBoxCycle.bind(this), 1000);
+        } else {
+            this.setState({
+                additionalBoxAppearType: ''
+            })
+        }
+
+
+
+
+        this.setState({
+            enemyAppearInterval: this.state.boxIntervalByAppearType[this.state.boxAppearType]
+        });
 
         setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
     }
@@ -191,50 +205,166 @@ class Game1 extends React.Component {
     }
 
     makeNewBoxCycle() {
-        this.makeNewBox();
+        this.makeNewBox(this.state.boxAppearType);
         setTimeout(this.makeNewBoxCycle.bind(this), this.state.enemyAppearInterval);
     }
 
-    makeNewBox() {
+    makeNewAdditionalBoxCycle() {
+        console.log('this.state.additionalBoxAppearType',this.state.additionalBoxAppearType); //todo r
+        if (this.state.additionalBoxAppearType) {
+            this.makeNewBox(this.state.additionalBoxAppearType);
+            setTimeout(this.makeNewAdditionalBoxCycle.bind(this), 5000);
+        }
+    }
+
+    killMovingBox(id) {
+        let movingBoxes = this.state.movingBoxes;
+        delete movingBoxes[id]
+        this.setState({
+            movingBoxes
+        })
+        delete this.movingBoxesRefs[id]
+    }
+
+    changeGhostMode(key, newMode = false) {
+        console.log('key',key); //todo r
+
+        console.log('this.state.movingBoxes',this.state.movingBoxes); //todo r
+        if (typeof this.state.movingBoxes[key] !== "undefined") {
+            let movingBoxes = this.state.movingBoxes;
+            movingBoxes[key].ghostMode = newMode;
+            this.setState({
+                movingBoxes
+            });
+            if (newMode) {
+                TweenLite.to(this.movingBoxesRefs[key], 0, {opacity: 0.5});
+            } else {
+                TweenLite.to(this.movingBoxesRefs[key], 0, {opacity: 0.9});
+            }
+        }
+    }
+
+    swingGhostMode(key) {
+        if (typeof this.state.movingBoxes[key] !== "undefined") {
+            let movingBoxes = this.state.movingBoxes;
+            movingBoxes[key].ghostMode = !movingBoxes[key].ghostMode;
+            this.setState({
+                movingBoxes
+            });
+            let timeDelay = 1000;
+            if (movingBoxes[key].ghostMode) {
+                TweenLite.to(this.movingBoxesRefs[key], 0, {opacity: 0.5});
+            } else {
+                TweenLite.to(this.movingBoxesRefs[key], 0, {opacity: 0.9});
+                timeDelay+= Math.random() * 600;
+            }
+
+            setTimeout(function(key){
+                this.swingGhostMode(key);
+            }.bind(this), timeDelay, key);
+        }
+    }
+
+    makeNewBox(boxAppearType = 'pureRandom') {
         let movingBoxes = this.state.movingBoxes;
 
         let x, y, hs, vs;
         console.log('this.state.boxAppearType',this.state.boxAppearType); //todo r
-        switch (this.state.boxAppearType) {
+        let boxOpacity = 1;
+        let ghostMode = false;
+        let newBoxIndex = this.state.lastBoxIndex + 1;
+
+        let height = this.state.movingBoxHeight;
+        let width = this.state.movingBoxWidth;
+
+        switch (boxAppearType) {
             case 'pureRandom':
                 x = Math.floor(Math.random() * this.data.boxWidth);
                 y = Math.floor(Math.random() * this.data.boxHeight);
-                hs = Math.floor(Math.random() * 14 - 7);
-                vs = Math.floor(Math.random() * 14 - 7);
+                hs = Math.floor(Math.random() * 16 - 8);
+                vs = Math.floor(Math.random() * 16 - 8);
+                boxOpacity = 0.6;
+                ghostMode = true;
+                setTimeout(function(newBoxIndex){
+                    this.changeGhostMode(newBoxIndex, false);
+                }.bind(this), 1000, newBoxIndex);
                 break;
             case "fromRight":
                 x = this.data.boxWidth - this.state.movingBoxWidth;
                 y = Math.floor(Math.random() * (this.state.fieldStyle.height - this.state.movingBoxHeight));
-                hs = Math.floor(Math.random() * -5 - 9);
+                hs = Math.floor(Math.random() * -7 - 9);
                 vs = 0;
+                break;
+            case 'ghostWalls':
+                x = this.data.boxWidth - this.state.movingBoxWidth;
+                y = 0 ;
+                vs = 0;
+                hs = Math.floor(Math.random() * -7 - 9);
+
+                height = this.data.boxHeight;
+
+                boxOpacity = 0.6;
+                ghostMode = true;
+
+                setTimeout(function(newBoxIndex){
+                    this.swingGhostMode(newBoxIndex);
+                }.bind(this), Math.random() * 500, newBoxIndex);
+                break;
+
+            case 'ghostFloors':
+                x = 0;
+
+                hs = 0;
+                vs = 0;
+                width = this.data.boxWidth;
+                boxOpacity = 0.6;
+                ghostMode = true;
+                height = this.state.movingBoxHeight / 2;
+                y = this.data.boxHeight - height - 1;
+                // y = this.data.boxHeight - 100;
+
+
+                setTimeout(function(newBoxIndex){
+                    this.killMovingBox(newBoxIndex);
+                }.bind(this), 4500, newBoxIndex);
+
+                setTimeout(function(newBoxIndex){
+                    this.swingGhostMode(newBoxIndex);
+                }.bind(this), 2000, newBoxIndex);
+
                 break;
             case 'bouncy':
                 y = Math.floor(Math.random() * this.data.boxHeight);
                 vs = 0;
-                hs = Math.floor(Math.random() * 20 - 10);
+                hs = Math.floor(Math.random() * 18 - 9);
                 let minSpeed = 7;
                 if (Math.abs(hs) < minSpeed) {
                     hs = minSpeed * Math.abs(hs);
+                    if (hs === 0) {
+                        hs = 7;
+                    }
                 }
                 if (hs > 0) {
                     x = 0;
                 } else {
                     x = this.data.boxWidth - this.state.movingBoxWidth;
                 }
+                break;
+
         }
 
-        let newBoxIndex = this.state.lastBoxIndex + 1;
+
+
+
         this.movingBoxesRefs[newBoxIndex] = {
             x: x + 'px',
-            y: y + 'px'
+            y: y + 'px',
+            opacity: boxOpacity
         };
+
         console.log('newBoxIndex',newBoxIndex); //todo r
 
+        console.log('this.movingBoxesRefs[newBoxIndex]',this.movingBoxesRefs[newBoxIndex]); //todo r
         console.log('this.currentQuestion.options',this.state.currentQuestion.options); //todo r
         let optionKeys = Object.keys(this.state.currentQuestion.options);
 
@@ -245,6 +375,12 @@ class Game1 extends React.Component {
         let newText = this.state.currentQuestion.options[rKey].option_name;
             // this.state.currentQuestion.options[Math.floor(Math.random() * Object.keys(this.state.currentQuestion.options).length)].option_name;
 
+        let optionData = this.state.currentQuestion.options[rKey];
+        if (boxAppearType === 'ghostFloors') {
+            optionData = {
+                option_name: "DON'T TOUCH"
+            }
+        }
         console.log('newText',newText); //todo r
             movingBoxes[newBoxIndex] =
             {
@@ -252,7 +388,11 @@ class Game1 extends React.Component {
                 y: y,
                 hs: hs,
                 vs: vs,
-                optionData: this.state.currentQuestion.options[rKey]
+                opacity: boxOpacity,
+                ghostMode,
+                height,
+                width,
+                optionData
             };
 
 
@@ -262,8 +402,18 @@ class Game1 extends React.Component {
                 lastBoxIndex: newBoxIndex
             })
 
+        // TweenLite.to(this.movingBoxesRefs[boxKey],
+        //     this.data.animationFrequencyMs,
+        //     {
+        //         opacity: 0.5,
+
+        console.log('height',height); //todo r
         TweenLite.to(this.movingBoxesRefs[newBoxIndex], 0,
-            {marginLeft: x,marginTop: y, ease: "linear", display: 'flex'});
+            {marginLeft: x,marginTop: y, ease: "linear",
+                opacity: boxOpacity,
+                height,
+                width,
+                display: 'flex'});
     };
 
     testAnimation() {
@@ -271,6 +421,7 @@ class Game1 extends React.Component {
     }
 
     async componentDidMount() {
+
         document.addEventListener("keydown", this._handleKeyDown.bind(this));
         document.addEventListener("keyup", this._handleKeyUp.bind(this));
 
@@ -300,16 +451,23 @@ class Game1 extends React.Component {
                     return data.questionsByGroup;
                 });
 
+            console.log('qData',qData); //todo r
+            console.log('qData.length',qData.length); //todo r
+        let rKey = Math.floor(Math.random() * qData.length);
+
+        console.log('rKey',rKey); //todo r
             qData['clicked_options'] = [];
             this.setState({
                 questions: qData,
-                currentQuestion: qData[this.state.currentQuestionIndex]
+                currentQuestionIndex: rKey,
+                currentQuestion: qData[rKey]
             });
-
+        this.changeEnemyAppearStyle('ghostWalls');//changeEnemyAppearStyle
     }
 
     _handleKeyDown  (event) {
-        event.preventDefault();
+
+        let needPrevent = true;
         console.log('event.keyCode',event.keyCode); //todo r
         switch( event.keyCode ) {
             case 37: case 65:
@@ -379,12 +537,16 @@ class Game1 extends React.Component {
                 break;
 
             default:
+                needPrevent = false;
                 break;
+        }
+        if (needPrevent) {
+            event.preventDefault();
         }
     }
 
     _handleKeyUp  (event) {
-        event.preventDefault();
+        let needPrevent = true;
         switch( event.keyCode ) {
             case 74:
                 this.setState(prevState => {
@@ -439,7 +601,11 @@ class Game1 extends React.Component {
                 break;
 
             default:
+                needPrevent = false;
                 break;
+        }
+        if (needPrevent) {
+            event.preventDefault();
         }
     }
 
@@ -478,9 +644,23 @@ class Game1 extends React.Component {
                 vertSpeed: vs
             })
 
+            let hChange = this.state.horSpeed;
+            if (this.state.playerX + hChange< 0 && hChange < 0) {
+                hChange = -1 * this.state.playerX;
+            }
+
+            console.log('this.state.playerX',this.state.playerX); //todo r
+            console.log('this.state.playerWidth',this.state.playerWidth); //todo r
+            let playerRightPosition = this.state.playerX + this.state.playerWidth;
+            console.log('this.state.boxWidth',this.state.boxWidth); //todo r
+            console.log('hChange',hChange); //todo r
+            if (this.state.playerX + this.state.playerWidth + hChange> this.data.boxWidth && hChange > 0) {
+                hChange = this.data.boxWidth - this.state.playerX - this.state.playerWidth;
+            }
+
             this.setState(prevState => {
                 return {
-                    playerX: prevState.playerX + this.state.horSpeed,
+                    playerX: prevState.playerX + hChange,
                     playerY: prevState.playerY + vChange,
                 }
             })
@@ -525,9 +705,12 @@ class Game1 extends React.Component {
 
             let wasCollision = false;
 
-            if (this.state.playerX < newX + this.state.movingBoxWidth &&
+            //ghostMode
+
+            if (!this.state.movingBoxes[boxKey].ghostMode &&
+                this.state.playerX < newX + currentMovingBox.width &&
                 this.state.playerX + this.state.playerWidth > newX &&
-                this.state.playerY < newY + this.state.movingBoxHeight &&
+                this.state.playerY < newY + currentMovingBox.height &&
                 this.state.playerY + this.state.playerHeight > newY) {
                 console.log('collison!')
                 delete newMovingBoxes[boxKey]
@@ -549,8 +732,8 @@ class Game1 extends React.Component {
                 // collision detected!
             }
 
-            if (wasCollision || newX < 0 || newX > this.state.fieldStyle.width - this.state.movingBoxWidth ||
-                newY < 0 || newY > this.state.fieldStyle.height - this.state.movingBoxHeight
+            if (wasCollision || newX < 0 || newX > this.state.fieldStyle.width - currentMovingBox.width ||
+                newY < 0 || newY > this.state.fieldStyle.height - currentMovingBox.height
             ) {
                 // newMovingBoxes.splice(boxKey, 1);
                 // this.movingBoxesRefs.splice(boxKey, 1);
@@ -560,6 +743,7 @@ class Game1 extends React.Component {
                 TweenLite.to(this.movingBoxesRefs[boxKey],
                     this.data.animationFrequencyMs,
                     {
+                        // opacity: 0.5,
                         // display: 'block',
                         marginLeft: newX,marginTop: newY, ease: "linear"});
 
@@ -573,8 +757,6 @@ class Game1 extends React.Component {
                     movingBoxes: newMovingBoxes
                 }
             })
-
-
         }
 
         // console.log('hello  I am game iteration')
@@ -626,7 +808,7 @@ class Game1 extends React.Component {
                 >
                 {optionData.optionData.option_name}
                 </div>
-            ))}
+                ))}
 
 
         </div>)
