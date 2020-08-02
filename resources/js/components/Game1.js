@@ -24,8 +24,6 @@ class Game1 extends React.Component {
 
         const groupIdFromRoute = this.props.match.params.id;
 
-        console.log('groupIdFromRoute',groupIdFromRoute); //todo r
-        console.log('TweenMax',TweenMax); //todo r
         this.changeHandler = this.changeHandler.bind(this)
 
 
@@ -60,8 +58,8 @@ class Game1 extends React.Component {
             },
             playerX: 100,
             playerY: 666,
-            playerWidth: 50,
-            playerHeight: 50,
+            playerWidth: 40,
+            playerHeight: 40,
             movingBoxWidth: 100,
             movingBoxHeight: 100,
             vertSpeed: 0,
@@ -79,15 +77,25 @@ class Game1 extends React.Component {
             bouncyJumpSpeed: -110,
             bouncyJumpSpeedMovingBox: -80,
             bouncyMode: true,
+            paused: false,
             bottomGrassStyle: {},
-            boxAppearType: 'ghostWalls',
-            boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy', 'ghostWalls'],
+            boxAppearType: 'fromRight',
+            boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy',
+                // 'ghostWalls',
+                'shootFromPoint',
+                'wallWithHoles'
+            ],
+            showAnswersOfFirstQuestions: true,
+            alreadyShowedAnswers: {},
+            showAnswersBeforeStop: 9999,
             additionalBoxAppearType: '',
             boxIntervalByAppearType: {
-                fromRight: 1000,
+                fromRight: 700,
                 pureRandom: 700,
-                bouncy: 1000,
-                ghostWalls: 3000
+                bouncy: 1400,
+                shootFromPoint: 888,
+                ghostWalls: 3000,
+                wallWithHoles: 2000
             },
             fieldStyle: {
                 height: this.data.boxHeight,
@@ -113,18 +121,23 @@ class Game1 extends React.Component {
 
 
 
-        setInterval(this.gameIteration.bind(this), animationFrequency);
+        this.state.iterationInterval = setInterval(this.gameIteration.bind(this), this.data.animationFrequency);
         // setInterval(this.testAnimation.bind(this), 4140);
 
-        this.state.enemyAppearInterval = this.state.boxIntervalByAppearType[this.state.boxAppearType];
+        if (typeof this.state.boxIntervalByAppearType[this.state.boxAppearType] !== 'undefined') {
+            this.state.enemyAppearInterval = this.state.boxIntervalByAppearType[this.state.boxAppearType];
+        } else {
+            this.state.enemyAppearInterval = 1000;
+        }
+
 
         // this.setState({
         //     enemyAppearInterval: newBoxInterval
         // });
 
-        setTimeout(this.makeNewBoxCycle.bind(this), this.state.enemyAppearInterval);
+        setTimeout(this.makeNewBoxCycle.bind(this), this.state.enemyAppearInterval * 2);
 
-        setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
+        // setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
 
         setInterval(this.changeQuestion.bind(this), 20000);
         // setInterval(this.changeQuestion.bind(this), 2000);
@@ -158,7 +171,6 @@ class Game1 extends React.Component {
                 newBoxInterval = 1000;
         }
 
-        console.log('appearType',appearType); //todo r
         if (appearType === 'ghostWalls') {
             this.setState({
                 additionalBoxAppearType: 'ghostFloors'
@@ -210,7 +222,6 @@ class Game1 extends React.Component {
     }
 
     makeNewAdditionalBoxCycle() {
-        console.log('this.state.additionalBoxAppearType',this.state.additionalBoxAppearType); //todo r
         if (this.state.additionalBoxAppearType) {
             this.makeNewBox(this.state.additionalBoxAppearType);
             setTimeout(this.makeNewAdditionalBoxCycle.bind(this), 5000);
@@ -227,9 +238,7 @@ class Game1 extends React.Component {
     }
 
     changeGhostMode(key, newMode = false) {
-        console.log('key',key); //todo r
 
-        console.log('this.state.movingBoxes',this.state.movingBoxes); //todo r
         if (typeof this.state.movingBoxes[key] !== "undefined") {
             let movingBoxes = this.state.movingBoxes;
             movingBoxes[key].ghostMode = newMode;
@@ -237,7 +246,7 @@ class Game1 extends React.Component {
                 movingBoxes
             });
             if (newMode) {
-                TweenLite.to(this.movingBoxesRefs[key], 0, {opacity: 0.5});
+                TweenLite.to(this.movingBoxesRefs[key], 0, {opacity: 0.4});
             } else {
                 TweenLite.to(this.movingBoxesRefs[key], 0, {opacity: 0.9});
             }
@@ -265,11 +274,10 @@ class Game1 extends React.Component {
         }
     }
 
-    makeNewBox(boxAppearType = 'pureRandom') {
+    makeNewBox(boxAppearType = 'pureRandom', params = {}) {
         let movingBoxes = this.state.movingBoxes;
 
         let x, y, hs, vs;
-        console.log('this.state.boxAppearType',this.state.boxAppearType); //todo r
         let boxOpacity = 1;
         let ghostMode = false;
         let newBoxIndex = this.state.lastBoxIndex + 1;
@@ -277,10 +285,66 @@ class Game1 extends React.Component {
         let height = this.state.movingBoxHeight;
         let width = this.state.movingBoxWidth;
 
+        let newBoxParams = false;
+
+        let rKey;
+        if (typeof params.rKey !== 'undefined') {
+            rKey = params.rKey;
+        } else {
+            let optionKeys = Object.keys(this.state.currentQuestion.options);
+            rKey = optionKeys[Math.floor(Math.random() * optionKeys.length)];
+        }
+
+
+        let currentQuestionIndex = this.state.currentQuestionIndex;
+        let optionData = this.state.currentQuestion.options[rKey];
+        let styleForGoodOrBadAnswer = {};
+        let alreadyShowedAnswers = this.state.alreadyShowedAnswers;
+        let borderStyle = 'solid', borderWidth = 0, borderColor = 'rgba(0,0,0,0.2)';
+        /*
+                        borderWidth: borderWidth,
+                borderColor: borderColor,
+                borderStyle: borderStyle,
+         */
+
+        if (this.state.showAnswersOfFirstQuestions) {
+            if (typeof this.state.alreadyShowedAnswers[currentQuestionIndex] === 'undefined') {
+                this.state.alreadyShowedAnswers[currentQuestionIndex] = 1;
+            } else {
+
+                //optionData.good_answer
+            }
+
+            if (this.state.alreadyShowedAnswers[currentQuestionIndex] <= this.state.showAnswersBeforeStop) {
+                borderWidth = 4;
+                console.log('optionData',optionData); //todo r
+                if (optionData.good_answer) {
+                    if (typeof params['notCountingGoodAnswerShow'] === 'undefined' || !params['notCountingGoodAnswerShow']) {
+                        alreadyShowedAnswers[currentQuestionIndex]++;
+                    }
+                    borderStyle = 'solid';
+                } else {
+                    borderStyle = 'dashed';
+                }
+            } else {
+                borderWidth = 0;
+            }
+        }
+        console.log('borderWidth',borderWidth); //todo r
+
         switch (boxAppearType) {
+            case 'shootFromPoint':
+                x = (this.data.boxWidth - width) / 2;
+                y = (this.data.boxHeight - height) / 1.5;
+                let speed = 13;
+                let ang = Math.PI * 3/4 + Math.random() * Math.PI * 6/4;
+
+                hs = Math.floor(speed * Math.cos(ang));
+                vs = Math.floor(speed * Math.sin(ang));
+                break;
             case 'pureRandom':
-                x = Math.floor(Math.random() * this.data.boxWidth);
-                y = Math.floor(Math.random() * this.data.boxHeight);
+                x = Math.floor(Math.random() * (this.data.boxWidth - width - 5));
+                y = Math.floor(Math.random() * (this.data.boxHeight - height - 5));
                 hs = Math.floor(Math.random() * 16 - 8);
                 vs = Math.floor(Math.random() * 16 - 8);
                 boxOpacity = 0.6;
@@ -292,8 +356,63 @@ class Game1 extends React.Component {
             case "fromRight":
                 x = this.data.boxWidth - this.state.movingBoxWidth;
                 y = Math.floor(Math.random() * (this.state.fieldStyle.height - this.state.movingBoxHeight));
-                hs = Math.floor(Math.random() * -7 - 9);
+                hs = Math.floor(Math.random() * -14 - 9);
                 vs = 0;
+                break;
+
+            case 'wallWithHoles':
+                let holeHeight = 300;
+                let holeY = Math.random() * (this.state.fieldStyle.height - holeHeight);
+
+
+                let top = Math.random() > 0.5;
+                let hCoef = top? 0: 0.5;
+                x = this.data.boxWidth - this.state.movingBoxWidth;
+                y = 0;
+                vs = 0;
+                // hs = Math.floor(Math.random() * -7 - 9);
+                hs = -16;
+
+                height = holeY;
+
+                let bottomHeight = this.state.fieldStyle.height - holeY - holeHeight - 5;
+                // let bottomHeight = 100;
+                if (bottomHeight > 0) {
+                    newBoxParams = {
+                        x: x,
+                        y: holeY + holeHeight,
+                        width: width,
+                        height: bottomHeight,
+
+                        hs: hs,
+                        vs: vs,
+                        rKey,
+                        notCountingGoodAnswerShow: true
+                    };
+
+                    // this.makeNewBox('byParams',
+                    //     {
+                    //         x: x,
+                    //         y: holeY + holeHeight,
+                    //         width: width,
+                    //         height: bottomHeight,
+                    //
+                    //         hs: hs,
+                    //         vs: vs
+                    //     }
+                    //     );
+                }
+                // return true;
+                break;
+            case 'byParams':
+
+                x = params.x;
+                y = params.y;
+                width = params.width;
+                height = params.height;
+                hs = params.hs;
+                vs = params.vs;
+                rKey = params.rKey;
                 break;
             case 'ghostWalls':
                 x = this.data.boxWidth - this.state.movingBoxWidth;
@@ -362,26 +481,17 @@ class Game1 extends React.Component {
             opacity: boxOpacity
         };
 
-        console.log('newBoxIndex',newBoxIndex); //todo r
 
-        console.log('this.movingBoxesRefs[newBoxIndex]',this.movingBoxesRefs[newBoxIndex]); //todo r
-        console.log('this.currentQuestion.options',this.state.currentQuestion.options); //todo r
-        let optionKeys = Object.keys(this.state.currentQuestion.options);
-
-        let rKey = optionKeys[Math.floor(Math.random() * optionKeys.length)];
-
-        console.log('rKey',rKey); //todo r
 
         let newText = this.state.currentQuestion.options[rKey].option_name;
             // this.state.currentQuestion.options[Math.floor(Math.random() * Object.keys(this.state.currentQuestion.options).length)].option_name;
 
-        let optionData = this.state.currentQuestion.options[rKey];
+
         if (boxAppearType === 'ghostFloors') {
             optionData = {
                 option_name: "DON'T TOUCH"
             }
         }
-        console.log('newText',newText); //todo r
             movingBoxes[newBoxIndex] =
             {
                 x: x,
@@ -399,7 +509,8 @@ class Game1 extends React.Component {
 
             this.setState({
                 movingBoxes: movingBoxes,
-                lastBoxIndex: newBoxIndex
+                lastBoxIndex: newBoxIndex,
+                alreadyShowedAnswers
             })
 
         // TweenLite.to(this.movingBoxesRefs[boxKey],
@@ -407,13 +518,21 @@ class Game1 extends React.Component {
         //     {
         //         opacity: 0.5,
 
-        console.log('height',height); //todo r
         TweenLite.to(this.movingBoxesRefs[newBoxIndex], 0,
             {marginLeft: x,marginTop: y, ease: "linear",
                 opacity: boxOpacity,
                 height,
                 width,
+                borderWidth: borderWidth,
+                borderColor: borderColor,
+                borderStyle: borderStyle,
                 display: 'flex'});
+
+        if (newBoxParams) {
+            this.makeNewBox('byParams',
+                newBoxParams
+            );
+        }
     };
 
     testAnimation() {
@@ -427,7 +546,6 @@ class Game1 extends React.Component {
 
         // let { groupId } = useParams();
 
-        // console.log('groupId',groupId); //todo r
 
         const groupIdFromRoute = this.props.match.params.id;
 
@@ -451,24 +569,20 @@ class Game1 extends React.Component {
                     return data.questionsByGroup;
                 });
 
-            console.log('qData',qData); //todo r
-            console.log('qData.length',qData.length); //todo r
         let rKey = Math.floor(Math.random() * qData.length);
 
-        console.log('rKey',rKey); //todo r
             qData['clicked_options'] = [];
             this.setState({
                 questions: qData,
                 currentQuestionIndex: rKey,
                 currentQuestion: qData[rKey]
             });
-        this.changeEnemyAppearStyle('ghostWalls');//changeEnemyAppearStyle
+        this.changeEnemyAppearStyle('fromRight');//changeEnemyAppearStyle
     }
 
     _handleKeyDown  (event) {
 
         let needPrevent = true;
-        console.log('event.keyCode',event.keyCode); //todo r
         switch( event.keyCode ) {
             case 37: case 65:
                 let newSpeed = -1 * this.data.speed
@@ -599,6 +713,38 @@ class Game1 extends React.Component {
                     }
                 }
                 break;
+            case 80:
+
+                if (this.state.paused) {
+                    this.setState(
+                        {
+                            paused: false
+                        }
+                    );
+
+
+                    this.setState(
+                        {
+                            iterationInterval: setInterval(this.gameIteration.bind(this), this.data.animationFrequency)
+                        }
+                    );
+                    // this.state.iterationInterval = setInterval(this.gameIteration.bind(this), this.data.animationFrequency);
+                } else {
+                    this.setState(
+                        {
+                            paused: true
+                        }
+                    );
+                    clearInterval(this.state.iterationInterval);
+                }
+                //this.state.iterationInterval = setInterval(this.gameIteration.bind(this), this.data.animationFrequency);
+                // this.setState(
+                //     {
+                //         paused: !this.state.paused
+                //     }
+                // );
+                break;
+
 
             default:
                 needPrevent = false;
@@ -610,7 +756,6 @@ class Game1 extends React.Component {
     }
 
     gameIteration() {
-        // console.log('this.playerData', this.playerData); //todo r
         // this.playerData.marginLeft += 10;
         // this.setState({
         //         playerData: {
@@ -629,7 +774,6 @@ class Game1 extends React.Component {
                 vs = this.state.fallSpeedLimit;
             }
             //
-            // console.log('this.state.playerY',this.state.playerY); //todo r
 
             let vChange = this.state.vertSpeed;
             if (this.state.playerY > this.state.fieldStyle.height - this.state.playerHeight - this.state.vertSpeed) {
@@ -649,11 +793,7 @@ class Game1 extends React.Component {
                 hChange = -1 * this.state.playerX;
             }
 
-            console.log('this.state.playerX',this.state.playerX); //todo r
-            console.log('this.state.playerWidth',this.state.playerWidth); //todo r
             let playerRightPosition = this.state.playerX + this.state.playerWidth;
-            console.log('this.state.boxWidth',this.state.boxWidth); //todo r
-            console.log('hChange',hChange); //todo r
             if (this.state.playerX + this.state.playerWidth + hChange> this.data.boxWidth && hChange > 0) {
                 hChange = this.data.boxWidth - this.state.playerX - this.state.playerWidth;
             }
@@ -759,6 +899,7 @@ class Game1 extends React.Component {
             })
         }
 
+        //paused
         // console.log('hello  I am game iteration')
         // setTimeout(this.gameIteration();}, 1000);
     }

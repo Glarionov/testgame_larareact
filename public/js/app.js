@@ -6428,7 +6428,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "html {\n  background: linear-gradient(45deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  background: #dbf2ff;\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px;\n  min-height: 100%; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 50px;\n  height: 50px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: #98e2ff; }\n\n.question-set-editor {\n  background: #b2dfff;\n  margin-left: 40px;\n  padding: 5px; }\n\n.one-question-in-set {\n  margin-top: 20px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.game-field-style {\n  background: #c4c9da;\n  position: absolute; }\n", ""]);
+exports.push([module.i, "html {\n  background: linear-gradient(90deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  background: #dbf2ff;\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px;\n  min-height: 100%; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 40px;\n  height: 40px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: #98e2ff; }\n\n.question-set-editor {\n  background: #b2dfff;\n  margin-left: 40px;\n  padding: 5px; }\n\n.one-question-in-set {\n  margin-top: 20px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.game-field-style {\n  background: #ffb16e;\n  position: absolute; }\n", ""]);
 
 // exports
 
@@ -76767,10 +76767,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props); // let { groupIdFromRoute } = useParams();
 
     var groupIdFromRoute = _this.props.match.params.id;
-    console.log('groupIdFromRoute', groupIdFromRoute); //todo r
-
-    console.log('TweenMax', gsap__WEBPACK_IMPORTED_MODULE_3__["TweenMax"]); //todo r
-
     _this.changeHandler = _this.changeHandler.bind(_assertThisInitialized(_this));
     var movingBoxes = {};
     var framesPerSecond = 20;
@@ -76793,8 +76789,8 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       },
       playerX: 100,
       playerY: 666,
-      playerWidth: 50,
-      playerHeight: 50,
+      playerWidth: 40,
+      playerHeight: 40,
       movingBoxWidth: 100,
       movingBoxHeight: 100,
       vertSpeed: 0,
@@ -76812,15 +76808,22 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       bouncyJumpSpeed: -110,
       bouncyJumpSpeedMovingBox: -80,
       bouncyMode: true,
+      paused: false,
       bottomGrassStyle: {},
-      boxAppearType: 'ghostWalls',
-      boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy', 'ghostWalls'],
+      boxAppearType: 'fromRight',
+      boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy', // 'ghostWalls',
+      'shootFromPoint', 'wallWithHoles'],
+      showAnswersOfFirstQuestions: true,
+      alreadyShowedAnswers: {},
+      showAnswersBeforeStop: 9999,
       additionalBoxAppearType: '',
       boxIntervalByAppearType: {
-        fromRight: 1000,
+        fromRight: 700,
         pureRandom: 700,
-        bouncy: 1000,
-        ghostWalls: 3000
+        bouncy: 1400,
+        shootFromPoint: 888,
+        ghostWalls: 3000,
+        wallWithHoles: 2000
       },
       fieldStyle: {
         height: _this.data.boxHeight,
@@ -76840,14 +76843,19 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
     _this.myTween = null;
     _this.playerElement = null;
-    setInterval(_this.gameIteration.bind(_assertThisInitialized(_this)), animationFrequency); // setInterval(this.testAnimation.bind(this), 4140);
+    _this.state.iterationInterval = setInterval(_this.gameIteration.bind(_assertThisInitialized(_this)), _this.data.animationFrequency); // setInterval(this.testAnimation.bind(this), 4140);
 
-    _this.state.enemyAppearInterval = _this.state.boxIntervalByAppearType[_this.state.boxAppearType]; // this.setState({
+    if (typeof _this.state.boxIntervalByAppearType[_this.state.boxAppearType] !== 'undefined') {
+      _this.state.enemyAppearInterval = _this.state.boxIntervalByAppearType[_this.state.boxAppearType];
+    } else {
+      _this.state.enemyAppearInterval = 1000;
+    } // this.setState({
     //     enemyAppearInterval: newBoxInterval
     // });
 
-    setTimeout(_this.makeNewBoxCycle.bind(_assertThisInitialized(_this)), _this.state.enemyAppearInterval);
-    setTimeout(_this.changeEnemyAppearStyle.bind(_assertThisInitialized(_this)), _this.state.changeEnemyAppearStyleInterVal);
+
+    setTimeout(_this.makeNewBoxCycle.bind(_assertThisInitialized(_this)), _this.state.enemyAppearInterval * 2); // setTimeout(this.changeEnemyAppearStyle.bind(this), this.state.changeEnemyAppearStyleInterVal);
+
     setInterval(_this.changeQuestion.bind(_assertThisInitialized(_this)), 20000); // setInterval(this.changeQuestion.bind(this), 2000);
 
     return _this;
@@ -76880,8 +76888,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         default:
           newBoxInterval = 1000;
       }
-
-      console.log('appearType', appearType); //todo r
 
       if (appearType === 'ghostWalls') {
         this.setState({
@@ -76928,8 +76934,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "makeNewAdditionalBoxCycle",
     value: function makeNewAdditionalBoxCycle() {
-      console.log('this.state.additionalBoxAppearType', this.state.additionalBoxAppearType); //todo r
-
       if (this.state.additionalBoxAppearType) {
         this.makeNewBox(this.state.additionalBoxAppearType);
         setTimeout(this.makeNewAdditionalBoxCycle.bind(this), 5000);
@@ -76949,9 +76953,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
     key: "changeGhostMode",
     value: function changeGhostMode(key) {
       var newMode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      console.log('key', key); //todo r
-
-      console.log('this.state.movingBoxes', this.state.movingBoxes); //todo r
 
       if (typeof this.state.movingBoxes[key] !== "undefined") {
         var _movingBoxes = this.state.movingBoxes;
@@ -76962,7 +76963,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
         if (newMode) {
           gsap__WEBPACK_IMPORTED_MODULE_3__["TweenLite"].to(this.movingBoxesRefs[key], 0, {
-            opacity: 0.5
+            opacity: 0.4
           });
         } else {
           gsap__WEBPACK_IMPORTED_MODULE_3__["TweenLite"].to(this.movingBoxesRefs[key], 0, {
@@ -77002,20 +77003,76 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
     key: "makeNewBox",
     value: function makeNewBox() {
       var boxAppearType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'pureRandom';
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var movingBoxes = this.state.movingBoxes;
       var x, y, hs, vs;
-      console.log('this.state.boxAppearType', this.state.boxAppearType); //todo r
-
       var boxOpacity = 1;
       var ghostMode = false;
       var newBoxIndex = this.state.lastBoxIndex + 1;
       var height = this.state.movingBoxHeight;
       var width = this.state.movingBoxWidth;
+      var newBoxParams = false;
+      var rKey;
+
+      if (typeof params.rKey !== 'undefined') {
+        rKey = params.rKey;
+      } else {
+        var optionKeys = Object.keys(this.state.currentQuestion.options);
+        rKey = optionKeys[Math.floor(Math.random() * optionKeys.length)];
+      }
+
+      var currentQuestionIndex = this.state.currentQuestionIndex;
+      var optionData = this.state.currentQuestion.options[rKey];
+      var styleForGoodOrBadAnswer = {};
+      var alreadyShowedAnswers = this.state.alreadyShowedAnswers;
+      var borderStyle = 'solid',
+          borderWidth = 0,
+          borderColor = 'rgba(0,0,0,0.2)';
+      /*
+                      borderWidth: borderWidth,
+              borderColor: borderColor,
+              borderStyle: borderStyle,
+       */
+
+      if (this.state.showAnswersOfFirstQuestions) {
+        if (typeof this.state.alreadyShowedAnswers[currentQuestionIndex] === 'undefined') {
+          this.state.alreadyShowedAnswers[currentQuestionIndex] = 1;
+        } else {//optionData.good_answer
+        }
+
+        if (this.state.alreadyShowedAnswers[currentQuestionIndex] <= this.state.showAnswersBeforeStop) {
+          borderWidth = 4;
+          console.log('optionData', optionData); //todo r
+
+          if (optionData.good_answer) {
+            if (typeof params['notCountingGoodAnswerShow'] === 'undefined' || !params['notCountingGoodAnswerShow']) {
+              alreadyShowedAnswers[currentQuestionIndex]++;
+            }
+
+            borderStyle = 'solid';
+          } else {
+            borderStyle = 'dashed';
+          }
+        } else {
+          borderWidth = 0;
+        }
+      }
+
+      console.log('borderWidth', borderWidth); //todo r
 
       switch (boxAppearType) {
+        case 'shootFromPoint':
+          x = (this.data.boxWidth - width) / 2;
+          y = (this.data.boxHeight - height) / 1.5;
+          var speed = 13;
+          var ang = Math.PI * 3 / 4 + Math.random() * Math.PI * 6 / 4;
+          hs = Math.floor(speed * Math.cos(ang));
+          vs = Math.floor(speed * Math.sin(ang));
+          break;
+
         case 'pureRandom':
-          x = Math.floor(Math.random() * this.data.boxWidth);
-          y = Math.floor(Math.random() * this.data.boxHeight);
+          x = Math.floor(Math.random() * (this.data.boxWidth - width - 5));
+          y = Math.floor(Math.random() * (this.data.boxHeight - height - 5));
           hs = Math.floor(Math.random() * 16 - 8);
           vs = Math.floor(Math.random() * 16 - 8);
           boxOpacity = 0.6;
@@ -77028,8 +77085,57 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         case "fromRight":
           x = this.data.boxWidth - this.state.movingBoxWidth;
           y = Math.floor(Math.random() * (this.state.fieldStyle.height - this.state.movingBoxHeight));
-          hs = Math.floor(Math.random() * -7 - 9);
+          hs = Math.floor(Math.random() * -14 - 9);
           vs = 0;
+          break;
+
+        case 'wallWithHoles':
+          var holeHeight = 300;
+          var holeY = Math.random() * (this.state.fieldStyle.height - holeHeight);
+          var top = Math.random() > 0.5;
+          var hCoef = top ? 0 : 0.5;
+          x = this.data.boxWidth - this.state.movingBoxWidth;
+          y = 0;
+          vs = 0; // hs = Math.floor(Math.random() * -7 - 9);
+
+          hs = -16;
+          height = holeY;
+          var bottomHeight = this.state.fieldStyle.height - holeY - holeHeight - 5; // let bottomHeight = 100;
+
+          if (bottomHeight > 0) {
+            newBoxParams = {
+              x: x,
+              y: holeY + holeHeight,
+              width: width,
+              height: bottomHeight,
+              hs: hs,
+              vs: vs,
+              rKey: rKey,
+              notCountingGoodAnswerShow: true
+            }; // this.makeNewBox('byParams',
+            //     {
+            //         x: x,
+            //         y: holeY + holeHeight,
+            //         width: width,
+            //         height: bottomHeight,
+            //
+            //         hs: hs,
+            //         vs: vs
+            //     }
+            //     );
+          } // return true;
+
+
+          break;
+
+        case 'byParams':
+          x = params.x;
+          y = params.y;
+          width = params.width;
+          height = params.height;
+          hs = params.hs;
+          vs = params.vs;
+          rKey = params.rKey;
           break;
 
         case 'ghostWalls':
@@ -77091,27 +77197,13 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         y: y + 'px',
         opacity: boxOpacity
       };
-      console.log('newBoxIndex', newBoxIndex); //todo r
-
-      console.log('this.movingBoxesRefs[newBoxIndex]', this.movingBoxesRefs[newBoxIndex]); //todo r
-
-      console.log('this.currentQuestion.options', this.state.currentQuestion.options); //todo r
-
-      var optionKeys = Object.keys(this.state.currentQuestion.options);
-      var rKey = optionKeys[Math.floor(Math.random() * optionKeys.length)];
-      console.log('rKey', rKey); //todo r
-
       var newText = this.state.currentQuestion.options[rKey].option_name; // this.state.currentQuestion.options[Math.floor(Math.random() * Object.keys(this.state.currentQuestion.options).length)].option_name;
-
-      var optionData = this.state.currentQuestion.options[rKey];
 
       if (boxAppearType === 'ghostFloors') {
         optionData = {
           option_name: "DON'T TOUCH"
         };
       }
-
-      console.log('newText', newText); //todo r
 
       movingBoxes[newBoxIndex] = {
         x: x,
@@ -77126,13 +77218,12 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       };
       this.setState({
         movingBoxes: movingBoxes,
-        lastBoxIndex: newBoxIndex
+        lastBoxIndex: newBoxIndex,
+        alreadyShowedAnswers: alreadyShowedAnswers
       }); // TweenLite.to(this.movingBoxesRefs[boxKey],
       //     this.data.animationFrequencyMs,
       //     {
       //         opacity: 0.5,
-
-      console.log('height', height); //todo r
 
       gsap__WEBPACK_IMPORTED_MODULE_3__["TweenLite"].to(this.movingBoxesRefs[newBoxIndex], 0, {
         marginLeft: x,
@@ -77141,8 +77232,15 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         opacity: boxOpacity,
         height: height,
         width: width,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
+        borderStyle: borderStyle,
         display: 'flex'
       });
+
+      if (newBoxParams) {
+        this.makeNewBox('byParams', newBoxParams);
+      }
     }
   }, {
     key: "testAnimation",
@@ -77159,7 +77257,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
               case 0:
                 document.addEventListener("keydown", this._handleKeyDown.bind(this));
                 document.addEventListener("keyup", this._handleKeyUp.bind(this)); // let { groupId } = useParams();
-                // console.log('groupId',groupId); //todo r
 
                 groupIdFromRoute = this.props.match.params.id;
                 groupId = groupIdFromRoute;
@@ -77184,22 +77281,16 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
               case 8:
                 qData = _context.sent;
-                console.log('qData', qData); //todo r
-
-                console.log('qData.length', qData.length); //todo r
-
                 rKey = Math.floor(Math.random() * qData.length);
-                console.log('rKey', rKey); //todo r
-
                 qData['clicked_options'] = [];
                 this.setState({
                   questions: qData,
                   currentQuestionIndex: rKey,
                   currentQuestion: qData[rKey]
                 });
-                this.changeEnemyAppearStyle('ghostWalls'); //changeEnemyAppearStyle
+                this.changeEnemyAppearStyle('fromRight'); //changeEnemyAppearStyle
 
-              case 16:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -77217,7 +77308,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
     key: "_handleKeyDown",
     value: function _handleKeyDown(event) {
       var needPrevent = true;
-      console.log('event.keyCode', event.keyCode); //todo r
 
       switch (event.keyCode) {
         case 37:
@@ -77348,6 +77438,29 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
           break;
 
+        case 80:
+          if (this.state.paused) {
+            this.setState({
+              paused: false
+            });
+            this.setState({
+              iterationInterval: setInterval(this.gameIteration.bind(this), this.data.animationFrequency)
+            }); // this.state.iterationInterval = setInterval(this.gameIteration.bind(this), this.data.animationFrequency);
+          } else {
+            this.setState({
+              paused: true
+            });
+            clearInterval(this.state.iterationInterval);
+          } //this.state.iterationInterval = setInterval(this.gameIteration.bind(this), this.data.animationFrequency);
+          // this.setState(
+          //     {
+          //         paused: !this.state.paused
+          //     }
+          // );
+
+
+          break;
+
         default:
           needPrevent = false;
           break;
@@ -77362,7 +77475,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
     value: function gameIteration() {
       var _this2 = this;
 
-      // console.log('this.playerData', this.playerData); //todo r
       // this.playerData.marginLeft += 10;
       // this.setState({
       //         playerData: {
@@ -77378,7 +77490,6 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         } else {
           vs = this.state.fallSpeedLimit;
         } //
-        // console.log('this.state.playerY',this.state.playerY); //todo r
 
 
         var vChange = this.state.vertSpeed;
@@ -77401,14 +77512,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
           hChange = -1 * this.state.playerX;
         }
 
-        console.log('this.state.playerX', this.state.playerX); //todo r
-
-        console.log('this.state.playerWidth', this.state.playerWidth); //todo r
-
         var playerRightPosition = this.state.playerX + this.state.playerWidth;
-        console.log('this.state.boxWidth', this.state.boxWidth); //todo r
-
-        console.log('hChange', hChange); //todo r
 
         if (this.state.playerX + this.state.playerWidth + hChange > this.data.boxWidth && hChange > 0) {
           hChange = this.data.boxWidth - this.state.playerX - this.state.playerWidth;
@@ -77504,7 +77608,8 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
       for (var boxKey in this.state.movingBoxes) {
         _loop(boxKey);
-      } // console.log('hello  I am game iteration')
+      } //paused
+      // console.log('hello  I am game iteration')
       // setTimeout(this.gameIteration();}, 1000);
 
     }
