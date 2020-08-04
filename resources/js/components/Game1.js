@@ -361,7 +361,9 @@ class Game1 extends React.Component {
                 break;
 
             case 'wallWithHoles':
+                width /= 2;
                 let holeHeight = 300;
+
                 let holeY = Math.random() * (this.state.fieldStyle.height - holeHeight);
 
 
@@ -577,7 +579,7 @@ class Game1 extends React.Component {
                 currentQuestionIndex: rKey,
                 currentQuestion: qData[rKey]
             });
-        this.changeEnemyAppearStyle('fromRight');//changeEnemyAppearStyle
+        this.changeEnemyAppearStyle('wallWithHoles');//changeEnemyAppearStyle
     }
 
     _handleKeyDown  (event) {

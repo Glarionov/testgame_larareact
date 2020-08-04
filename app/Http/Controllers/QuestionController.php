@@ -150,6 +150,28 @@ class QuestionController extends Controller
         return ['type' => 'ok'];
     }
 
+    public function changeQuestionGoodAnswer(Request $request) {
+        $groupId = request()->post('groupId');
+        $questionId = request()->post('questionId');
+        $optionId = request()->post('optionId');
+        $goodAnswer = request()->post('goodAnswer');
+
+//        $qo = new QuestionOptions;
+
+        $qo = new QuestionOptions();
+        $qo->where('question_id', $questionId)->where('option_id', $optionId)->update(['good_answer' => $goodAnswer]);
+        return ['type' => 'ok'];
+    }
+
+    public function deleteOptionFromQuestion(Request $request) {
+        $qo = new QuestionOptions();
+        $questionId = request()->post('questionId');
+        $optionId = request()->post('optionId');
+
+        $qo->where('question_id', $questionId)->where('option_id', $optionId)->delete();
+        return ['type' => 'ok'];
+    }
+
     public function getQuestionsByGroupId(Request $request) {
         $id = $request['id'] ?? '';
 

@@ -22,7 +22,7 @@ html {
 }
 
 .main {
-    background: #dbf2ff;
+    //background: rgba(28, 179, 214, .2);
     width: 95vw;
     max-width: 1200px;
     margin: auto;
@@ -87,8 +87,40 @@ body {
     }
 }
 
+.delete-question-wrapper {
+    .standard-button{
+        margin-left: 20px;
+        opacity: .5;
+        &:hover {
+            opacity: .9;
+        }
+
+    }
+}
+
 .new-option-wrapper {
     display: flex;
+}
+
+.option-wrapper {
+    display: flex;
+}
+
+.delete-icon {
+    cursor: pointer;
+}
+
+.option-list-in-editor {
+    margin: 2px 3px;
+
+    .delete-icon {
+        width: 20px;
+        margin-left: 10px;
+        opacity: .5;
+        &:hover {
+            opacity: .9;
+        }
+    }
 }
 
 .router-links-wrapper {
@@ -110,13 +142,17 @@ body {
 }
 
 .question-set-editor {
-    background: #b2dfff;
+    background: #9aa5f3;
     margin-left: 40px;
-    padding: 5px;
+    padding: 15px;
+    width: 100%;
 }
 
 .one-question-in-set {
     margin-top: 20px;
+    background: #e6e6f5;
+    padding: 7px 7px;
+
 }
 
 .add-new-question {

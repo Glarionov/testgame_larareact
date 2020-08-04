@@ -201,10 +201,148 @@ class QuestionSetEditor extends React.Component {
         this.setState({newOptions: nOptions});
     }
 
-    changeGoodAnswer(oIndex, event) {
-        let nOptions = this.state.newOptions;
-        nOptions[oIndex].good_answer = !nOptions[oIndex].good_answer;
-        this.setState({newOptions: nOptions});
+    async changeOption(questionId, optionId, optionData) {
+        event.preventDefault();
+        console.log('this.state.newQuestionValue',this.state.newQuestionValue); //todo r
+        let questionName = this.state.newQuestionValue;
+        let questionOptions = this.state.newOptions;
+
+
+        let data = {
+            groupId: this.state.groupId,
+            questionName,
+            questionOptions,
+            languageId: this.state.currentLanguageId
+        };
+
+        let url = '/api/change-question-in-group/';
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('qData',qData); //todo r
+
+
+    }
+
+    async changeOptionGoodAnswer(questionId, optionId, goodAnswer) {
+        event.preventDefault();
+        console.log('this.state.newQuestionValue',this.state.newQuestionValue); //todo r
+        let questionName = this.state.newQuestionValue;
+        let questionOptions = this.state.newOptions;
+
+
+        let data = {
+            groupId: this.state.groupId,
+            questionId,
+            optionId,
+            goodAnswer,
+            questionName,
+            questionOptions,
+            languageId: this.state.currentLanguageId
+        };
+
+        console.log('data',data); //todo r
+
+        let url = '/api/change-question-good-answer/';
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('qData',qData); //todo r
+
+
+    }
+
+    async deleteOptionFromQuestionServerRequest(questionId, optionId) {
+        let url = '/api/delete-option-from-question/';
+
+        let data = {
+            groupId: this.state.groupId,
+            questionId,
+            optionId,
+        };
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('qData',qData); //todo r
+    }
+
+    async deleteOptionFromQuestion(oIndex, questionId = false, event) {
+        let questions = this.state.questions;
+        await this.deleteOptionFromQuestionServerRequest(questions[questionId].question_id, questions[questionId]['options'][oIndex].option_id);
+        delete questions[questionId]['options'][oIndex];
+        this.setState(
+            {
+                questions
+            }
+        );
+    }
+
+    async changeGoodAnswer(oIndex, questionId = false, event) {
+        console.log('-------questionId',questionId); //todo r
+        if (questionId) {
+            console.log('event',event.target.checked); //todo r
+
+            let questions = this.state.questions;
+
+            let checked = event.target.checked;
+            await this.changeOptionGoodAnswer(questions[questionId].question_id, questions[questionId]['options'][oIndex].option_id, checked);
+
+            questions[questionId]['options'][oIndex]['good_answer'] = checked? 1: 0;
+            this.setState({
+                questions
+            });
+
+            // await this.changeOption(questionId, oIndex);
+            // let questions = this.state.questions;
+            // console.log('1111questions',questions); //todo r
+            //todo only if good
+
+            console.log('questions',questions); //todo r
+            //
+            // console.log('22222222questions',questions); //todo r
+            // console.log('questionId',questionId); //todo r
+        } else {
+            let nOptions = this.state.newOptions;
+            nOptions[oIndex].good_answer = !nOptions[oIndex].good_answer;
+            this.setState({newOptions: nOptions});
+        }
+
     }
 
 
@@ -308,10 +446,22 @@ class QuestionSetEditor extends React.Component {
                         </div>
 
                         {questionData.options &&
-                        <div className="bo">
+                        <div className="option-list-in-editor">
                             {Object.entries(questionData.options).map(([oIndex, oData]) => (
-                                <div className="def" key={oIndex}>
-                                    {oData.option_name}
+                                <div className="option-wrapper" key={oIndex}>
+                                    oIndex={oIndex}
+                                    <div className="new-option-checkbox-wrapper">
+                                        <input tabIndex="-1" type="checkBox"  checked={oData.good_answer} onChange={this.changeGoodAnswer.bind(this, oIndex, index)} />
+                                    </div>
+                                    <div className="option-name-wrapper">
+                                        {oData.option_name}
+                                    </div>
+                                    <img
+                                        onClick={this.deleteOptionFromQuestion.bind(this, oIndex, index)}
+                                        className="delete-icon" src="../../images/icons8-delete.svg"
+                                         />
+
+
                                 </div>
 
                             ))}

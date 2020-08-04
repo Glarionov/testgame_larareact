@@ -6428,7 +6428,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "html {\n  background: linear-gradient(90deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  background: #dbf2ff;\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px;\n  min-height: 100%; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 40px;\n  height: 40px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: #98e2ff; }\n\n.question-set-editor {\n  background: #b2dfff;\n  margin-left: 40px;\n  padding: 5px; }\n\n.one-question-in-set {\n  margin-top: 20px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.game-field-style {\n  background: #ffb16e;\n  position: absolute; }\n", ""]);
+exports.push([module.i, "html {\n  background: linear-gradient(90deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  border: 2px solid #8a8af1;\n  padding: 10px;\n  min-height: 100%; }\n\nbody {\n  font-family: \"Nunito\", sans-serif; }\n\n.player-div {\n  background: #9350ec;\n  width: 40px;\n  height: 40px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer; }\n  .standard-button:hover {\n    background: #1515db; }\n\n.delete-question-wrapper .standard-button {\n  margin-left: 20px;\n  opacity: .5; }\n  .delete-question-wrapper .standard-button:hover {\n    opacity: .9; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.option-wrapper {\n  display: flex; }\n\n.delete-icon {\n  cursor: pointer; }\n\n.option-list-in-editor {\n  margin: 2px 3px; }\n  .option-list-in-editor .delete-icon {\n    width: 20px;\n    margin-left: 10px;\n    opacity: .5; }\n    .option-list-in-editor .delete-icon:hover {\n      opacity: .9; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: #98e2ff; }\n\n.question-set-editor {\n  background: #9aa5f3;\n  margin-left: 40px;\n  padding: 15px;\n  width: 100%; }\n\n.one-question-in-set {\n  margin-top: 20px;\n  background: #e6e6f5;\n  padding: 7px 7px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.game-field-style {\n  background: #ffb16e;\n  position: absolute; }\n", ""]);
 
 // exports
 
@@ -77090,6 +77090,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
           break;
 
         case 'wallWithHoles':
+          width /= 2;
           var holeHeight = 300;
           var holeY = Math.random() * (this.state.fieldStyle.height - holeHeight);
           var top = Math.random() > 0.5;
@@ -77288,7 +77289,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
                   currentQuestionIndex: rKey,
                   currentQuestion: qData[rKey]
                 });
-                this.changeEnemyAppearStyle('fromRight'); //changeEnemyAppearStyle
+                this.changeEnemyAppearStyle('wallWithHoles'); //changeEnemyAppearStyle
 
               case 13:
               case "end":
@@ -78700,14 +78701,266 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "changeOption",
+    value: function () {
+      var _changeOption = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(questionId, optionId, optionData) {
+        var questionName, questionOptions, data, url, qData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                event.preventDefault();
+                console.log('this.state.newQuestionValue', this.state.newQuestionValue); //todo r
+
+                questionName = this.state.newQuestionValue;
+                questionOptions = this.state.newOptions;
+                data = {
+                  groupId: this.state.groupId,
+                  questionName: questionName,
+                  questionOptions: questionOptions,
+                  languageId: this.state.currentLanguageId
+                };
+                url = '/api/change-question-in-group/';
+                _context7.next = 8;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 8:
+                qData = _context7.sent;
+                console.log('qData', qData); //todo r
+
+              case 10:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function changeOption(_x6, _x7, _x8) {
+        return _changeOption.apply(this, arguments);
+      }
+
+      return changeOption;
+    }()
+  }, {
+    key: "changeOptionGoodAnswer",
+    value: function () {
+      var _changeOptionGoodAnswer = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(questionId, optionId, goodAnswer) {
+        var questionName, questionOptions, data, url, qData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                event.preventDefault();
+                console.log('this.state.newQuestionValue', this.state.newQuestionValue); //todo r
+
+                questionName = this.state.newQuestionValue;
+                questionOptions = this.state.newOptions;
+                data = {
+                  groupId: this.state.groupId,
+                  questionId: questionId,
+                  optionId: optionId,
+                  goodAnswer: goodAnswer,
+                  questionName: questionName,
+                  questionOptions: questionOptions,
+                  languageId: this.state.currentLanguageId
+                };
+                console.log('data', data); //todo r
+
+                url = '/api/change-question-good-answer/';
+                _context8.next = 9;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 9:
+                qData = _context8.sent;
+                console.log('qData', qData); //todo r
+
+              case 11:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8, this);
+      }));
+
+      function changeOptionGoodAnswer(_x9, _x10, _x11) {
+        return _changeOptionGoodAnswer.apply(this, arguments);
+      }
+
+      return changeOptionGoodAnswer;
+    }()
+  }, {
+    key: "deleteOptionFromQuestionServerRequest",
+    value: function () {
+      var _deleteOptionFromQuestionServerRequest = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(questionId, optionId) {
+        var url, data, qData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                url = '/api/delete-option-from-question/';
+                data = {
+                  groupId: this.state.groupId,
+                  questionId: questionId,
+                  optionId: optionId
+                };
+                _context9.next = 4;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 4:
+                qData = _context9.sent;
+                console.log('qData', qData); //todo r
+
+              case 6:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, this);
+      }));
+
+      function deleteOptionFromQuestionServerRequest(_x12, _x13) {
+        return _deleteOptionFromQuestionServerRequest.apply(this, arguments);
+      }
+
+      return deleteOptionFromQuestionServerRequest;
+    }()
+  }, {
+    key: "deleteOptionFromQuestion",
+    value: function () {
+      var _deleteOptionFromQuestion = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(oIndex) {
+        var questionId,
+            event,
+            questions,
+            _args10 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                questionId = _args10.length > 1 && _args10[1] !== undefined ? _args10[1] : false;
+                event = _args10.length > 2 ? _args10[2] : undefined;
+                questions = this.state.questions;
+                _context10.next = 5;
+                return this.deleteOptionFromQuestionServerRequest(questions[questionId].question_id, questions[questionId]['options'][oIndex].option_id);
+
+              case 5:
+                delete questions[questionId]['options'][oIndex];
+                this.setState({
+                  questions: questions
+                });
+
+              case 7:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, _callee10, this);
+      }));
+
+      function deleteOptionFromQuestion(_x14) {
+        return _deleteOptionFromQuestion.apply(this, arguments);
+      }
+
+      return deleteOptionFromQuestion;
+    }()
+  }, {
     key: "changeGoodAnswer",
-    value: function changeGoodAnswer(oIndex, event) {
-      var nOptions = this.state.newOptions;
-      nOptions[oIndex].good_answer = !nOptions[oIndex].good_answer;
-      this.setState({
-        newOptions: nOptions
-      });
-    }
+    value: function () {
+      var _changeGoodAnswer = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(oIndex) {
+        var questionId,
+            event,
+            questions,
+            checked,
+            nOptions,
+            _args11 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
+          while (1) {
+            switch (_context11.prev = _context11.next) {
+              case 0:
+                questionId = _args11.length > 1 && _args11[1] !== undefined ? _args11[1] : false;
+                event = _args11.length > 2 ? _args11[2] : undefined;
+                console.log('-------questionId', questionId); //todo r
+
+                if (!questionId) {
+                  _context11.next = 14;
+                  break;
+                }
+
+                console.log('event', event.target.checked); //todo r
+
+                questions = this.state.questions;
+                checked = event.target.checked;
+                _context11.next = 9;
+                return this.changeOptionGoodAnswer(questions[questionId].question_id, questions[questionId]['options'][oIndex].option_id, checked);
+
+              case 9:
+                questions[questionId]['options'][oIndex]['good_answer'] = checked ? 1 : 0;
+                this.setState({
+                  questions: questions
+                }); // await this.changeOption(questionId, oIndex);
+                // let questions = this.state.questions;
+                // console.log('1111questions',questions); //todo r
+                //todo only if good
+
+                console.log('questions', questions); //todo r
+                //
+                // console.log('22222222questions',questions); //todo r
+                // console.log('questionId',questionId); //todo r
+
+                _context11.next = 17;
+                break;
+
+              case 14:
+                nOptions = this.state.newOptions;
+                nOptions[oIndex].good_answer = !nOptions[oIndex].good_answer;
+                this.setState({
+                  newOptions: nOptions
+                });
+
+              case 17:
+              case "end":
+                return _context11.stop();
+            }
+          }
+        }, _callee11, this);
+      }));
+
+      function changeGoodAnswer(_x15) {
+        return _changeGoodAnswer.apply(this, arguments);
+      }
+
+      return changeGoodAnswer;
+    }()
   }, {
     key: "focusOnNewOption",
     value: function focusOnNewOption() {
@@ -78825,16 +79078,29 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
           className: "standard-button",
           onClick: _this2.deleteQuestion.bind(_this2, index, questionData.question_id)
         }, "Delete"))), questionData.options && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "bo"
+          className: "option-list-in-editor"
         }, Object.entries(questionData.options).map(function (_ref5) {
           var _ref6 = _slicedToArray(_ref5, 2),
               oIndex = _ref6[0],
               oData = _ref6[1];
 
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-            className: "def",
+            className: "option-wrapper",
             key: oIndex
-          }, oData.option_name);
+          }, "oIndex=", oIndex, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "new-option-checkbox-wrapper"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+            tabIndex: "-1",
+            type: "checkBox",
+            checked: oData.good_answer,
+            onChange: _this2.changeGoodAnswer.bind(_this2, oIndex, index)
+          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "option-name-wrapper"
+          }, oData.option_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+            onClick: _this2.deleteOptionFromQuestion.bind(_this2, oIndex, index),
+            className: "delete-icon",
+            src: "../../images/icons8-delete.svg"
+          }));
         }))));
       }), adderButton());
     }
