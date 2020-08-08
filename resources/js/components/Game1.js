@@ -579,7 +579,7 @@ class Game1 extends React.Component {
                 currentQuestionIndex: rKey,
                 currentQuestion: qData[rKey]
             });
-        this.changeEnemyAppearStyle('wallWithHoles');//changeEnemyAppearStyle
+        this.changeEnemyAppearStyle('fromRight');//changeEnemyAppearStyle
     }
 
     _handleKeyDown  (event) {

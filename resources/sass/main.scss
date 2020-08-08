@@ -26,7 +26,7 @@ html {
     width: 95vw;
     max-width: 1200px;
     margin: auto;
-    border: 2px solid #8a8af1;
+    //border: 2px solid #8a8af1;
     padding: 10px;
     min-height: 100%;
 }
@@ -106,14 +106,14 @@ body {
     display: flex;
 }
 
-.delete-icon {
+.delete-icon, .edit-icon {
     cursor: pointer;
 }
 
 .option-list-in-editor {
     margin: 2px 3px;
 
-    .delete-icon {
+    .delete-icon, .edit-icon {
         width: 20px;
         margin-left: 10px;
         opacity: .5;
@@ -138,11 +138,12 @@ body {
 }
 
 .group-editor-and-selector {
-    background: #98e2ff;
+    background: #86a9f7;
+    padding: 10px;
 }
 
 .question-set-editor {
-    background: #9aa5f3;
+    background: #86a9f7;
     margin-left: 40px;
     padding: 15px;
     width: 100%;
@@ -171,6 +172,6 @@ body {
 }
 
 .game-field-style {
-    background: #ffb16e;
+    background: #86a9f7;
     position: absolute;
 }

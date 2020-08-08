@@ -163,6 +163,30 @@ class QuestionController extends Controller
         return ['type' => 'ok'];
     }
 
+    public function changeOptionName(Request $request) {
+        $groupId = request()->post('groupId');
+        $questionId = request()->post('questionId');
+        $optionId = request()->post('optionId');
+        $optionName = request()->post('optionName');
+        $goodAnswer = request()->post('goodAnswer');
+
+        $languageId = request()->post('languageId');
+
+        $o = new Options();
+        $textId = $o->where('id', $optionId)->get();
+
+        $textId = $textId[0]['text_id'];
+        $tbl = new TextByLanguage();
+
+//        $qo = new QuestionOptions;
+
+        $optionObj = new Options();
+        $tbl->where('text_id', $textId)->where('language_id', $languageId)->update(['text' => $optionName]);
+        return ['type' => 'ok'];
+    }
+
+
+
     public function deleteOptionFromQuestion(Request $request) {
         $qo = new QuestionOptions();
         $questionId = request()->post('questionId');

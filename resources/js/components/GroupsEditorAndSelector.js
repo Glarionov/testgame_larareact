@@ -95,8 +95,16 @@ class GroupEditorAndSelector extends React.Component {
             });
 
         console.log('qData',qData); //todo r
+        let groups = this.state.groups;
+        groups.push(
+            {
+                group_id: qData.new_id,
+                group_name: this.state.newGroupValue,
+            }
+        )
         this.setState({
-            groups: qData,
+            groups,
+            newGroupValue: ''
         });
     }
 

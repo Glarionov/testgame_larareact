@@ -4,11 +4,16 @@ import ReactDOM from 'react-dom';
 import Questions from './Questions'
 import QuestionSets from './QuestionSets'
 import Game1 from './Game1'
+import TestLanguageWrapper from "./TestLanguageWrapper";
 import NotFound from './NotFound'
 import Home from './Home'
 import About from './About'
 import RouteTest from './RouteTest'
 import '../../sass/main.css'
+
+import { createStore, bindActionCreators } from 'redux'
+import { connect, Provider } from 'react-redux'
+import rootReducer from '../store/reducers'
 
 
 import {
@@ -18,14 +23,74 @@ import {
     Link
 } from "react-router-dom";
 
+const rootReducer2 = (state = {language_id: 1}, action) => {
+    console.log('action.payload',action.payload); //todo r
+    switch (action.type) {
+        case 'ACTION_CHANGE_FIRST_NAME':
+            return {
+                firstName: action.payload.firstName,
+                language_id: 3
+            }
+        default:
+            return state
+    }
+}
+
+const setEngLanguageActionCreator = (firstName) => {
+    return {
+        type: 'ACTION_CHANGE_FIRST_NAME',
+        payload:
+            {
+                firstName: firstName
+            }
+
+    }
+};
+
+const store = createStore(rootReducer2)
+
+// store.dispath()
+
+
 class Main extends React.Component {
 
 
     created() {
+
+        let ss = store.getState();
+
+
+
+
+
+        console.log('ss',ss); //todo r
         console.log('555555555555')
     }
 
     componentDidMount() {
+        const setEngLanguage = {
+            type: 'SET_DEFAULT_LANGUAGE',
+            payload: null
+        };
+
+        const setEngLanguageActionCreator = (languageId) => {
+            console.log('languageId',languageId); //todo r
+            return {
+                type: 'SET_DEFAULT_LANGUAGE',
+                payload:
+                    {
+                        language_id: languageId
+                    }
+
+            }
+        };
+
+        console.log('666666666666')
+        console.log('this.props',this.props); //todo r
+        console.log('this.props.firstName',this.props.firstName); //todo r
+
+        console.log('this.props.firstName',this.props.firstName); //todo r
+
         /* fetch API in action */
         // let data = {e: 'f'};
         // let url = '/api/get-question-group/1';
@@ -100,11 +165,26 @@ class Main extends React.Component {
 
 
     render() {
+
+
+        const {firstName, changeFirstName} = this.props;
+
         return (
+
+
+
             <div className="main-wrapper">
 
 
             <div className="main">
+                {/*<input type="text"*/}
+                {/*       value={this.props.firstName}*/}
+                {/*onChange={(event) => {*/}
+                {/*    changeFirstName(event.target.value)*/}
+
+                {/*    console.log('111this.props',this.props); //todo r*/}
+                {/*}}*/}
+                {/*/>*/}
             <Router>
                 <div className="router-links-wrapper">
 
@@ -145,15 +225,32 @@ class Main extends React.Component {
         {/*            UNDER BOTTOM*/}
         {/*        </div>*/}
             </div>
+
                 );
+
     }
 
 
 }
 
+const mapStateToProps = (state) => {
+    console.log('state',state); //todo r
+    return {
+        firstName: state.firstName
+    }
+}
+
+const putActionsToProps = (dispatch) => {
+    return {
+        changeFirstName: bindActionCreators(setEngLanguageActionCreator, dispatch),
+        changeSecondName: bindActionCreators(setEngLanguageActionCreator, dispatch),
+    }
+}
+
+const WrappedMain = connect(mapStateToProps, putActionsToProps)(Main);
 
 export default Main;
 
 if (document.getElementById('example')) {
-    ReactDOM.render(<Main />, document.getElementById('example'));
+    ReactDOM.render(<Provider store={store}><WrappedMain /></Provider>, document.getElementById('example'));
 }
