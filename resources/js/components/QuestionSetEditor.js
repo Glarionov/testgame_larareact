@@ -5,7 +5,7 @@ import Questions from "./Questions";
 import Game1 from "./Game1";
 import QuestionSets from "./QuestionSets";
 import NotFound from "./NotFound";
-import EditableText from "./EditableText";
+import EditableTextWrapper from "./EditableTextWrapper";
 
 class QuestionSetEditor extends React.Component {
 
@@ -19,11 +19,12 @@ class QuestionSetEditor extends React.Component {
             },
             value: '',
             lastNewOptionKey: 0,
-            groupId: 1,
+            groupId: 5,
             groupName: '',
             currentLanguageId: 1,
 
-            groupData: 1
+            groupData: 1,
+            inputRefs: {}
         }
 
         this.inputRefs = [];
@@ -60,7 +61,7 @@ class QuestionSetEditor extends React.Component {
         event.preventDefault();
     }
 
-    async updateGroupData(groupId = 1) {
+    async updateGroupData(groupId = 14) {
         let url = '/api/get-question-group/' + groupId;
 
         let qData = await fetch(url, {
@@ -79,17 +80,17 @@ class QuestionSetEditor extends React.Component {
 
         qData['clicked_options'] = [];
 
-        console.log('qData.groupData',qData.groupData); //todo r
+        console.log('---qData.groupData',qData.groupData); //todo r
         this.setState({
             questions: qData.questionsByGroup,
-            groupData: qData.groupData,
+            groupData: qData.groupData[0],
             groupId: qData.groupData[0].group_id,
             groupName: qData.groupData[0].group_name,
         });
     }
 
     async componentDidMount() {
-        await this.updateGroupData();
+        await this.updateGroupData(this.state.groupId);
     }
 
     changeAddingQuestionStatus(newValue = true) {
@@ -156,6 +157,17 @@ class QuestionSetEditor extends React.Component {
                 return data;
             });
 
+        let newQuestion = qData.newQuestion;
+        let newQuestionId = qData.newQuestionId;
+
+        let questions = this.state.questions;
+        questions[newQuestionId] = newQuestion;
+
+        this.setState({
+            questions,
+            newQuestionValue: '',
+            newOptions: {}
+        });
         console.log('qData',qData); //todo r
 
 
@@ -165,7 +177,7 @@ class QuestionSetEditor extends React.Component {
 
     async deleteQuestion(index, questionId) {
         let questions = this.state.questions;
-        questions.splice(index, 1);
+        delete questions[index];
         this.setState({
             questions
         });
@@ -191,11 +203,20 @@ class QuestionSetEditor extends React.Component {
                 return data;
             });
 
-        console.log('qData',qData); //todo r
+        console.log('@@@@@@@@@qData',qData); //todo r
 
     }
 
+    handleChangeNewOption(oIndex, questionId, event) {
+        let questions = this.state.questions;
+        questions[questionId].temp_options[oIndex].option_name = event.target.value;
+        this.setState({
+            questions
+        });
+    }
+
     handleChangeOption(oIndex, questionId = false, event) {
+        console.log('questionId',questionId); //todo r
         if (questionId) {
             let questions = this.state.questions;
             questions[questionId].options[oIndex].option_name = event.target.value;
@@ -204,6 +225,7 @@ class QuestionSetEditor extends React.Component {
             });
         } else {
             let nOptions = this.state.newOptions;
+            console.log('111111111111Options',nOptions); //todo r
             nOptions[oIndex].option_name = event.target.value;
             console.log('nOptions',nOptions); //todo r
             this.setState({newOptions: nOptions});
@@ -317,11 +339,14 @@ class QuestionSetEditor extends React.Component {
         console.log('optionName',optionName); //todo r
         let url = '/api/change-option-name/';
 
+
         let data = {
             optionId,
             optionName,
-            languageId: this.props.language_id
+            languageId: this.props.userData.languageId
         };
+
+        console.log('data',data); //todo r
 
         let qData = await fetch(url, {
             method: 'POST',
@@ -340,6 +365,37 @@ class QuestionSetEditor extends React.Component {
         console.log('qData',qData); //todo r
     }
 
+    async saveEditingQuestionNameServerRequest(questionId, questionName) {
+        console.log('questionId',questionId); //todo r
+        let url = '/api/change-question-name/';
+
+
+        let data = {
+            questionId,
+            questionName,
+            languageId: this.props.userData.languageId
+        };
+
+        console.log('data',data); //todo r
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('qData',qData); //todo r
+    }
+
+
     // async deleteOptionFromQuestionServerRequest(optionId) {
     //
     // }
@@ -355,6 +411,11 @@ class QuestionSetEditor extends React.Component {
         );
     }
 
+    async deleteTempOption(oIndex, questionId = false, event) {
+        console.log('11oIndex',oIndex); //todo r
+        console.log('22questionId',questionId); //todo r
+    }
+
     async startEditingOptionName(optionIndex, questionIndex, event) {
         let questions = this.state.questions;
         questions[questionIndex]['options'][optionIndex].currently_editing = true;
@@ -362,6 +423,54 @@ class QuestionSetEditor extends React.Component {
         this.setState({
             questions
         });
+    }
+
+    async saveEditingNewOption(oIndex, questionId) {
+
+
+        let questions = this.state.questions;
+
+        console.log('questions[questionId].temp_options',questions[questionId].temp_options); //todo r
+        let url = '/api/add-option-to-question/';
+        let data = {
+            questionId,
+            goodAnswer: questions[questionId].temp_options[oIndex]['good_answer'],
+            text: questions[questionId].temp_options[oIndex].option_name,
+            languageId: this.props.userData.languageId
+        };
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('----qData',qData); //todo r
+        let newId = qData.id;
+
+        questions[questionId].options[newId] = {
+            option_name: questions[questionId].temp_options[oIndex].option_name,
+            good_answer: questions[questionId].temp_options[oIndex]['good_answer'],
+            option_id: newId,
+            text_id: qData.text_id
+        };
+        delete questions[questionId].temp_options[oIndex];
+        this.setState({questions})
+    }
+
+    async stopEditingNewOption(oIndex, questionId) {
+        let questions = this.state.questions;
+        delete questions[questionId].temp_options[oIndex];
+        console.log('questions',questions); //todo r
+        this.setState({questions});
     }
 
     async stopEditingOptionName(optionIndex, questionIndex, event) {
@@ -373,11 +482,28 @@ class QuestionSetEditor extends React.Component {
         });
     }
 
-    async saveEditingOptionName(optionIndex, questionIndex, event) {
+    async saveEditingOptionName(optionIndex, questionIndex, newText) {
         let questions = this.state.questions;
         questions[questionIndex]['options'][optionIndex].currently_editing = false;
+        questions[questionIndex]['options'][optionIndex].option_name = newText;
+        this.setState({
+            questions
+        });
+        // await this.saveEditingOptionNameServerRequest(questions[questionIndex]['options'][optionIndex].option_id, questions[questionIndex]['options'][optionIndex].option_name);
+        await this.saveEditingOptionNameServerRequest(questions[questionIndex]['options'][optionIndex].option_id, newText);
 
-        await this.saveEditingOptionNameServerRequest(questions[questionIndex]['options'][optionIndex].option_id, questions[questionIndex]['options'][optionIndex].option_name);
+    }
+
+    async save1() {
+        console.log('save1')
+
+
+    }
+
+    async changeGoodAnswerNewOption(oIndex, questionId, event) {
+        let checked = event.target.checked;
+        let questions = this.state.questions;
+        questions[questionId].temp_options[oIndex]['good_answer'] = checked? 1: 0;
         this.setState({
             questions
         });
@@ -433,6 +559,119 @@ class QuestionSetEditor extends React.Component {
         this.setState({lastNewOptionKey});
     }
 
+    async addNewOption(questionId, event) {
+
+
+        console.log('questionId',questionId); //todo r
+        let questions = this.state.questions;
+        let question = questions[questionId];
+        if (typeof question.temp_options === 'undefined') {
+            question.temp_options = [];
+            question.last_added_temp_id = 0;
+        }
+
+        question.last_added_temp_id++;
+
+        let newTempId = question.last_added_temp_id;
+
+        questions[questionId].temp_options[newTempId] = {
+            option_name: '',
+            good_answer: false,
+            option_id: newTempId
+        };
+
+        let url = '/api/add-option-to-question/';
+        // let data = {
+        //     questionId,
+        //     languageId: this.props.userData.languageId
+        // };
+        //
+        // let qData = await fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+        //     .then(response => {
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         return data;
+        //     });
+        //
+        // console.log('----qData',qData); //todo r
+        // let newId = qData.id;
+        //
+        // questions[questionId].options[newId] = {
+        //     option_name: '',
+        //     option_id: newId,
+        //     text_id: qData.text_id
+        // };
+
+        let inputRefs = this.state.inputRefs;
+
+        inputRefs[questionId] = [];
+        this.setState({
+            inputRefs,
+            questions
+        })
+
+        setTimeout(function(lastNewOptionKey){
+            this.state.inputRefs[questionId][newTempId].focus()
+        }.bind(this), 10,questionId, newTempId) ;
+
+
+    }
+
+    handleChangeQuestionName(questionIndex, event) {
+        let questions = this.state.questions;
+        questions[questionIndex].question_name = event.target.value;
+        this.setState({
+            questions
+        });
+    }
+
+    async saveEditingQuestionName(index, newName) {
+        console.log('newName',newName); //todo r
+        console.log('index',index); //todo r
+
+        let questions = this.state.questions;
+        questions[index].question_name = newName;
+
+        await this.saveEditingQuestionNameServerRequest(questions[index].question_id, newName);
+
+
+        this.setState({
+            questions
+        });
+    }
+
+    async deleteThisGroup() {
+        let url = '/api/delete-group/';
+
+        let data = {
+            groupId: this.state.groupId
+        };
+
+        console.log('data',data); //todo r
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('qData',qData); //todo r
+    }
 
 
     render() {
@@ -458,10 +697,10 @@ class QuestionSetEditor extends React.Component {
                                     <div className="new-option-name-wrapper">
                                         <input
                                             ref={(input) => { this.inputRefs[oIndex] = input; }}
-                                            type="text" value={oData.option_name} data-index={oIndex} onChange={this.handleChangeOption.bind(this, oIndex)}/>
+                                            type="text" value={oData.option_name} data-index={oIndex} onChange={this.handleChangeOption.bind(this, oIndex, false)}/>
                                     </div>
                                     <div className="new-option-checkbox-wrapper">
-                                        <input tabIndex="-1" type="checkBox"  defaultChecked={oData.good_answer} onChange={this.changeGoodAnswer.bind(this, oIndex)} />
+                                        <input tabIndex="-1" type="checkBox"  defaultChecked={oData.good_answer} onChange={this.changeGoodAnswer.bind(this, oIndex, false)} />
                                     </div>
                                 </div>
                             ))}
@@ -488,9 +727,16 @@ class QuestionSetEditor extends React.Component {
 
         return  (<div className="question-set-editor">
             <div className="question-name">
-                Изменение группы #{this.state.groupId} - {this.state.groupName}
+                {this.state.groupData.group_name &&
+                < EditableTextWrapper
+                    text={this.state.groupData.group_name}
+                    textId={this.state.groupData.text_id}
+                    deleteFunction={this.deleteThisGroup.bind(this)}
+                    />
+                }
             </div>
 
+            <span>Изменение группы #{this.state.groupId}</span>
             <Router>
                 <div className="router-links-wrapper">
                     <Link to={"/game1/" + this.state.groupId}>Игра</Link>
@@ -503,15 +749,13 @@ class QuestionSetEditor extends React.Component {
                     <div className="one-question-in-set" key={index}>
                         <div className="question-top-part">
                             <div className="question-name">
-                                {questionData.question_name}
+                                <EditableTextWrapper
+                                    text={questionData.question_name}
+                                    textId={questionData.text_id}
+                                    deleteFunction={this.deleteQuestion.bind(this, index, questionData.question_id)}
+                                />
+
                                 {/*questionData={JSON.stringify(questionData)}*/}
-                            </div>
-                            <div className="delete-question-wrapper">
-                                <div className="standard-button"
-                                     onClick={this.deleteQuestion.bind(this, index, questionData.question_id)}
-                                >
-                                    Delete
-                                </div>
                             </div>
                         </div>
 
@@ -522,54 +766,61 @@ class QuestionSetEditor extends React.Component {
                                     <div className="new-option-checkbox-wrapper">
                                         <input tabIndex="-1" type="checkBox"  checked={oData.good_answer} onChange={this.changeGoodAnswer.bind(this, oIndex, index)} />
                                     </div>
-                                    {
-                                        oData.hasOwnProperty('currently_editing') && oData.currently_editing &&
-                                        <div className="option-name-editor">
-                                            <input type="text" value={oData.option_name}
-                                                   onChange={this.handleChangeOption.bind(this, oIndex, index)}
-                                            />
-
-                                            <div className="cancel-name-editor"
-                                                 onClick={this.stopEditingOptionName.bind(this, oIndex, index)}
-                                            >
-                                                Cancel
-                                            </div>
-                                            <div className="save-new-option-name"
-                                                 onClick={this.saveEditingOptionName.bind(this, oIndex, index)}
-                                            >
-                                                Save
-                                            </div>
-                                        </div>
-                                    }
-                                    <EditableText />
-
-                                    {
-                                        (!oData.hasOwnProperty('currently_editing') || !oData.currently_editing) &&
-                                            <div className="option-name-wrapper">
-                                                {oData.option_name}
-                                            </div>
-                                    }
-
-
-                                    {(!oData.hasOwnProperty('currently_editing') || !oData.currently_editing) &&
-
-                                    <img
-                                        onClick={this.startEditingOptionName.bind(this, oIndex, index)}
-                                        className="edit-icon" src="../../images/icons8-edit.svg"
+                                    <EditableTextWrapper
+                                        text={oData.option_name}
+                                        textId={oData.text_id}
+                                        deleteFunction={this.deleteOptionFromQuestion.bind(this, oIndex, index)}
                                     />
-                                    }
-
-
-
-                                    <img
-                                        onClick={this.deleteOptionFromQuestion.bind(this, oIndex, index)}
-                                        className="delete-icon" src="../../images/icons8-delete.svg"
-                                         />
-
-
                                 </div>
 
                             ))}
+
+                            {questionData.temp_options && Object.entries(questionData.temp_options).map(([oIndex, oData]) => (
+                                <div className="option-wrapper" key={oIndex}>
+                                    <div className="new-option-checkbox-wrapper">
+                                        <input tabIndex="-1" type="checkBox"  checked={oData.good_answer} onChange={this.changeGoodAnswerNewOption.bind(this, oIndex, index)} />
+                                    </div>
+                                    <div className="new-option-input-wrapper">
+                                        <input
+                                            type="text"
+                                            value={oData.option_name}
+                                            ref={(input) => { this.state.inputRefs[index][oIndex] = input; }}
+                                            onChange={this.handleChangeNewOption.bind(this, oIndex, index)}
+                                        />
+                                        <div className="cancel-save-buttons">
+
+                                            <div className="save-editing-text small-button"
+                                                 onClick={this.saveEditingNewOption.bind(this, oIndex, index)}
+                                            >
+                                                Save
+                                            </div>
+
+                                            <div className="cancel-text-editing-button small-button"
+                                                 onClick={this.stopEditingNewOption.bind(this, oIndex, index)}
+                                                // onClick={this.stopEditingOptionName.bind(this, oIndex, index)}
+                                            >
+                                                Cancel
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    {/*<EditableTextWrapper*/}
+                                    {/*    text={oData.option_name}*/}
+                                    {/*    addingNew={true}*/}
+                                    {/*    textId={oData.text_id}*/}
+                                    {/*    deleteFunction={this.deleteTempOption.bind(this, oIndex, index)}*/}
+                                    {/*/>*/}
+                                </div>
+
+                            ))}
+
+                            <input type="text" className="add-new-option"
+                                   onFocus={this.addNewOption.bind(this, index)}
+                                   placeholder="Add new option"/>
                         </div>
                         }
                     </div>

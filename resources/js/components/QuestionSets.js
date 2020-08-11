@@ -30,53 +30,53 @@ class QuestionSets extends React.Component {
     async componentDidMount() {
         ///api/user/login/
 
-
-        let url0 = "/api/user/register";
-
-        let data0 = {
-            email: 'ea@e.e',
-            password: 'pp',
-            name: 'nn'
-        }
-        let qData0 = await fetch(url0, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data0)
-        })
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data;
-            });
-
-        console.log('reg=====qData',qData0); //todo r
-
-        let url = '/api/user/login/';
-
-        let data = {
-            email: 'ea@e.e',
-            password: 'pp'
-        };
-
-
-        let qData = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                return data;
-            });
-
-        console.log('log=====qData',qData); //todo r
+        //
+        // let url0 = "/api/user/register";
+        //
+        // let data0 = {
+        //     email: 'ea@e.e',
+        //     password: 'pp',
+        //     name: 'nn'
+        // }
+        // let qData0 = await fetch(url0, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data0)
+        // })
+        //     .then(response => {
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         return data;
+        //     });
+        //
+        // console.log('reg=====qData',qData0); //todo r
+        //
+        // let url = '/api/user/login/';
+        //
+        // let data = {
+        //     email: 'ea@e.e',
+        //     password: 'pp'
+        // };
+        //
+        //
+        // let qData = await fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+        //     .then(response => {
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         return data;
+        //     });
+        //
+        // console.log('log=====qData',qData); //todo r
 
     }
 

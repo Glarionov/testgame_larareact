@@ -26,6 +26,39 @@ class QuestionController extends Controller
         return ['a' => 'b'];
     }
 
+    public function addOptionToQuestion(Request $request) {
+
+        $questionId = request()->post('questionId');
+        $text = request()->post('text');
+        $goodAnswer = request()->post('goodAnswer');
+        $languageId = request()->post('languageId');
+
+        $textObj = new Texts();
+        $textObj->save();
+        $textId = $textObj->id;
+
+        $tbl = new TextByLanguage();
+        $tbl->text_id = $textId;
+        $tbl->text = $text;
+        $tbl->language_id = $languageId;
+        $tbl->save();
+
+        $optionObj = new Options();
+        $optionObj->text_id = $textId;
+        $optionObj->save();
+
+        $optionId = $optionObj->id;
+
+        $questionOptionsObj = new QuestionOptions();
+        $questionOptionsObj->question_id = $questionId;
+        $questionOptionsObj->option_id = $optionId;
+        $questionOptionsObj->good_answer = $goodAnswer;
+
+        $questionOptionsObj->save();
+
+        return ['type' => 'ok', 'id' => $optionId, 'text_id' => $textId];
+    }
+
     public function addQuestionToGroup(Request $request) {
         //'re' => $request['e']
         // 'poste' => request()->post('e')
@@ -43,6 +76,8 @@ class QuestionController extends Controller
         $languageId = request()->post('languageId');
          $questionOptions =  request()->post('questionOptions');
 
+         $questionName = request()->post('questionName');
+
          $addedOptions = [];
          $qonids = [];
 
@@ -53,7 +88,7 @@ class QuestionController extends Controller
         $textByLanguage = new TextByLanguage();
 
         $textByLanguage->text_id = $textId;
-        $textByLanguage->text = request()->post('questionName');;
+        $textByLanguage->text = $questionName;
         $textByLanguage->language_id = $languageId;
         $textByLanguage->save();
 
@@ -68,6 +103,13 @@ class QuestionController extends Controller
         $questionGroupsObj->save();
         $questionGroupId = $questionGroupsObj->id;
 
+
+        $newQuestion = [
+            'question_id' => $questionId,
+            'question_name' => $questionName,
+            'text_id' => $textId,
+            'options' => []
+        ];
 
          foreach ($questionOptions as $optionKey => $newOptionData) {
              $optionText = $newOptionData['option_name'];
@@ -89,6 +131,13 @@ class QuestionController extends Controller
              $optionObj->save();
 
              $optionId = $optionObj->id;
+
+             $newQuestion['options'][$optionId] = [
+                 'option_id' => $optionId,
+                 'option_name' => $optionText,
+                 'text_id' => $textId,
+                 'good_answer' => $goodAnswer
+             ];
 
              $questionOptionsObj = new QuestionOptions();
              $questionOptionsObj->question_id = $questionId;
@@ -132,7 +181,7 @@ class QuestionController extends Controller
 
 //        $qon->save();
 
-        return ['$qonids' => $qonids, '$addedOptions'=> $addedOptions,
+        return ['newQuestion' => $newQuestion, 'newQuestionId' => $questionId, '$qonids' => $qonids, '$addedOptions'=> $addedOptions,
 //            '$optionId' => $optionId,
             'poste' => request()->post(), 'gid' => $request['id']];
     }
@@ -178,13 +227,26 @@ class QuestionController extends Controller
         $textId = $textId[0]['text_id'];
         $tbl = new TextByLanguage();
 
-//        $qo = new QuestionOptions;
-
         $optionObj = new Options();
         $tbl->where('text_id', $textId)->where('language_id', $languageId)->update(['text' => $optionName]);
         return ['type' => 'ok'];
     }
 
+
+    public function changeQuestionName(Request $request) {
+        $questionId = request()->post('questionId');
+        $questionName = request()->post('questionName');
+
+        $languageId = request()->post('languageId');
+
+        $o = new Questions();
+        $textId = $o->where('id', $questionId)->get();
+        $textId = $textId[0]['question_text_id'];
+        $tbl = new TextByLanguage();
+
+        $tbl->where('text_id', $textId)->where('language_id', $languageId)->update(['text' => $questionName]);
+        return ['type' => 'ok'];
+    }
 
 
     public function deleteOptionFromQuestion(Request $request) {
@@ -220,7 +282,11 @@ class QuestionController extends Controller
         $gropDataObj = new GroupData();
         $groupData = $gropDataObj->leftJoin('text_by_languages', function ($q2) {
             $q2->on('text_by_languages.text_id', '=', 'group_data.text_id');
-        })->select('text_by_languages.text as group_name', 'group_data.id as group_id')->where('group_data.id', '=', $id)->get();
+        })->select(
+            'text_by_languages.text as group_name',
+            'group_data.id as group_id',
+            'group_data.text_id as text_id'
+        )->where('group_data.id', '=', $id)->get();
 
         $languageId = 1;
         $questionsByGroup = $qg->leftJoin('questions', function($q) use ($id) {
@@ -230,8 +296,14 @@ class QuestionController extends Controller
                 })
                 ;
 
-        })->where('question_groups.group_id', '=', $id)->where('text_by_languages.language_id', '=', $languageId)->select('question_groups.group_id as g_id', 'text_by_languages.text as question_name', 'questions.id as question_id')->get();
+        })->where('question_groups.group_id', '=', $id)->where('text_by_languages.language_id', '=', $languageId)
+            ->select(
+                'question_groups.group_id as g_id', 'text_by_languages.text as question_name', 'questions.id as question_id'
+            ,
+                'text_by_languages.id as text_id'
+            )->get();
 
+        //todo make conditional
         $qo = new QuestionOptions();
         $langId = 1;
         $result = [];
@@ -255,16 +327,21 @@ class QuestionController extends Controller
                 'question_options.id as option_id',
                 'question_options.good_answer as good_answer',
                 'question_options.question_id as question_id'
-
+                ,
+                'text_by_languages.id as text_id'
             )->get()->keyBy('option_id');
+
+
+            //todo conditional
 
 //            /*gleb*/echo '$optionsForQuestion=<pre>'.print_r($optionsForQuestion, true).'</pre>';//todo remove it
 
 //            $optionsForQuestion = array_combine(array_column($optionsForQuestion, 'option_id'), $optionsForQuestion);
 //            /*gleb*/echo '22222222=<pre>'.print_r($optionsForQuestion, true).'</pre>';//todo remove it
 //            $result[$questionId] = [
-            $result[] = [
+            $result[$questionId] = [
                 'question_name' => $questionValue['question_name'],
+                'text_id' => $questionValue['text_id'],
                 'options' => $optionsForQuestion,
                 'question_id' => $questionId
                 ];

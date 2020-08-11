@@ -87,7 +87,7 @@ class Game1 extends React.Component {
             ],
             showAnswersOfFirstQuestions: true,
             alreadyShowedAnswers: {},
-            showAnswersBeforeStop: 9999,
+            showAnswersBeforeStop: 2,
             additionalBoxAppearType: '',
             boxIntervalByAppearType: {
                 fromRight: 700,
@@ -198,12 +198,19 @@ class Game1 extends React.Component {
             return true;
         }
 
+
+
         let newIndex = this.state.currentQuestionIndex;
         while (newIndex == this.state.currentQuestionIndex || typeof this.state.questions[newIndex] == "undefined") {
-            newIndex = Math.floor(Math.random() * this.state.questions.length);
+            let keys = Object.keys(this.state.questions);
+            console.log('k!!!!!!!eys',keys); //todo r
+
+            newIndex = keys[Math.floor(Math.random() * keys.length)];
+
+            // newIndex = Math.floor(Math.random() * this.state.questions.length);
 
         }
-
+console.log('333333newIndex',newIndex); //todo r
 
 
         this.setState({
@@ -291,6 +298,7 @@ class Game1 extends React.Component {
         if (typeof params.rKey !== 'undefined') {
             rKey = params.rKey;
         } else {
+            console.log('this.state.currentQuestion',this.state.currentQuestion); //todo r
             let optionKeys = Object.keys(this.state.currentQuestion.options);
             rKey = optionKeys[Math.floor(Math.random() * optionKeys.length)];
         }
@@ -571,9 +579,12 @@ class Game1 extends React.Component {
                     return data.questionsByGroup;
                 });
 
-        let rKey = Math.floor(Math.random() * qData.length);
+        let rKey;
 
-            qData['clicked_options'] = [];
+        let optionKeys = Object.keys(qData);
+        rKey = optionKeys[Math.floor(Math.random() * optionKeys.length)];
+
+            console.log('******qData',qData); //todo r
             this.setState({
                 questions: qData,
                 currentQuestionIndex: rKey,

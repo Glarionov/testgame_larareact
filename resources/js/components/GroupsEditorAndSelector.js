@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import QuestionSetEditor from './QuestionSetEditor'
 import {BrowserRouter as Router, Link} from "react-router-dom";
-
+import EditableTextWrapper from "./EditableTextWrapper";
 
 
 class GroupEditorAndSelector extends React.Component {
@@ -12,9 +12,15 @@ class GroupEditorAndSelector extends React.Component {
             <div className="group-editor-selector">
                 {Object.entries(this.state.groups).map(([oIndex, groupData]) => (
                     <div className="new-option-wrapper" key={oIndex}
-                        onClick={this.clickOnGroup.bind(this, groupData.group_id)}
+                        // onClick={this.clickOnGroup.bind(this, groupData.group_id)}
                     >
-                        {groupData.group_name}
+                        <EditableTextWrapper
+                            text={groupData.group_name}
+                            textId={groupData.text_id}
+                            clickOnTextFunction = {this.clickOnGroup.bind(this, groupData.group_id)}
+                            deleteFunction={this.deleteGroup.bind(this,oIndex, groupData.group_id)}
+                        />
+
                     </div>
                 ))}
                 <form onSubmit={this.handleGroupAdder.bind(this)}>
@@ -25,6 +31,80 @@ class GroupEditorAndSelector extends React.Component {
                 </form>
             </div>
         </div>)
+    }
+
+    handleChangeGroupName(index, newName) {
+        // let groups = this.state.groups;
+        // groups[index].group_name = newName;
+        // this.setState({
+        //     groups
+        // });
+    }
+
+    async deleteGroup(index, groupId) {
+        let url = '/api/delete-group/';
+
+
+        let groups = this.state.groups;
+        delete groups[index];
+        this.setState({groups})
+
+        let data = {
+            groupId,
+        };
+
+        console.log('data',data); //todo r
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('qData',qData); //todo r
+    }
+
+    async saveEditingGroupName(index, groupId, newName) {
+        console.log('index',index); //todo r
+        console.log('newName',newName); //todo r
+        console.log('groupId',groupId); //todo r
+        let url = '/api/change-group-name/';
+
+        let groups = this.state.groups;
+        groups[index].group_name = newName;
+        this.setState({groups})
+
+        let data = {
+            groupId,
+            newName,
+            languageId: 1
+        };
+
+        console.log('data',data); //todo r
+
+        let qData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        console.log('qData',qData); //todo r
     }
 
     clickOnGroup (e, id) {

@@ -32,3 +32,14 @@ Route::post('/change-question-good-answer', 'QuestionController@changeQuestionGo
 Route::post('/delete-option-from-question', 'QuestionController@deleteOptionFromQuestion');
 Route::post('/get-question-group-list', 'GroupDataController@getAll');
 Route::post('/add-group', 'GroupDataController@addGroup');
+Route::post('/change-group-name', 'GroupDataController@changeGroupName');
+Route::post('/delete-group', 'GroupDataController@deleteGroup');
+Route::post('/change-option-name', 'QuestionController@changeOptionName');
+Route::post('/change-question-name', 'QuestionController@changeQuestionName');
+Route::post('/add-option-to-question', 'QuestionController@addOptionToQuestion');
+Route::post('/change-text-by-id', 'TextByLanguageController@changeTextById');
+
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::get('logout', 'AuthController@logout');
+Route::get('user', 'AuthController@getAuthUser');

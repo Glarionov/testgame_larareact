@@ -22,6 +22,6 @@ use Illuminate\Support\Facades\Route;
 Route::view('/{any}', 'welcome')->where('any', '.*');;
 //Route::view('/.*', 'welcome');
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

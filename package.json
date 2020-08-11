@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",
-        "axios": "^0.19",
+        "axios": "^0.19.2",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0.2",
         "jquery": "^3.2",
@@ -26,9 +26,12 @@
     },
     "dependencies": {
         "gsap": "^3.4.0",
+        "prop-types": "^15.7.2",
+        "react-axios": "^2.0.3",
         "react-gsap": "^2.2.1",
         "react-redux": "^7.2.1",
         "react-router-dom": "^5.2.0",
-        "redux": "^4.0.5"
+        "redux": "^4.0.5",
+        "redux-thunk": "^2.3.0"
     }
 }

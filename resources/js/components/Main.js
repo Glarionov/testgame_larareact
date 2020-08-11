@@ -9,12 +9,20 @@ import NotFound from './NotFound'
 import Home from './Home'
 import About from './About'
 import RouteTest from './RouteTest'
+import Login from './Login'
+import Registration from './Registration'
 import '../../sass/main.css'
 
-import { createStore, bindActionCreators } from 'redux'
+import { bindActionCreators, applyMiddleware } from 'redux'
 import { connect, Provider } from 'react-redux'
 import rootReducer from '../store/reducers'
 
+import {loadUser} from "../store/actions/authActions";
+
+import store from '../store';
+
+// import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import {
     BrowserRouter as Router,
@@ -31,6 +39,14 @@ const rootReducer2 = (state = {language_id: 1}, action) => {
                 firstName: action.payload.firstName,
                 language_id: 3
             }
+
+        case 'SET_USER_SETTINGS':
+            return {
+                ...state,
+            userId: action.payload.userId,
+                userName: action.payload.userName
+            }
+
         default:
             return state
     }
@@ -47,7 +63,8 @@ const setEngLanguageActionCreator = (firstName) => {
     }
 };
 
-const store = createStore(rootReducer2)
+// const store = createStore(rootReducer2)
+
 
 // store.dispath()
 
@@ -55,7 +72,8 @@ const store = createStore(rootReducer2)
 class Main extends React.Component {
 
 
-    created() {
+    constructor(props) {
+        super(props);
 
         let ss = store.getState();
 
@@ -65,9 +83,23 @@ class Main extends React.Component {
 
         console.log('ss',ss); //todo r
         console.log('555555555555')
+
+
+
+        localStorage.setItem('authToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5NzAwMTUyNSwiZXhwIjoxNTk3MDA1MTI1LCJuYmYiOjE1OTcwMDE1MjUsImp0aSI6IjhyY3pySWJPTFpieFhld1IiLCJzdWIiOjUsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-GkY1ABH5ho8ptelSoj8JqCuH7oso-Y2NUmfldEcMec');
+        let authToken = localStorage.getItem('authToken');
+
+        console.log('authToken',authToken); //todo r
+        this.state = {
+            isLogined: false,
+            authToken: authToken,
+            userName: '',
+            userId: 0
+        }
+        console.log('this.state',this.state); //todo r
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const setEngLanguage = {
             type: 'SET_DEFAULT_LANGUAGE',
             payload: null
@@ -85,33 +117,54 @@ class Main extends React.Component {
             }
         };
 
-        console.log('666666666666')
-        console.log('this.props',this.props); //todo r
-        console.log('this.props.firstName',this.props.firstName); //todo r
 
-        console.log('this.props.firstName',this.props.firstName); //todo r
+        let url0 = "/api/user?token=" + this.state.authToken;
 
-        /* fetch API in action */
-        // let data = {e: 'f'};
-        // let url = '/api/get-question-group/1';
-        // console.log('url',url); //todo r
-        // fetch(url,{method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //         // 'Content-Type': 'application/x-www-form-urlencoded',
-        //     },
-        //
-        //     body: JSON.stringify(data) })
-        //
-        //     .then(response => {
-        //         console.log('response',response); //todo r
-        //         return response.json();
-        //     })
-        //     .then(products => {
-        //         console.log('products',products); //todo r
-        //         //Fetched product is stored in the state
-        //         // this.setState({ products });
-        //     });
+        let data0 = {
+            email: 'ea@e.e',
+            password: 'pp',
+            name: 'nn'
+        }
+        let userData = await fetch(url0, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        if (typeof userData.id !== 'undefined' && userData.id) {
+            this.setState({
+                isLogined: true,
+                userId: userData.id,
+                userName: userData.name
+            })
+        }
+
+        const {lUser} = this.props;
+
+        // await store.dispatch(loadUser())89003276256
+        // await store.dispatch(loadUser())
+
+        lUser();
+
+        console.log('userData',userData); //todo r
+        store.dispatch(
+            {
+                type: 'USER_LOADED',
+                payload: {userData}
+            }
+        )
+
+        console.log('this.props.isAuthenticated',this.props.isAuthenticated); //todo r
+
+        console.log('this.props.userData',this.props.userData); //todo r
+        console.log('this.state',this.state); //todo r
     }
 
     Home() {
@@ -186,6 +239,9 @@ class Main extends React.Component {
                 {/*}}*/}
                 {/*/>*/}
             <Router>
+                <header>
+
+
                 <div className="router-links-wrapper">
 
 
@@ -198,16 +254,47 @@ class Main extends React.Component {
                     <div className="top-menu-item">
                         <Link to="/question-sets">Управление вопросами</Link>
                     </div>
+                    <div className="auth-wrapper">
+                        {
+                            this.state.isLogined &&
+                                <div className="loggined-wrapper">
+                                    <span>{this.state.userName}</span>
+                                    <div className="logout">
+                                        Logout
+                                    </div>
+                                </div>
+
+                        }
+                        {
+                            !this.state.isLogined &&
+                            <span>
+                                                            <div className="top-menu-item">
+                            <Link to="/login">Login</Link>
+                            </div>
+                            <div className="top-menu-item">
+                            <Link to="/registration">Registration</Link>
+                            </div>
+                            </span>
+
+
+
+                        }
+                    </div>
+                </div>
+                </header>
+
+                <div className="content">
+                    <Switch>
+                        <Route path="/questions" component={Questions}/>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/registration" component={Registration}/>
+                        {/*<Route path="/game1/1" component={Game1} />*/}
+                        <Route path="/game1/:id" component={Game1}/>
+                        <Route path="/question-sets" component={QuestionSets}/>
+                        <Route component={NotFound}/>
+                    </Switch>
                 </div>
 
-
-                <Switch>
-                    <Route path="/questions" component={Questions}/>
-                    {/*<Route path="/game1/1" component={Game1} />*/}
-                    <Route path="/game1/:id" component={Game1}/>
-                    <Route path="/question-sets" component={QuestionSets}/>
-                    <Route component={NotFound}/>
-                </Switch>
             </Router>
 
 
@@ -234,9 +321,10 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('state',state); //todo r
     return {
-        firstName: state.firstName
+        firstName: state.firstName,
+        isAuthenticated: state.auth.isAuthenticated,
+        userData: state.auth.userData
     }
 }
 
@@ -244,6 +332,7 @@ const putActionsToProps = (dispatch) => {
     return {
         changeFirstName: bindActionCreators(setEngLanguageActionCreator, dispatch),
         changeSecondName: bindActionCreators(setEngLanguageActionCreator, dispatch),
+        lUser: bindActionCreators(loadUser, dispatch)
     }
 }
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import QuestionSetEditor from "./QuestionSetEditor";
+import EditableText from "./EditableText";
 const mapStateToProps = state => ({
     language_id: state.language_id,
     userData: state.auth.userData
@@ -14,5 +14,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    QuestionSetEditor
+    EditableText
 )
