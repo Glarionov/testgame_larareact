@@ -20,6 +20,45 @@ class GroupDataController extends Controller
         return ['group_data' => $groupData];
     }
 
+    public function getGroupRecursion($id) {
+
+        $gropDataObj = new GroupData();
+        $groupData = $gropDataObj->leftJoin('text_by_languages', function ($q2) {
+            $q2->on('text_by_languages.text_id', '=', 'group_data.text_id');
+        })->where('parent_id', $id)->select('text_by_languages.text as group_name', 'group_data.id as group_id',
+            'group_data.text_id as text_id'
+        )->get()->keyBy('group_id');
+
+        foreach ($groupData as $groupId => $group) {
+            $groupData[$groupId]['subgroups'] = $this->getGroupRecursion($groupId);
+        }
+        return $groupData;
+    }
+
+    public function getAllTree(Request $request) {
+        $groupData = $this->getGroupRecursion(0);
+//        $gropDataObj = new GroupData();
+//        $groupData = $gropDataObj->leftJoin('text_by_languages', function ($q2) {
+//            $q2->on('text_by_languages.text_id', '=', 'group_data.text_id');
+//        })->where('parent_id', 0)->select('text_by_languages.text as group_name', 'group_data.id as group_id',
+//            'group_data.text_id as text_id'
+//        )->get()->keyBy('group_id');
+////        )->get();
+//
+////        /*gleb*/echo '$groupData=<pre>'.print_r($groupData, true).'</pre>';//todo remove it
+//        foreach ($groupData as $groupId => $group) {
+//            $subGroup = $gropDataObj->leftJoin('text_by_languages', function ($q2) {
+//                $q2->on('text_by_languages.text_id', '=', 'group_data.text_id');
+//            })->where('parent_id', $groupId)->select('text_by_languages.text as group_name', 'group_data.id as group_id',
+//                'group_data.text_id as text_id'
+//            )->get()->keyBy('group_id');
+//
+//            $groupData['subgroups'] = $subGroup;
+//        }
+
+        return ['group_data' => $groupData];
+    }
+
     public function addGroup(Request $request) {
         $textObj = new Texts();
         $textObj->save();
@@ -29,11 +68,13 @@ class GroupDataController extends Controller
         $textByLanguage->text_id = $textId;
         $textByLanguage->text = request()->post('groupName');;
         $textByLanguage->language_id = request()->post('languageId');
+
         $textByLanguage->save();
 
 
         $gropDataObj = new GroupData();
         $gropDataObj->text_id = $textId;
+        $gropDataObj->parent_id = request()->post('parentId');
         $gropDataObj->save();
         $newGroupId = $gropDataObj->id;
 

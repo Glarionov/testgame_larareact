@@ -30,6 +30,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import {AUTH_ERROR, LOGOUT_SUCCESS} from "../store/actions/types";
 
 const rootReducer2 = (state = {language_id: 1}, action) => {
     console.log('action.payload',action.payload); //todo r
@@ -71,6 +72,9 @@ const setEngLanguageActionCreator = (firstName) => {
 
 class Main extends React.Component {
 
+    async componentDidUpdate(prevProps) {
+        console.log('this.state.isLogined',this.state.isLogined); //todo r
+    }
 
     constructor(props) {
         super(props);
@@ -86,7 +90,7 @@ class Main extends React.Component {
 
 
 
-        localStorage.setItem('authToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5NzAwMTUyNSwiZXhwIjoxNTk3MDA1MTI1LCJuYmYiOjE1OTcwMDE1MjUsImp0aSI6IjhyY3pySWJPTFpieFhld1IiLCJzdWIiOjUsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-GkY1ABH5ho8ptelSoj8JqCuH7oso-Y2NUmfldEcMec');
+        // localStorage.setItem('authToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5NzAwMTUyNSwiZXhwIjoxNTk3MDA1MTI1LCJuYmYiOjE1OTcwMDE1MjUsImp0aSI6IjhyY3pySWJPTFpieFhld1IiLCJzdWIiOjUsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-GkY1ABH5ho8ptelSoj8JqCuH7oso-Y2NUmfldEcMec');
         let authToken = localStorage.getItem('authToken');
 
         console.log('authToken',authToken); //todo r
@@ -117,15 +121,64 @@ class Main extends React.Component {
             }
         };
 
+        if (this.state.authToken) {
+            let url0 = "/api/user?token=" + this.state.authToken;
 
-        let url0 = "/api/user?token=" + this.state.authToken;
+            let data0 = {
+                email: 'ea@e.e',
+                password: 'pp',
+                name: 'nn'
+            }
+            let userData = await fetch(url0, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    return data;
+                });
 
-        let data0 = {
-            email: 'ea@e.e',
-            password: 'pp',
-            name: 'nn'
+            if (typeof userData.id !== 'undefined' && userData.id) {
+                this.setState({
+                    isLogined: true,
+                    userId: userData.id,
+                    userName: userData.name
+                })
+            }
+
+            const {lUser} = this.props;
+
+            // await store.dispatch(loadUser())89003276256
+            // await store.dispatch(loadUser())
+
+            lUser();
+
+            console.log('99999999999userData',userData); //todo r
+            if (typeof userData.id !== 'undefined' ) {
+                store.dispatch(
+                    {
+                        type: 'USER_LOADED',
+                        payload: {userData}
+                    }
+                )
+            } else {
+                store.dispatch(
+                    {
+                        type: 'AUTH_ERROR'
+                    }
+                )
+
+            }
         }
-        let userData = await fetch(url0, {
+    }
+
+    async logout() {
+        let url = 'api/logout?token=' + localStorage.getItem('authToken');
+        let userData = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -137,34 +190,12 @@ class Main extends React.Component {
             .then(data => {
                 return data;
             });
-
-        if (typeof userData.id !== 'undefined' && userData.id) {
-            this.setState({
-                isLogined: true,
-                userId: userData.id,
-                userName: userData.name
-            })
-        }
-
-        const {lUser} = this.props;
-
-        // await store.dispatch(loadUser())89003276256
-        // await store.dispatch(loadUser())
-
-        lUser();
-
-        console.log('userData',userData); //todo r
         store.dispatch(
             {
-                type: 'USER_LOADED',
-                payload: {userData}
+                type: 'LOGOUT_SUCCESS',
             }
         )
 
-        console.log('this.props.isAuthenticated',this.props.isAuthenticated); //todo r
-
-        console.log('this.props.userData',this.props.userData); //todo r
-        console.log('this.state',this.state); //todo r
     }
 
     Home() {
@@ -256,17 +287,19 @@ class Main extends React.Component {
                     </div>
                     <div className="auth-wrapper">
                         {
-                            this.state.isLogined &&
+                            this.props.isAuthenticated &&
                                 <div className="loggined-wrapper">
                                     <span>{this.state.userName}</span>
-                                    <div className="logout">
+                                    <div className="logout"
+                                    onClick={this.logout.bind(this)}
+                                    >
                                         Logout
                                     </div>
                                 </div>
 
                         }
                         {
-                            !this.state.isLogined &&
+                            !this.props.isAuthenticated &&
                             <span>
                                                             <div className="top-menu-item">
                             <Link to="/login">Login</Link>
@@ -286,7 +319,12 @@ class Main extends React.Component {
                 <div className="content">
                     <Switch>
                         <Route path="/questions" component={Questions}/>
-                        <Route path="/login" component={Login}/>
+
+
+                        <Route path="/login"
+                               render={(props) => <Login {...props} title="Login"/>}
+                               // component={Login}
+                        />
                         <Route path="/registration" component={Registration}/>
                         {/*<Route path="/game1/1" component={Game1} />*/}
                         <Route path="/game1/:id" component={Game1}/>

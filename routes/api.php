@@ -30,7 +30,7 @@ Route::post('/add-question-to-group/{id}', 'QuestionController@addQuestionToGrou
 Route::post('/delete-question-everywhere/{id}', 'QuestionController@deleteQuestionEverywhere');
 Route::post('/change-question-good-answer', 'QuestionController@changeQuestionGoodAnswer');
 Route::post('/delete-option-from-question', 'QuestionController@deleteOptionFromQuestion');
-Route::post('/get-question-group-list', 'GroupDataController@getAll');
+Route::post('/get-question-group-list', 'GroupDataController@getAllTree');
 Route::post('/add-group', 'GroupDataController@addGroup');
 Route::post('/change-group-name', 'GroupDataController@changeGroupName');
 Route::post('/delete-group', 'GroupDataController@deleteGroup');
@@ -40,6 +40,9 @@ Route::post('/add-option-to-question', 'QuestionController@addOptionToQuestion')
 Route::post('/change-text-by-id', 'TextByLanguageController@changeTextById');
 
 Route::post('register', 'AuthController@register');
+Route::post('register-with-mail', 'AuthController@registerWithMail');
 Route::post('login', 'AuthController@login');
 Route::get('logout', 'AuthController@logout');
 Route::get('user', 'AuthController@getAuthUser');
+
+Route::get('user/verify/{verification_code}', 'AuthController@verifyUser');

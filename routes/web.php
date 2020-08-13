@@ -22,6 +22,11 @@ use Illuminate\Support\Facades\Route;
 Route::view('/{any}', 'welcome')->where('any', '.*');;
 //Route::view('/.*', 'welcome');
 
-//Auth::routes();
+Route::get('user/verify/{verification_code}', 'AuthController@verifyUser');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
+Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
+
+
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');

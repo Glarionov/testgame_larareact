@@ -12,7 +12,6 @@ class EditableText extends React.Component {
     render() {
         return (
             <div className="editable-text-wrapper">
-
                 {this.state.currentlyEditing &&
                 <div className="editable-text">
                     <input type="text"
@@ -40,7 +39,7 @@ class EditableText extends React.Component {
                 </div>
                 }
                 {
-                    !this.state.currentlyEditing && this.props.userData && this.props.userData.canEditCommonQuestions &&
+                    !this.state.currentlyEditing &&
                         <div className="not-editing-text">
 
                             {this.props.clickOnTextFunction &&
@@ -56,14 +55,16 @@ class EditableText extends React.Component {
                             this.state.textBeforeEditing
                             }
 
+                            {this.props.userData && this.props.userData.canEditCommonQuestions &&
                             <img
                                 onClick={this.startEditing.bind(this)}
                                 className="edit-icon" src="../../images/icons8-edit.svg"
                             />
 
+                            }
                         </div>
                 }
-                {!this.state.addingNew &&
+                {!this.state.addingNew && this.props.userData && this.props.userData.canEditCommonQuestions &&
                 <div className="wrapper-for-icon-on-top">
                     <img
                         onClick={this.deleteIt.bind(this)}
@@ -114,7 +115,6 @@ class EditableText extends React.Component {
 
         console.log('this.state.textBeforeEditing',this.state.textBeforeEditing); //todo r
 
-        console.log('this.props.language_id',this.props.userData.languageId); //todo r
 
         await this.changeTextById();
         // this.stopEditing();
@@ -126,7 +126,7 @@ class EditableText extends React.Component {
         let data = {
             textId: this.props.textId,
             textValue: this.state.currentlyEditingText,
-            languageId: this.props.userData.languageId
+            languageId: this.props.languageId
         };
 
         console.log('data',data); //todo r

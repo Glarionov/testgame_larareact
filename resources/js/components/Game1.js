@@ -80,14 +80,17 @@ class Game1 extends React.Component {
             paused: false,
             bottomGrassStyle: {},
             boxAppearType: 'fromRight',
-            boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy',
+            boxAppearTypes: [
+                'pureRandom',
+                'fromRight',
+                // 'bouncy',
                 // 'ghostWalls',
                 'shootFromPoint',
                 'wallWithHoles'
             ],
             showAnswersOfFirstQuestions: true,
             alreadyShowedAnswers: {},
-            showAnswersBeforeStop: 2,
+            showAnswersBeforeStop: 1,
             additionalBoxAppearType: '',
             boxIntervalByAppearType: {
                 fromRight: 700,
@@ -308,7 +311,7 @@ console.log('333333newIndex',newIndex); //todo r
         let optionData = this.state.currentQuestion.options[rKey];
         let styleForGoodOrBadAnswer = {};
         let alreadyShowedAnswers = this.state.alreadyShowedAnswers;
-        let borderStyle = 'solid', borderWidth = 0, borderColor = 'rgba(0,0,0,0.2)';
+        let borderStyle = 'solid', borderWidth = 1, borderColor = 'rgba(0,0,0,0.2)';
         /*
                         borderWidth: borderWidth,
                 borderColor: borderColor,
@@ -324,7 +327,7 @@ console.log('333333newIndex',newIndex); //todo r
             }
 
             if (this.state.alreadyShowedAnswers[currentQuestionIndex] <= this.state.showAnswersBeforeStop) {
-                borderWidth = 4;
+                borderWidth = 6;
                 console.log('optionData',optionData); //todo r
                 if (optionData.good_answer) {
                     if (typeof params['notCountingGoodAnswerShow'] === 'undefined' || !params['notCountingGoodAnswerShow']) {
@@ -335,7 +338,7 @@ console.log('333333newIndex',newIndex); //todo r
                     borderStyle = 'dashed';
                 }
             } else {
-                borderWidth = 0;
+                borderWidth = 2;
             }
         }
         console.log('borderWidth',borderWidth); //todo r
@@ -465,7 +468,7 @@ console.log('333333newIndex',newIndex); //todo r
             case 'bouncy':
                 y = Math.floor(Math.random() * this.data.boxHeight);
                 vs = 0;
-                hs = Math.floor(Math.random() * 18 - 9);
+                hs = Math.floor(Math.random() * 16 - 8);
                 let minSpeed = 7;
                 if (Math.abs(hs) < minSpeed) {
                     hs = minSpeed * Math.abs(hs);
@@ -828,6 +831,7 @@ console.log('333333newIndex',newIndex); //todo r
 
         TweenLite.to(this.playerElement, this.data.animationFrequencyMs, {marginLeft: this.state.playerX, marginTop: this.state.playerY, ease: "linear"});
 
+        let alreadyShowedAnswers = this.state.alreadyShowedAnswers;
 
         for (let boxKey in this.state.movingBoxes) {
 
@@ -872,11 +876,24 @@ console.log('333333newIndex',newIndex); //todo r
                 //goodAnswerScoreChange
                 let scoreChange;
 
+                let newValue = {};
                 if (currentMovingBox.optionData.good_answer) {
                     scoreChange = this.data.goodAnswerScoreChange;
+                    newValue = {background: "#2de43b"};
+
+
                 } else {
+
+                    alreadyShowedAnswers[ this.state.currentQuestionIndex] -= 0.25;
                     scoreChange = this.data.badAnswerScoreChange;
+                    newValue = {background: "red"};
                 }
+                TweenLite.to(this.playerElement,  newValue);
+
+                setTimeout(function () {
+                    TweenLite.to(this.playerElement,.5,  {background: "#9350ec"});
+                }.bind(this),500);
+
                 this.setState(prevState => {
                     return {
                         score: prevState.score + scoreChange,
@@ -911,6 +928,8 @@ console.log('333333newIndex',newIndex); //todo r
                 }
             })
         }
+
+        this.setState({alreadyShowedAnswers});
 
         //paused
         // console.log('hello  I am game iteration')

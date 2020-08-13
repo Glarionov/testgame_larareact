@@ -324,7 +324,7 @@ class QuestionController extends Controller
 
                 })->where('question_options.question_id', '=', $questionId)->where('text_by_languages.language_id', '=', $languageId)->select(
                     'text_by_languages.text as option_name',
-                'question_options.id as option_id',
+                'question_options.option_id as option_id',
                 'question_options.good_answer as good_answer',
                 'question_options.question_id as question_id'
                 ,

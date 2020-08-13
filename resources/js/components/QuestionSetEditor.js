@@ -343,7 +343,7 @@ class QuestionSetEditor extends React.Component {
         let data = {
             optionId,
             optionName,
-            languageId: this.props.userData.languageId
+            languageId: this.props.languageId
         };
 
         console.log('data',data); //todo r
@@ -373,7 +373,7 @@ class QuestionSetEditor extends React.Component {
         let data = {
             questionId,
             questionName,
-            languageId: this.props.userData.languageId
+            languageId: this.props.languageId
         };
 
         console.log('data',data); //todo r
@@ -436,7 +436,7 @@ class QuestionSetEditor extends React.Component {
             questionId,
             goodAnswer: questions[questionId].temp_options[oIndex]['good_answer'],
             text: questions[questionId].temp_options[oIndex].option_name,
-            languageId: this.props.userData.languageId
+            languageId: this.props.languageId
         };
 
         let qData = await fetch(url, {
@@ -761,6 +761,7 @@ class QuestionSetEditor extends React.Component {
 
                         {questionData.options &&
                         <div className="option-list-in-editor">
+
                             {Object.entries(questionData.options).map(([oIndex, oData]) => (
                                 <div className="option-wrapper" key={oIndex}>
                                     <div className="new-option-checkbox-wrapper">

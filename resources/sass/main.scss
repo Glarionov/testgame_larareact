@@ -1,7 +1,23 @@
 html {
-    background: linear-gradient(90deg, #4b87e0 10%, #d1e2f1);
+    background: linear-gradient(270deg, #4b87e0 10%, #d1e2f1);
+    //background: #d1e2f1;
+    //background: #4b87e0;
     width: 100%;
     height: 100%;
+}
+
+.flexer {
+    display: flex;
+}
+
+.subgroup-adder {
+    display: inline;
+    font-size: 25px;
+    margin-top: -0.2em;
+    margin-left: 4px;
+    font-weight: 900;
+    opacity: 0.5;
+    cursor: pointer;
 }
 
 .question-name {
@@ -73,17 +89,20 @@ body {
 }
 
 .default-moving-box {
-    background: #fff083;
+    //background: #fff083;
+    background: #ffcd83;
     width: 100px;
     height: 100px;
     position: absolute;
     display: none;
     opacity: .9;
+    font-weight: 900;
+    border: 1px solid rgba(0,0,0, 0.1);
 }
 
 .default-moving-box, .player-div {
     text-align: center;
-    font-size: 18px;
+    font-size: 19px;
     padding: 2px;
     display: flex;
     align-items: center;
@@ -197,8 +216,12 @@ body {
 }
 
 .group-editor-and-selector {
-    background: #86a9f7;
-    padding: 10px;
+    background: rgba(92, 150, 222 ,.17);
+    padding: 12px;
+    /* font-weight: 600; */
+    font-size: 18px;
+    color: #1f1102;
+    /* background: #7eb8ff;*/
 }
 
 .question-set-editor {
@@ -232,7 +255,9 @@ body {
 }
 
 .game-field-style {
-    background: #86a9f7;
+    //background: #86a9f7;
+    //background: radial-gradient(#99c2ff -8%, #86a9f7, #8080ff);
+    background: linear-gradient(27deg, #63a6ff, #86A9EE, #c9d3e8, #4949f9);
     position: absolute;
     margin-bottom: 100px;
 }
@@ -261,12 +286,60 @@ body {
     text-align: center;
     max-width: 500px;
     margin: 100px auto;
+    padding: 10px;
 
     .login-title {
         font-size: 30px;
+        color: white;
     }
 
     .auth-text-input {
         font-size: 25px;
     }
+
+    .login-submit {
+        width: 100px;
+        height: 40px;
+        font-size: 20px;
+        margin-top: 10px;
+    }
 }
+
+.subgroup-wrapper {
+    margin: 5px;
+    padding-left: 15px;
+    border-left: 2px solid grey;
+
+}
+
+.subgroup-wrapper:before {
+    //background: red;
+    border-bottom: 2px solid grey;
+
+    width: 10px;
+    height: 20px;
+    margin-left: -15px;
+    margin-top: -0.5em;
+    content:"";
+    display:inline-block;
+    position:absolute;
+}
+.subgroup-wrapper:last-child:before {
+    border-left: 2px solid grey;
+}
+
+.subgroups:last-child, .subgroup-wrapper:last-child  {
+    border-left:none;
+}
+
+//.subgroup-wrapper:before {
+//    position:relative;
+//    top:-0.3em;
+//    height:1em;
+//    width:12px;
+//    color:white;
+//    border-bottom:1px solid rgb(100,100,100);
+//    content:"";
+//    display:inline-block;
+//    left:-7px;
+//}

@@ -6428,7 +6428,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "html {\n  background: linear-gradient(90deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  min-height: 100%; }\n  .main header {\n    background: #4158fb;\n    height: 70px;\n    color: white;\n    display: flex;\n    align-items: center;\n    font-size: 19px;\n    justify-content: space-around; }\n    .main header a {\n      color: white;\n      text-decoration: none; }\n    .main header .router-links-wrapper {\n      display: flex;\n      justify-content: space-around; }\n\n.content {\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  padding: 10px; }\n\nbody {\n  font-family: \"Nunito\", sans-serif;\n  margin: 0; }\n\n.player-div {\n  background: #9350ec;\n  width: 40px;\n  height: 40px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #fff083;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9; }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 18px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  opacity: 0.9; }\n  .standard-button:hover {\n    opacity: 1; }\n\n.small-button {\n  padding: 1px 12px;\n  background: #1e1ef9;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  opacity: 0.6;\n  color: white;\n  border-radius: 4px;\n  font-size: 16px; }\n  .small-button:hover {\n    opacity: 1; }\n\n.delete-question-wrapper .standard-button {\n  margin-left: 20px;\n  opacity: .5; }\n  .delete-question-wrapper .standard-button:hover {\n    opacity: .9; }\n\n.wrapper-for-icon-on-top, .not-editing-text, .editable-text-wrapper {\n  display: flex;\n  vertical-align: top; }\n  .wrapper-for-icon-on-top input, .not-editing-text input, .editable-text-wrapper input {\n    font-size: inherit; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.option-wrapper {\n  display: flex;\n  margin-top: 3px; }\n\n.delete-icon, .edit-icon {\n  cursor: pointer; }\n\n.option-list-in-editor {\n  margin: 2px 3px; }\n\n.delete-icon, .edit-icon {\n  width: calc(0.5em + 11px);\n  height: calc(0.5em + 11px);\n  margin-left: 6px;\n  opacity: .2; }\n  .delete-icon:hover, .edit-icon:hover {\n    opacity: .9; }\n\n.new-option-checkbox-wrapper {\n  margin-right: 4px; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: #86a9f7;\n  padding: 10px; }\n\n.question-set-editor {\n  background: #86a9f7;\n  margin-left: 40px;\n  padding: 15px;\n  width: 100%; }\n\n.one-question-in-set {\n  margin-top: 20px;\n  background: #e6e6f5;\n  padding: 7px 7px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.game-field-style {\n  background: #86a9f7;\n  position: absolute;\n  margin-bottom: 100px; }\n\n.editable-text-wrapper {\n  display: flex; }\n\n.cancel-save-buttons {\n  margin-top: 7px;\n  display: flex;\n  margin-bottom: 8px; }\n\n.cancel-text-editing-button {\n  margin-left: 10px; }\n\n.login-page-wrapper {\n  background: rgba(0, 0, 255, 0.5);\n  /* opacity: 0.1; */\n  justify-content: center;\n  /* display: flex; */\n  align-items: center;\n  text-align: center;\n  max-width: 500px;\n  margin: 100px auto; }\n  .login-page-wrapper .login-title {\n    font-size: 30px; }\n  .login-page-wrapper .auth-text-input {\n    font-size: 25px; }\n", ""]);
+exports.push([module.i, "html {\n  background: linear-gradient(270deg, #4b87e0 10%, #d1e2f1);\n  width: 100%;\n  height: 100%; }\n\n.flexer {\n  display: flex; }\n\n.subgroup-adder {\n  display: inline;\n  font-size: 25px;\n  margin-top: -0.2em;\n  margin-left: 4px;\n  font-weight: 900;\n  opacity: 0.5;\n  cursor: pointer; }\n\n.question-name {\n  font-size: 30px; }\n\n.single-question {\n  margin-top: 30px;\n  font-size: 20px; }\n\n.good {\n  color: green; }\n\n.bad {\n  color: red; }\n\n.main {\n  min-height: 100%; }\n  .main header {\n    background: #4158fb;\n    height: 70px;\n    color: white;\n    display: flex;\n    align-items: center;\n    font-size: 19px;\n    justify-content: space-around; }\n    .main header a {\n      color: white;\n      text-decoration: none; }\n    .main header .router-links-wrapper {\n      display: flex;\n      justify-content: space-around; }\n\n.content {\n  width: 95vw;\n  max-width: 1200px;\n  margin: auto;\n  padding: 10px; }\n\nbody {\n  font-family: \"Nunito\", sans-serif;\n  margin: 0; }\n\n.player-div {\n  background: #9350ec;\n  width: 40px;\n  height: 40px;\n  margin-left: 300px;\n  margin-right: 666px;\n  position: absolute; }\n\n.default-moving-box {\n  background: #ffcd83;\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  display: none;\n  opacity: .9;\n  font-weight: 900;\n  border: 1px solid rgba(0, 0, 0, 0.1); }\n\n.default-moving-box, .player-div {\n  text-align: center;\n  font-size: 19px;\n  padding: 2px;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.top-game-panel {\n  background: #4048ff;\n  color: white;\n  padding: 10px; }\n\n.standard-button {\n  background: #5050f1;\n  padding: 3px;\n  color: white;\n  display: flex;\n  width: 160px;\n  height: 1.5em;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  opacity: 0.9; }\n  .standard-button:hover {\n    opacity: 1; }\n\n.small-button {\n  padding: 1px 12px;\n  background: #1e1ef9;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  opacity: 0.6;\n  color: white;\n  border-radius: 4px;\n  font-size: 16px; }\n  .small-button:hover {\n    opacity: 1; }\n\n.delete-question-wrapper .standard-button {\n  margin-left: 20px;\n  opacity: .5; }\n  .delete-question-wrapper .standard-button:hover {\n    opacity: .9; }\n\n.wrapper-for-icon-on-top, .not-editing-text, .editable-text-wrapper {\n  display: flex;\n  vertical-align: top; }\n  .wrapper-for-icon-on-top input, .not-editing-text input, .editable-text-wrapper input {\n    font-size: inherit; }\n\n.new-option-wrapper {\n  display: flex; }\n\n.option-wrapper {\n  display: flex;\n  margin-top: 3px; }\n\n.delete-icon, .edit-icon {\n  cursor: pointer; }\n\n.option-list-in-editor {\n  margin: 2px 3px; }\n\n.delete-icon, .edit-icon {\n  width: calc(0.5em + 11px);\n  height: calc(0.5em + 11px);\n  margin-left: 6px;\n  opacity: .2; }\n  .delete-icon:hover, .edit-icon:hover {\n    opacity: .9; }\n\n.new-option-checkbox-wrapper {\n  margin-right: 4px; }\n\n.router-links-wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%; }\n\n.question-top-part {\n  display: flex; }\n\n.question-sets-wrapper {\n  display: flex; }\n\n.group-editor-and-selector {\n  background: rgba(92, 150, 222, 0.17);\n  padding: 12px;\n  /* font-weight: 600; */\n  font-size: 18px;\n  color: #1f1102;\n  /* background: #7eb8ff;*/ }\n\n.question-set-editor {\n  background: #86a9f7;\n  margin-left: 40px;\n  padding: 15px;\n  width: 100%; }\n\n.one-question-in-set {\n  margin-top: 20px;\n  background: #e6e6f5;\n  padding: 7px 7px; }\n\n.add-new-question {\n  margin-top: 20px;\n  width: 220px;\n  height: 60px;\n  font-size: 22px; }\n\n.game-field-style {\n  background: linear-gradient(27deg, #63a6ff, #86A9EE, #c9d3e8, #4949f9);\n  position: absolute;\n  margin-bottom: 100px; }\n\n.editable-text-wrapper {\n  display: flex; }\n\n.cancel-save-buttons {\n  margin-top: 7px;\n  display: flex;\n  margin-bottom: 8px; }\n\n.cancel-text-editing-button {\n  margin-left: 10px; }\n\n.login-page-wrapper {\n  background: rgba(0, 0, 255, 0.5);\n  /* opacity: 0.1; */\n  justify-content: center;\n  /* display: flex; */\n  align-items: center;\n  text-align: center;\n  max-width: 500px;\n  margin: 100px auto;\n  padding: 10px; }\n  .login-page-wrapper .login-title {\n    font-size: 30px;\n    color: white; }\n  .login-page-wrapper .auth-text-input {\n    font-size: 25px; }\n  .login-page-wrapper .login-submit {\n    width: 100px;\n    height: 40px;\n    font-size: 20px;\n    margin-top: 10px; }\n\n.subgroup-wrapper {\n  margin: 5px;\n  padding-left: 15px;\n  border-left: 2px solid grey; }\n\n.subgroup-wrapper:before {\n  border-bottom: 2px solid grey;\n  width: 10px;\n  height: 20px;\n  margin-left: -15px;\n  margin-top: -0.5em;\n  content: \"\";\n  display: inline-block;\n  position: absolute; }\n\n.subgroup-wrapper:last-child:before {\n  border-left: 2px solid grey; }\n\n.subgroups:last-child, .subgroup-wrapper:last-child {\n  border-left: none; }\n", ""]);
 
 // exports
 
@@ -79232,15 +79232,15 @@ var EditableText = /*#__PURE__*/function (_React$Component) {
         className: "cancel-text-editing-button small-button",
         onClick: this.stopEditing.bind(this) // onClick={this.stopEditingOptionName.bind(this, oIndex, index)}
 
-      }, "Cancel"))), !this.state.currentlyEditing && this.props.userData && this.props.userData.canEditCommonQuestions && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Cancel"))), !this.state.currentlyEditing && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "not-editing-text"
       }, this.props.clickOnTextFunction && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         onClick: this.props.clickOnTextFunction.bind(this)
-      }, this.state.textBeforeEditing), !this.props.clickOnTextFunction && this.state.textBeforeEditing, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+      }, this.state.textBeforeEditing), !this.props.clickOnTextFunction && this.state.textBeforeEditing, this.props.userData && this.props.userData.canEditCommonQuestions && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
         onClick: this.startEditing.bind(this),
         className: "edit-icon",
         src: "../../images/icons8-edit.svg"
-      })), !this.state.addingNew && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      })), !this.state.addingNew && this.props.userData && this.props.userData.canEditCommonQuestions && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wrapper-for-icon-on-top"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
         onClick: this.deleteIt.bind(this),
@@ -79296,12 +79296,10 @@ var EditableText = /*#__PURE__*/function (_React$Component) {
                 });
                 console.log('this.state.textBeforeEditing', this.state.textBeforeEditing); //todo r
 
-                console.log('this.props.language_id', this.props.userData.languageId); //todo r
-
-                _context.next = 7;
+                _context.next = 6;
                 return this.changeTextById();
 
-              case 7:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -79328,7 +79326,7 @@ var EditableText = /*#__PURE__*/function (_React$Component) {
                 data = {
                   textId: this.props.textId,
                   textValue: this.state.currentlyEditingText,
-                  languageId: this.props.userData.languageId
+                  languageId: this.props.languageId
                 };
                 console.log('data', data); //todo r
 
@@ -79442,7 +79440,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    language_id: state.language_id,
+    languageId: state.auth.languageId,
     userData: state.auth.userData
   };
 };
@@ -79577,11 +79575,12 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       paused: false,
       bottomGrassStyle: {},
       boxAppearType: 'fromRight',
-      boxAppearTypes: ['fromRight', 'pureRandom', 'bouncy', // 'ghostWalls',
+      boxAppearTypes: ['pureRandom', 'fromRight', // 'bouncy',
+      // 'ghostWalls',
       'shootFromPoint', 'wallWithHoles'],
       showAnswersOfFirstQuestions: true,
       alreadyShowedAnswers: {},
-      showAnswersBeforeStop: 2,
+      showAnswersBeforeStop: 1,
       additionalBoxAppearType: '',
       boxIntervalByAppearType: {
         fromRight: 700,
@@ -79799,7 +79798,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
       var styleForGoodOrBadAnswer = {};
       var alreadyShowedAnswers = this.state.alreadyShowedAnswers;
       var borderStyle = 'solid',
-          borderWidth = 0,
+          borderWidth = 1,
           borderColor = 'rgba(0,0,0,0.2)';
       /*
                       borderWidth: borderWidth,
@@ -79814,7 +79813,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         }
 
         if (this.state.alreadyShowedAnswers[currentQuestionIndex] <= this.state.showAnswersBeforeStop) {
-          borderWidth = 4;
+          borderWidth = 6;
           console.log('optionData', optionData); //todo r
 
           if (optionData.good_answer) {
@@ -79827,7 +79826,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
             borderStyle = 'dashed';
           }
         } else {
-          borderWidth = 0;
+          borderWidth = 2;
         }
       }
 
@@ -79946,7 +79945,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         case 'bouncy':
           y = Math.floor(Math.random() * this.data.boxHeight);
           vs = 0;
-          hs = Math.floor(Math.random() * 18 - 9);
+          hs = Math.floor(Math.random() * 16 - 8);
           var minSpeed = 7;
 
           if (Math.abs(hs) < minSpeed) {
@@ -80314,6 +80313,7 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
         marginTop: this.state.playerY,
         ease: "linear"
       });
+      var alreadyShowedAnswers = this.state.alreadyShowedAnswers;
 
       var _loop = function _loop(boxKey) {
         var newMovingBoxes = _this2.state.movingBoxes;
@@ -80343,12 +80343,27 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
           wasCollision = true; //goodAnswerScoreChange
 
           var scoreChange;
+          var newValue = {};
 
           if (currentMovingBox.optionData.good_answer) {
             scoreChange = _this2.data.goodAnswerScoreChange;
+            newValue = {
+              background: "#2de43b"
+            };
           } else {
+            alreadyShowedAnswers[_this2.state.currentQuestionIndex] -= 0.25;
             scoreChange = _this2.data.badAnswerScoreChange;
+            newValue = {
+              background: "red"
+            };
           }
+
+          gsap__WEBPACK_IMPORTED_MODULE_3__["TweenLite"].to(_this2.playerElement, newValue);
+          setTimeout(function () {
+            gsap__WEBPACK_IMPORTED_MODULE_3__["TweenLite"].to(this.playerElement, .5, {
+              background: "#9350ec"
+            });
+          }.bind(_this2), 500);
 
           _this2.setState(function (prevState) {
             return {
@@ -80384,10 +80399,13 @@ var Game1 = /*#__PURE__*/function (_React$Component) {
 
       for (var boxKey in this.state.movingBoxes) {
         _loop(boxKey);
-      } //paused
+      }
+
+      this.setState({
+        alreadyShowedAnswers: alreadyShowedAnswers
+      }); //paused
       // console.log('hello  I am game iteration')
       // setTimeout(this.gameIteration();}, 1000);
-
     }
   }, {
     key: "changeHandler",
@@ -80464,10 +80482,6 @@ __webpack_require__.r(__webpack_exports__);
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -80479,6 +80493,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -80505,55 +80523,60 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
-  _inherits(GroupEditorAndSelector, _React$Component);
+var GroupBranchShower = /*#__PURE__*/function (_React$Component) {
+  _inherits(GroupBranchShower, _React$Component);
 
-  var _super = _createSuper(GroupEditorAndSelector);
+  var _super = _createSuper(GroupBranchShower);
 
-  _createClass(GroupEditorAndSelector, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
+  function GroupBranchShower(props) {
+    var _this$props$groupsDat;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "group-editor-and-selector"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "group-editor-selector"
-      }, Object.entries(this.state.groups).map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            oIndex = _ref2[0],
-            groupData = _ref2[1];
+    var _this;
 
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "new-option-wrapper",
-          key: oIndex // onClick={this.clickOnGroup.bind(this, groupData.group_id)}
+    _classCallCheck(this, GroupBranchShower);
 
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_EditableTextWrapper__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          text: groupData.group_name,
-          textId: groupData.text_id,
-          clickOnTextFunction: _this2.clickOnGroup.bind(_this2, groupData.group_id),
-          deleteFunction: _this2.deleteGroup.bind(_this2, oIndex, groupData.group_id)
-        }));
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
-        onSubmit: this.handleGroupAdder.bind(this)
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "text",
-        value: this.state.newGroupValue,
-        onChange: this.handleGroupNameChange.bind(this)
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "question-adder-wrapper-submit"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "submit",
-        value: "Add"
-      })))));
+    _this = _super.call(this, props);
+    _this.state = {
+      groups: {},
+      currentLanguageId: 1,
+      newGroupValue: '',
+      languageId: 1,
+      showSubGroupAdder: false,
+      subGroups: (_this$props$groupsDat = _this.props.groupsData.subgroups) !== null && _this$props$groupsDat !== void 0 ? _this$props$groupsDat : []
+    };
+    return _this;
+  }
+
+  _createClass(GroupBranchShower, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this$props$groupsDat2;
+
+      this.setState({
+        subGroups: (_this$props$groupsDat2 = this.props.groupsData.subgroups) !== null && _this$props$groupsDat2 !== void 0 ? _this$props$groupsDat2 : []
+      });
     }
   }, {
-    key: "handleChangeGroupName",
-    value: function handleChangeGroupName(index, newName) {// let groups = this.state.groups;
-      // groups[index].group_name = newName;
-      // this.setState({
-      //     groups
-      // });
+    key: "toggleSubgroupAdder",
+    value: function toggleSubgroupAdder() {
+      this.setState(function (prevState) {
+        return {
+          showSubGroupAdder: !prevState.showSubGroupAdder
+        };
+      });
+    }
+  }, {
+    key: "handleGroupNameChange",
+    value: function handleGroupNameChange(event) {
+      this.setState({
+        newGroupValue: event.target.value
+      });
+    }
+  }, {
+    key: "changePage",
+    value: function changePage(event) {
+      event.preventDefault();
+      this.props.history.push("/web/read_section_article/" + this.props.sectionId);
     }
   }, {
     key: "deleteGroup",
@@ -80607,13 +80630,194 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
       return deleteGroup;
     }()
   }, {
-    key: "saveEditingGroupName",
+    key: "clickOnGroup",
+    value: function clickOnGroup(e, id) {
+      if (typeof this.props.parentClickEvent === 'function') {
+        // this.props.parentClickEvent(e, this.props.index);
+        this.props.parentClickEvent(e, id);
+      }
+    }
+  }, {
+    key: "handleGroupAdder",
     value: function () {
-      var _saveEditingGroupName = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(index, groupId, newName) {
-        var url, groups, data, qData;
+      var _handleGroupAdder = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(event) {
+        var url, data, qData, groups;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
+              case 0:
+                event.preventDefault();
+                url = '/api/add-group/';
+                data = {
+                  groupName: this.state.newGroupValue,
+                  languageId: this.state.languageId,
+                  parentId: this.props.parentId
+                };
+                _context2.next = 5;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 5:
+                qData = _context2.sent;
+                console.log('qData', qData); //todo r
+
+                groups = this.state.subGroups;
+                groups[qData.new_id] = {
+                  group_id: qData.new_id,
+                  group_name: this.state.newGroupValue
+                };
+                this.setState({
+                  subGroups: groups,
+                  newGroupValue: ''
+                });
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function handleGroupAdder(_x3) {
+        return _handleGroupAdder.apply(this, arguments);
+      }
+
+      return handleGroupAdder;
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var match = this.props.match;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section-shower"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section-title-in-menu"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "flexer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "group-item",
+        onClick: this.clickOnGroup.bind(this, this.props.groupsData.group_id)
+      }, this.props.groupsData.group_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "subgroup-adder",
+        onClick: this.toggleSubgroupAdder.bind(this)
+      }, this.state.showSubGroupAdder && "-", !this.state.showSubGroupAdder && "+")), this.state.showSubGroupAdder && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.handleGroupAdder.bind(this)
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        value: this.state.newGroupValue,
+        onChange: this.handleGroupNameChange.bind(this)
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "question-adder-wrapper-submit"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "submit",
+        value: "Add"
+      }))), this.state.subGroups && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "subgroups"
+      }, Object.entries(this.state.subGroups).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            oIndex = _ref2[0],
+            groupData = _ref2[1];
+
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "subgroup-wrapper",
+          key: oIndex // onClick={this.clickOnGroup.bind(this, groupData.group_id)}
+
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(GroupBranchShower, {
+          history: _this2.props.history,
+          key: oIndex,
+          sectionId: oIndex,
+          fromParent: "1",
+          groupsData: groupData,
+          parentClickEvent: _this2.props.parentClickEvent.bind(_this2),
+          parentId: oIndex
+        }));
+      }))));
+    }
+  }]);
+
+  return GroupBranchShower;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+
+var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component2) {
+  _inherits(GroupEditorAndSelector, _React$Component2);
+
+  var _super2 = _createSuper(GroupEditorAndSelector);
+
+  _createClass(GroupEditorAndSelector, [{
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "group-editor-and-selector"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "group-editor-selector"
+      }, Object.entries(this.state.groups).map(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            oIndex = _ref4[0],
+            groupData = _ref4[1];
+
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(GroupBranchShower, {
+          history: _this4.props.history,
+          key: oIndex,
+          groupId: oIndex,
+          fromParent: "1",
+          groupsData: groupData,
+          parentClickEvent: _this4.props.parentClickEvent.bind(_this4),
+          parentId: oIndex
+        }) // <div className="new-option-wrapper" key={oIndex}
+        //     // onClick={this.clickOnGroup.bind(this, groupData.group_id)}
+        // >
+        //     <EditableTextWrapper
+        //         text={groupData.group_name}
+        //         textId={groupData.text_id}
+        //         clickOnTextFunction = {this.clickOnGroup.bind(this, groupData.group_id)}
+        //         deleteFunction={this.deleteGroup.bind(this,oIndex, groupData.group_id)}
+        //     />
+        //
+        // </div>
+        ;
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.handleGroupAdder.bind(this)
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        value: this.state.newGroupValue,
+        onChange: this.handleGroupNameChange.bind(this)
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "question-adder-wrapper-submit"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "submit",
+        value: "Add"
+      })))));
+    }
+  }, {
+    key: "handleChangeGroupName",
+    value: function handleChangeGroupName(index, newName) {// let groups = this.state.groups;
+      // groups[index].group_name = newName;
+      // this.setState({
+      //     groups
+      // });
+    }
+  }, {
+    key: "saveEditingGroupName",
+    value: function () {
+      var _saveEditingGroupName = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(index, groupId, newName) {
+        var url, groups, data, qData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 console.log('index', index); //todo r
 
@@ -80634,7 +80838,7 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
                 };
                 console.log('data', data); //todo r
 
-                _context2.next = 11;
+                _context3.next = 11;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -80648,18 +80852,18 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 11:
-                qData = _context2.sent;
+                qData = _context3.sent;
                 console.log('qData', qData); //todo r
 
               case 13:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
-      function saveEditingGroupName(_x3, _x4, _x5) {
+      function saveEditingGroupName(_x4, _x5, _x6) {
         return _saveEditingGroupName.apply(this, arguments);
       }
 
@@ -80676,31 +80880,31 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
   }]);
 
   function GroupEditorAndSelector(props) {
-    var _this;
+    var _this3;
 
     _classCallCheck(this, GroupEditorAndSelector);
 
-    _this = _super.call(this, props);
-    _this.state = {
+    _this3 = _super2.call(this, props);
+    _this3.state = {
       groups: {},
       currentLanguageId: 1,
       newGroupValue: '',
       languageId: 1
     };
-    return _this;
+    return _this3;
   }
 
   _createClass(GroupEditorAndSelector, [{
     key: "componentDidMount",
     value: function () {
-      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var url, qData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 url = '/api/get-question-group-list/';
-                _context3.next = 3;
+                _context4.next = 3;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -80714,7 +80918,7 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 3:
-                qData = _context3.sent;
+                qData = _context4.sent;
                 console.log('qData', qData); //todo r
 
                 this.setState({
@@ -80723,10 +80927,10 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
 
               case 6:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
       function componentDidMount() {
@@ -80745,11 +80949,11 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleGroupAdder",
     value: function () {
-      var _handleGroupAdder = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(event) {
+      var _handleGroupAdder2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(event) {
         var url, data, qData, groups;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 event.preventDefault();
                 url = '/api/add-group/';
@@ -80757,7 +80961,7 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
                   groupName: this.state.newGroupValue,
                   languageId: this.state.languageId
                 };
-                _context4.next = 5;
+                _context5.next = 5;
                 return fetch(url, {
                   method: 'POST',
                   headers: {
@@ -80771,7 +80975,7 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 5:
-                qData = _context4.sent;
+                qData = _context5.sent;
                 console.log('qData', qData); //todo r
 
                 groups = this.state.groups;
@@ -80786,14 +80990,14 @@ var GroupEditorAndSelector = /*#__PURE__*/function (_React$Component) {
 
               case 10:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
-      function handleGroupAdder(_x6) {
-        return _handleGroupAdder.apply(this, arguments);
+      function handleGroupAdder(_x7) {
+        return _handleGroupAdder2.apply(this, arguments);
       }
 
       return handleGroupAdder;
@@ -80880,11 +81084,18 @@ var Home = /*#__PURE__*/function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -80906,7 +81117,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
- // import Questions from './Questions'
 
 
 
@@ -80918,29 +81128,29 @@ var Login = /*#__PURE__*/function (_React$Component) {
   _createClass(Login, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "login-page-wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "login-title"
-      }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
         onSubmit: this.login.bind(this)
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "login-input-wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "text",
         className: "login-input auth-text-input",
         placeholder: "Enter login",
         onChange: this.changeLogin.bind(this),
         value: this.state.login
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "password-input-wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "text",
         className: "password-input auth-text-input",
         placeholder: "Enter password",
         onChange: this.changePassword.bind(this),
         value: this.state.password
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         className: "login-submit",
         type: "submit",
         value: "Login"
@@ -80984,14 +81194,65 @@ var Login = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "login",
-    value: function login(e) {
-      console.log('login');
-      e.preventDefault();
-    }
+    value: function () {
+      var _login = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+        var url, data0, userData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                console.log('login');
+                url = '/api/login';
+                data0 = {
+                  password: this.state.password,
+                  name: this.state.login
+                };
+                _context.next = 6;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data0)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 6:
+                userData = _context.sent;
+
+                if (userData.access_token) {
+                  localStorage.setItem('authToken', userData.access_token);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch({
+                    type: 'USER_LOADED',
+                    payload: {
+                      userData: userData.user
+                    }
+                  });
+                  this.props.history.push("/question-sets");
+                }
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function login(_x) {
+        return _login.apply(this, arguments);
+      }
+
+      return login;
+    }()
   }]);
 
   return Login;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Login);
 
@@ -81031,9 +81292,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _store_actions_types__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../store/actions/types */ "./resources/js/store/actions/types.js");
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -81088,6 +81352,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var rootReducer2 = function rootReducer2() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     language_id: 1
@@ -81129,6 +81394,32 @@ var Main = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(Main);
 
+  _createClass(Main, [{
+    key: "componentDidUpdate",
+    value: function () {
+      var _componentDidUpdate = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(prevProps) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log('this.state.isLogined', this.state.isLogined); //todo r
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidUpdate(_x) {
+        return _componentDidUpdate.apply(this, arguments);
+      }
+
+      return componentDidUpdate;
+    }()
+  }]);
+
   function Main(props) {
     var _this;
 
@@ -81138,8 +81429,8 @@ var Main = /*#__PURE__*/function (_React$Component) {
     var ss = _store__WEBPACK_IMPORTED_MODULE_18__["default"].getState();
     console.log('ss', ss); //todo r
 
-    console.log('555555555555');
-    localStorage.setItem('authToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5NzAwMTUyNSwiZXhwIjoxNTk3MDA1MTI1LCJuYmYiOjE1OTcwMDE1MjUsImp0aSI6IjhyY3pySWJPTFpieFhld1IiLCJzdWIiOjUsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-GkY1ABH5ho8ptelSoj8JqCuH7oso-Y2NUmfldEcMec');
+    console.log('555555555555'); // localStorage.setItem('authToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5NzAwMTUyNSwiZXhwIjoxNTk3MDA1MTI1LCJuYmYiOjE1OTcwMDE1MjUsImp0aSI6IjhyY3pySWJPTFpieFhld1IiLCJzdWIiOjUsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-GkY1ABH5ho8ptelSoj8JqCuH7oso-Y2NUmfldEcMec');
+
     var authToken = localStorage.getItem('authToken');
     console.log('authToken', authToken); //todo r
 
@@ -81157,11 +81448,11 @@ var Main = /*#__PURE__*/function (_React$Component) {
   _createClass(Main, [{
     key: "componentDidMount",
     value: function () {
-      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var setEngLanguage, setEngLanguageActionCreator, url0, data0, userData, lUser;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 setEngLanguage = {
                   type: 'SET_DEFAULT_LANGUAGE',
@@ -81179,13 +81470,18 @@ var Main = /*#__PURE__*/function (_React$Component) {
                   };
                 };
 
+                if (!this.state.authToken) {
+                  _context2.next = 13;
+                  break;
+                }
+
                 url0 = "/api/user?token=" + this.state.authToken;
                 data0 = {
                   email: 'ea@e.e',
                   password: 'pp',
                   name: 'nn'
                 };
-                _context.next = 6;
+                _context2.next = 7;
                 return fetch(url0, {
                   method: 'GET',
                   headers: {
@@ -81197,8 +81493,8 @@ var Main = /*#__PURE__*/function (_React$Component) {
                   return data;
                 });
 
-              case 6:
-                userData = _context.sent;
+              case 7:
+                userData = _context2.sent;
 
                 if (typeof userData.id !== 'undefined' && userData.id) {
                   this.setState({
@@ -81212,26 +81508,27 @@ var Main = /*#__PURE__*/function (_React$Component) {
                 // await store.dispatch(loadUser())
 
                 lUser();
-                console.log('userData', userData); //todo r
+                console.log('99999999999userData', userData); //todo r
 
-                _store__WEBPACK_IMPORTED_MODULE_18__["default"].dispatch({
-                  type: 'USER_LOADED',
-                  payload: {
-                    userData: userData
-                  }
-                });
-                console.log('this.props.isAuthenticated', this.props.isAuthenticated); //todo r
+                if (typeof userData.id !== 'undefined') {
+                  _store__WEBPACK_IMPORTED_MODULE_18__["default"].dispatch({
+                    type: 'USER_LOADED',
+                    payload: {
+                      userData: userData
+                    }
+                  });
+                } else {
+                  _store__WEBPACK_IMPORTED_MODULE_18__["default"].dispatch({
+                    type: 'AUTH_ERROR'
+                  });
+                }
 
-                console.log('this.props.userData', this.props.userData); //todo r
-
-                console.log('this.state', this.state); //todo r
-
-              case 15:
+              case 13:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function componentDidMount() {
@@ -81239,6 +81536,48 @@ var Main = /*#__PURE__*/function (_React$Component) {
       }
 
       return componentDidMount;
+    }()
+  }, {
+    key: "logout",
+    value: function () {
+      var _logout = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var url, userData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                url = 'api/logout?token=' + localStorage.getItem('authToken');
+                _context3.next = 3;
+                return fetch(url, {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 3:
+                userData = _context3.sent;
+                _store__WEBPACK_IMPORTED_MODULE_18__["default"].dispatch({
+                  type: 'LOGOUT_SUCCESS'
+                });
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function logout() {
+        return _logout.apply(this, arguments);
+      }
+
+      return logout;
     }()
   }, {
     key: "Home",
@@ -81314,11 +81653,12 @@ var Main = /*#__PURE__*/function (_React$Component) {
         to: "/question-sets"
       }, "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u0430\u043C\u0438")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "auth-wrapper"
-      }, this.state.isLogined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, this.props.isAuthenticated && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "loggined-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, this.state.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "logout"
-      }, "Logout")), !this.state.isLogined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "logout",
+        onClick: this.logout.bind(this)
+      }, "Logout")), !this.props.isAuthenticated && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "top-menu-item"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_20__["Link"], {
         to: "/login"
@@ -81333,7 +81673,12 @@ var Main = /*#__PURE__*/function (_React$Component) {
         component: _Questions__WEBPACK_IMPORTED_MODULE_3__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_20__["Route"], {
         path: "/login",
-        component: _Login__WEBPACK_IMPORTED_MODULE_11__["default"]
+        render: function render(props) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, props, {
+            title: "Login"
+          }));
+        } // component={Login}
+
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_20__["Route"], {
         path: "/registration",
         component: _Registration__WEBPACK_IMPORTED_MODULE_12__["default"]
@@ -82127,7 +82472,7 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                 data = {
                   optionId: optionId,
                   optionName: optionName,
-                  languageId: this.props.userData.languageId
+                  languageId: this.props.languageId
                 };
                 console.log('data', data); //todo r
 
@@ -82177,7 +82522,7 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                 data = {
                   questionId: questionId,
                   questionName: questionName,
-                  languageId: this.props.userData.languageId
+                  languageId: this.props.languageId
                 };
                 console.log('data', data); //todo r
 
@@ -82330,7 +82675,7 @@ var QuestionSetEditor = /*#__PURE__*/function (_React$Component) {
                   questionId: questionId,
                   goodAnswer: questions[questionId].temp_options[oIndex]['good_answer'],
                   text: questions[questionId].temp_options[oIndex].option_name,
-                  languageId: this.props.userData.languageId
+                  languageId: this.props.languageId
                 };
                 _context15.next = 6;
                 return fetch(url, {
@@ -82968,7 +83313,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    language_id: state.language_id,
+    languageId: state.auth.languageId,
     userData: state.auth.userData
   };
 };
@@ -83449,11 +83794,18 @@ var Questions = /*#__PURE__*/function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -83475,7 +83827,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
- // import Questions from './Questions'
 
 
 
@@ -83487,7 +83838,57 @@ var Registration = /*#__PURE__*/function (_React$Component) {
   _createClass(Registration, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Registration page");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "login-page-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "login-title"
+      }, "Registration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.register.bind(this)
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "login-input-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "login-input auth-text-input",
+        placeholder: "Enter login",
+        onChange: this.changeLogin.bind(this),
+        value: this.state.login
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "email-input-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "login-input auth-text-input",
+        placeholder: "Enter email",
+        onChange: this.changeEmail.bind(this),
+        value: this.state.email
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "password-input-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "password-input auth-text-input",
+        placeholder: "Enter password",
+        onChange: this.changePassword.bind(this),
+        value: this.state.password
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "password-input-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        className: "password-input auth-text-input",
+        placeholder: "Confirm password",
+        onChange: this.changePasswordConfirm.bind(this),
+        value: this.state.passwordConfirm
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "phone-input-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "tel",
+        className: "login-input auth-text-input",
+        placeholder: "Enter phone",
+        onChange: this.changePhone.bind(this),
+        value: this.state.phone
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "login-submit",
+        type: "submit",
+        value: "Go"
+      })));
     }
   }]);
 
@@ -83497,7 +83898,13 @@ var Registration = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Registration);
 
     _this = _super.call(this, props);
-    _this.state = {};
+    _this.state = {
+      login: '',
+      password: '',
+      passwordConfirm: '',
+      email: '',
+      phone: ''
+    };
     return _this;
   }
 
@@ -83508,10 +83915,116 @@ var Registration = /*#__PURE__*/function (_React$Component) {
         // currentlyEditingText: this.props.text,
       });
     }
+  }, {
+    key: "changeLogin",
+    value: function changeLogin(e) {
+      this.setState({
+        login: e.target.value
+      });
+    }
+  }, {
+    key: "changePasswordConfirm",
+    value: function changePasswordConfirm(e) {
+      this.setState({
+        passwordConfirm: e.target.value
+      });
+    }
+  }, {
+    key: "changeEmail",
+    value: function changeEmail(e) {
+      this.setState({
+        email: e.target.value
+      });
+    }
+  }, {
+    key: "changePhone",
+    value: function changePhone(e) {
+      this.setState({
+        phone: e.target.value
+      });
+    }
+  }, {
+    key: "changePassword",
+    value: function changePassword(e) {
+      this.setState({
+        password: e.target.value
+      });
+    }
+  }, {
+    key: "register",
+    value: function () {
+      var _register = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+        var url, data0, userData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                console.log('login');
+
+                if (!(this.state.password !== this.state.passwordConfirm)) {
+                  _context.next = 5;
+                  break;
+                }
+
+                console.log('111111');
+                return _context.abrupt("return", false);
+
+              case 5:
+                console.log(2222222222);
+                url = '/api/register';
+                data0 = {
+                  password: this.state.password,
+                  name: this.state.login,
+                  email: this.state.password,
+                  phone: this.state.phone
+                };
+                _context.next = 10;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data0)
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 10:
+                userData = _context.sent;
+                console.log('=========userData', userData); //todo r
+
+                if (userData.access_token) {
+                  localStorage.setItem('authToken', userData.access_token);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch({
+                    type: 'USER_LOADED',
+                    payload: {
+                      userData: userData.user
+                    }
+                  });
+                  this.props.history.push("/question-sets");
+                }
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function register(_x) {
+        return _register.apply(this, arguments);
+      }
+
+      return register;
+    }()
   }]);
 
   return Registration;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Registration);
 
@@ -84073,7 +84586,8 @@ var initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   isLoading: false,
-  user: null
+  user: null,
+  languageId: 1
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -84090,7 +84604,8 @@ var initialState = {
       return _objectSpread(_objectSpread({}, state), {}, {
         isLoading: true,
         isAuthenticated: true,
-        userData: action.payload.userData
+        userData: action.payload.userData,
+        languageId: action.payload.userData.languageId
       });
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["LOGIN_SUCCESS"]:
@@ -84104,12 +84619,13 @@ var initialState = {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["LOGIN_FAIL"]:
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_SUCCESS"]:
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["REGISTER_FAIL"]:
-      localStorage.removeItem('token');
+      localStorage.removeItem('authTokens');
       return _objectSpread(_objectSpread({}, state), {}, {
         token: null,
-        user: null,
+        userData: null,
         isLoading: false,
-        isAuthenticated: false
+        isAuthenticated: false,
+        languageId: 1
       });
 
     default:

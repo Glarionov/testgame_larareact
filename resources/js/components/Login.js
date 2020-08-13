@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-// import Questions from './Questions'
-import ReactDOM from 'react-dom';
-
-
-
+import store from "../store";
 
 class Login extends React.Component {
-
-
-
     render() {
         return (
             <div className="login-page-wrapper">
@@ -67,9 +60,42 @@ class Login extends React.Component {
         })
     }
 
-    login(e) {
-        console.log('login')
+    async login(e) {
         e.preventDefault();
+        console.log('login')
+
+
+        let url = '/api/login';
+        let data0 = {
+            password: this.state.password,
+            name: this.state.login
+        }
+
+        let userData = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data0)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                return data;
+            });
+
+        if (userData.access_token) {
+            localStorage.setItem('authToken', userData.access_token)
+
+            store.dispatch(
+                {
+                    type: 'USER_LOADED',
+                    payload: {userData: userData.user}
+                }
+            )
+            this.props.history.push("/question-sets");
+        }
     }
 }
 

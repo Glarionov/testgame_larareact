@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import QuestionSetEditor from "./QuestionSetEditor";
 const mapStateToProps = state => ({
-    language_id: state.language_id,
+    languageId: state.auth.languageId,
     userData: state.auth.userData
 })
 
