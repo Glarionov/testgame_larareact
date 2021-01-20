@@ -25,7 +25,7 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
-        "gsap": "^3.4.0",
+        "gsap": "^3.6.0",
         "prop-types": "^15.7.2",
         "react-axios": "^2.0.3",
         "react-gsap": "^2.2.1",
